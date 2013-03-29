@@ -1,0 +1,228 @@
+\documentclass[10pt]{article}
+\usepackage{textcomp}
+\usepackage{stmaryrd}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{url}
+\pagestyle{empty}
+\raggedbottom
+\raggedright
+
+\textheight=9.5in
+\setlength{\tabcolsep}{0in}
+\setlength{\oddsidemargin}{-0.8cm}
+\setlength{\evensidemargin}{-0.8cm}
+\setlength{\textwidth}{7.0in}
+\setlength{\topmargin}{-1.0cm}
+\usepackage[T1]{fontenc}
+\usepackage{cmbright}
+%% \usepackage[sc]{mathpazo}
+\linespread{1}
+
+\renewcommand{\labelitemi}{}
+\renewcommand{\labelitemii}{}
+
+\hypersetup{
+  colorlinks=false,
+  urlcolor=black,
+  pdfborder= 0 0 0,
+  bookmarks=false,
+  pdftitle={Siddharth Narayanaswamy - Resume},
+  pdfauthor={Siddharth Narayanaswamy},
+  pdfsubject={Resume},
+  pdfkeywords={Siddharth Narayanaswamy, resume, cv, mathematics, cs,
+    computer science, phd, computer vision, vision, perception, robots,
+    robotics, image processing, speech processing, AI, Artificial Intelligence,
+    machine learning, open source, open-source, functional programming,
+    constraint, constraint satisfaction, automatic differentiation, stochastic
+    programming, C++, Scheme, Lisp, C, Prolog, MATLAB, Java, Python, purdue}}
+
+\newenvironment{position}[4]
+{\filbreak
+\item
+  \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & \textit{#2} \\ #3 & \footnotesize{#4} \\
+  \end{tabular*}
+  \begin{itemize} \setlength{\parskip}{-1pt}}
+  { \end{itemize} }
+
+\newenvironment{publication}[6]
+{ \item
+  \begin{tabular*}{6.5in}{p{5.2in}@{\extracolsep{\fill}}r}
+    \textbf{#1} & \textit{#2}\\ #3 & \footnotesize{#4}\\ \textit{#5}\\ #6
+  \end{tabular*}
+} {}
+
+%% -- For Hevea translation (latex -> html)
+%% -- It has difficulty expanding macros unless completely contained
+%% -- also need to comment out \url
+%% -- hevea resume.tex -O -fix -o resume.html
+% \newenvironment{position}[4]
+% {\filbreak
+% \begin{itemize}
+% \item
+%   \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+%     \textbf{#1} & \textit{#2} \\ #3 & \footnotesize{#4} \\
+%   \end{tabular*}
+%   \begin{itemize} \setlength{\parskip}{-1pt}}
+%     { \end{itemize} \end{itemize} }
+
+% \newenvironment{publication}[6]
+% { \begin{itemize}
+% \item
+%   \begin{tabular*}{6.5in}{p{5.2in}@{\extracolsep{\fill}}r}
+%     \textbf{#1} & \textit{#2}\\ #3 & \footnotesize{#4}\\ \textit{#5}\\ #6
+%   \end{tabular*}
+% } {\end{itemize}}
+
+\newenvironment{region}[1] {{\large \textbf{#1}} \begin{itemize}} {\end{itemize}}
+
+\begin{document}
+
+\begin{tabular*}{9in}{@{\extracolsep{\fill}}lcr}
+  \textbf{\huge{Siddharth Narayanaswamy}} & \textrm{\today}
+\end{tabular*}
+
+\begin{tabular*}{6.85in}{@{\extracolsep{\fill}}lcr}
+  \textrm{(323) 743-3239}& \textrm{siddharth@iffsid.com} & \url{http://iffsid.com}\\
+\end{tabular*} \\
+\vspace{+0.15in}
+
+\begin{region}{Skills}
+\item
+  extensive computer-vision, signals~and~systems, and robotics background,\\
+  strong experience with machine learning, statistics, visual perception,\\
+  cognitive science, knowledge representation, algorithms and compiler design,\\
+  haptics, automatic-differentiation, stochastic and non-deterministic\\
+  programming languages, functional, logic, and constraint programming.
+\item \textbf{Languages} \\
+  Scheme, Haskell, Lisp, C/C++, MATLAB, Python, Prolog, Java, VHDL, \\
+  Verilog, DSP(AD Blackfin) assembly, microcontroller assembly, x86 assembly \\
+  \vspace*{1ex}
+  native English, Tamil, and Hindi
+\end{region}
+
+\begin{region} {Experience}
+  \begin{position} {PhD student, Artificial Intelligence}
+    {2008 -- present}
+    {Jeffrey Mark Siskind}
+    {Purdue University}
+  \item designed and built custom robots for general manipulation tasks
+  \item solved vision and robotic manipulation problems using AD-based optimization
+  \item implemented closed-loop visual-servoing mechanism to drive motor control
+  \item developed and implemented stochastic programs to use language \& vision,\\
+    \  and reasoning about rules jointly, to solve for perception
+  \item developed novel and robust tracking, segmentation, and action recognition\\
+    \  methods as part of the DARPA Mind's Eye program
+  \item nondeterministic programming for solving constraint-satisfaction problems
+  \item stochastic modeling via probabilistic programming
+  \item TA for ECE473 \& ECE570, Artificial Intelligence
+  \item \url{http://iffsid.com/research.html}
+  \end{position}
+  \begin{position} {Undergraduate Research Project}
+    {May 2007 -- Aug. 2008}
+    {Guided by Professor Muniyandi Manivannan}
+    {IIT-Madras}
+  \item implemented a DIY Part-Task Laparoscopic Simulator
+  \item optimized vision algorithms to run on low-cost uncalibrated components
+  \item tested against industry-standard equipment to demonstrate reasonably\\
+    \  low error margins
+  \item worked on a haptic-vision developmental interface
+  \item collaborated with practicing doctors to test feasibility
+  \end{position}
+  \begin{position} {Part-Time Instructor}
+    {Oct. 2007 -- Aug. 2008}
+    {The Princeton Review(Manya Education Pvt.Ltd.)}
+    {Chennai, India}
+  \item for the GRE and GMAT standardized exams
+  \item tutored around 250 students
+  \end{position}
+  \begin{position} {Undergraduate Research Intern}
+    {May 2007 -- Sept. 2007}
+    {Doors and Gates Pvt.Ltd.}
+    {Chennai, India}
+  \item implemented a range of IR control mechanisms for controller operations
+  \item tested and used implemented mechanisms successfully in robots during competitions
+  \item designed hybrid control mechanism for non-line-of-sight applications\\
+    \  that included switching between multiple modes of operation autonomously
+  \end{position}
+\end{region}
+
+\newpage
+\begin{region} {Education}
+  \begin{position}{Phd Student, Artificial Intelligence}
+    {2008 -- present}
+    {}
+    {Purdue University}
+    \vspace{-0.2in}
+  \item Artificial Intelligence, Computer Vision, Natural Language Processing
+  \item Machine Learning, Robotics
+  \end{position}
+  \begin{position} {Bachelor of Engineering - Electronics and Communication}
+    {2004 -- 2008}
+    {}
+    {Anna University, India}
+    \vspace{-0.2in}
+  \item Image Processing, Speech Processing, Computer Vision
+  \item Communication Systems, Embedded Systems (Robotics)
+  \end{position}
+\end{region}
+
+\begin{region} {Publications / Posters}
+  \begin{publication} {Recognizing Human Activities from Partially Observed Videos}
+    {Jun 2013}
+    {Y. Cao, D. Barrett, A. Barbu, N. Siddharth, H. Yu, A. Michaux, Y. Lin,
+      S. Dickinson, J. Siskind, S. Wang}
+    {Poster}
+    {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
+    {}
+  \end{publication}
+  \begin{publication} {Seeing Unseeability to See the Unseeable}
+    {Oct 2012}
+    {N. Siddharth, A. Barbu, and J. M. Siskind}
+    {Paper/Journal}
+    {Advances in Cognitive Systems(ACS)}
+    {}
+  \end{publication}
+  \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
+    {Oct 2012}
+    {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
+    {Paper/Journal}
+    {Advances in Cognitive Systems(ACS)}
+    {}
+  \end{publication}
+  \begin{publication} {Video In Sentences Out}
+    {Aug 2012}
+    {A. Barbu, A. Bridge, Z. Burchill, D. Coroian and S. Dickinson , S. Fidler,
+      A. Michaux, S. Mussman and N. Siddharth , D. Salvi, L. Schmidt, J. Shangguan and
+      J. M. Siskind, J. Waggoner, S. Wang, J. Wei and Y. Yin and Z. Zhang}
+    {Paper/Conference}
+    {Proceedings of the Twenty-Eighth Conf. on Uncertainity in Artificial Intelligence(UAI)}
+    {}
+  \end{publication}
+  \begin{publication} {A Visual Language Model for Estimating Object
+      Pose and Structure in a Generative Visual Domain}
+    {May 2011}
+    {N Siddharth, A. Barbu, and J. M. Siskind}
+    {Paper/Conference}
+    {Proceedings of 2011 IEEE International Conf. on Robotics and Automation(ICRA)}
+    {}
+  \end{publication}
+  \begin{publication}{Learning Physically-Instantiated Game Play Through Visual Observation}
+    {May 2010}
+    {A. Barbu, N Siddharth, and J. M. Siskind}
+    {Paper/Conference}
+    {Proceedings of 2010 IEEE International Conf. on Robotics and Automation(ICRA)}
+    {}
+  \end{publication}
+  \begin{publication} {Design of a Do-It-Yourself VR Based Laparoscopic Simulator}
+    {Jan. 2009}
+    {N.Siddharth, M.Manivannan, Suresh Devasahayam, and George Mathew}
+    {Poster}
+    {Medicine Meets Virtual Reality (MMVR17)}
+    {}
+  \end{publication}
+\end{region}
+
+\end{document}
+\url{http://iffsid.com/icra2010}
