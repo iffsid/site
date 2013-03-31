@@ -9,73 +9,49 @@ import           Hakyll
 import           System.FilePath        (takeBaseName, takeDirectory)
 import           Text.Pandoc.Options    (writerHtml5)
 
+pandocHtml5Compiler :: Compiler (Item String)
 pandocHtml5Compiler =
-    pandocCompilerWith defaultHakyllReaderOptions (defaultHakyllWriterOptions { writerHtml5 = True })
-
+  pandocCompilerWith defaultHakyllReaderOptions (defaultHakyllWriterOptions { writerHtml5 = True })
 
 main :: IO ()
 main = hakyll $ do
     -- copy as is
-    match ("images/*" .||. "cv/cv.pdf" .||. "cv/cv.tex" .||. "publications/*/*.pdf" .||.
-           "publications/*/image-thumbnail.png") $ route idRoute >> compile copyFileCompiler
+  match ("images/*" .||. "cv/cv.pdf" .||. "cv/cv.tex" .||. "publications/*/*.pdf" .||.
+         "publications/*/image-thumbnail.png") $ route idRoute >> compile copyFileCompiler
 
-    match "pages/research/*/*.png" $ (route $ gsubRoute "pages/" (const "")) >> compile copyFileCompiler
+  match "pages/research/*/*.png" $ route (gsubRoute "pages/" (const "")) >> compile copyFileCompiler
 
     -- clay for css
-    match "css/*.hs" $ do
-        route $ setExtension "css"
-        compile $ getResourceString >>= withItemBody (unixFilter "runghc" [])
+  match "css/*.hs" $ do
+    route $ setExtension "css"
+    compile $ getResourceString >>= withItemBody (unixFilter "runghc" [])
 
     -- publications
-    match "publications/*/*.markdown" $
-        compile $
-            pandocHtml5Compiler
-            >>= saveSnapshot "pubs"
-            -- >>= loadAndApplyTemplate pubTemplate (tagsField "mytags" tags <> defaultContext)
-            >>= loadAndApplyTemplate pubTemplate defaultContext
-            >>= relativizeUrls
+  match "publications/*/*.markdown" $
+    compile $ baseProcess $ pandocHtml5Compiler >>= saveSnapshot "pubs"
 
-    create ["publications.html"] $ do
-        route idRoute
-        compile $
-             makeItem ""
-                  >>= loadAndApplyTemplate elemsTemplate pubCtx
-                  >>= loadAndApplyTemplate defaultTemplate defaultContext
-                  >>= relativizeUrls
+  create ["publications.html"] $ do
+    route idRoute
+    compile $ baseProcess $ makeItem "" >>= loadAndApplyTemplate elemsTemplate pubCtx
 
-    create ["bibtex.html"] $ do
-        route idRoute
-        compile $
-             makeItem ""
-                  >>= loadAndApplyTemplate elemsTemplate bibCtx
-                  >>= loadAndApplyTemplate defaultTemplate defaultContext
-                  >>= relativizeUrls
+  create ["bibtex.html"] $ do
+    route idRoute
+    compile $ baseProcess $ makeItem "" >>= loadAndApplyTemplate elemsTemplate bibCtx
 
     -- research page
-    match "pages/research/short-*.markdown" $
-        compile $
-            pandocHtml5Compiler
-            >>= saveSnapshot "short-desc"
-            >>= loadAndApplyTemplate descTemplate defaultContext
-            >>= relativizeUrls
+  match "pages/research/short-*.markdown" $
+    compile $ baseProcess $ pandocHtml5Compiler >>= saveSnapshot "short-desc"
 
-    match "pages/research/index.markdown" $ do
-        route $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
-        compile $
-             pandocHtml5Compiler
-             >>= applyAsTemplate descCtx
-             >>= loadAndApplyTemplate defaultTemplate descCtx
-             >>= relativizeUrls
+  match "pages/research/index.markdown" $ do
+    route $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
+    compile $ baseProcess $ pandocHtml5Compiler >>= applyAsTemplate descCtx
 
     -- main stuff
-    match (fromList ["pages/index.html", "pages/reading.html"]) $ do
-        route (gsubRoute "pages/" (const ""))
-        compile $
-             getResourceBody
-             >>= loadAndApplyTemplate defaultTemplate defaultContext
-             >>= relativizeUrls
+  match (fromList ["pages/index.html", "pages/reading.html"]) $ do
+    route (gsubRoute "pages/" (const ""))
+    compile $ baseProcess getResourceBody
 
-    match "templates/*" $ compile templateCompiler
+  match "templates/*" $ compile templateCompiler
 
 baseProcess :: Compiler (Item String) -> Compiler (Item String)
 baseProcess m = m >>= loadAndApplyTemplate defaultTemplate defaultContext >>= relativizeUrls
@@ -95,6 +71,12 @@ pubCtx = field "elements" (\_ -> elemList pubTemplate recentFirst "publications/
 descCtx = field "elements" (\_ -> elemList descTemplate return "pages/research/short-*.markdown" "short-desc")
           <> defaultContext
 
+elemList :: (Typeable a, Binary a) =>
+            Identifier
+            -> ([Item a] -> Compiler [Item String])
+            -> Pattern
+            -> Snapshot
+            -> Compiler String
 elemList template sorter pattern name =
   join $ applyTemplateList
   <$> loadBody template
