@@ -8,6 +8,7 @@ year: 2012
 other: 2:77-94
 date: 2012-12-15
 paperid: siddharth2012unseeability
+tags: assembly imitation, lincoln logs, occlusion estimation, active vision, acs
 ---
 ~~~ {.bibtex}
 @article{siddharth2012unseeability,

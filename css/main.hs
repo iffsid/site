@@ -53,10 +53,10 @@ navbarFont = amaranth
 site :: Css
 site =
   do body ?
-       do baseFont
+       do background  black
+          baseFont
           fontSize (pt 10)
           sym margin  0
-          background  black
           lineHeight  (pct 115)
           overflowY   scroll
 
@@ -109,21 +109,13 @@ contents = ".content" ? do
            color "#fff"
 
 menu :: Css
-menu = nav ?
-  do navFont
-     navHR
-     alignCenter
-     marginTop   u1
-     paddingLeft u1
-     lineHeight  u2
-     a ? marginRight (px 10)
-
-animate :: Css
-animate =
-  transitions
-    [ ("background-color" , sec 0.5, ease, sec 0)
-    , ("color"            , sec 0.2, ease, sec 0)
-    ]
+menu = nav ? do
+    navFont
+    navHR
+    alignCenter
+    marginTop   u1
+    paddingLeft u1
+    lineHeight  u2
 
 navHR = ".navsep" ? do
     "border" -: "0"
@@ -143,15 +135,15 @@ navFont =
      lineHeight    (em 1.5)
      -- fontVariant smallCaps
      textTransform lowercase
-     a ?
-       do color          grey
-          textDecoration none
-          alignCenter
-          -- borderBottom solid (px 3) "#666"
-          animate
-          hover &
-            do color      white
-               background black
+     a ? do
+       color          grey
+       textDecoration none
+       alignCenter
+       -- borderBottom solid (px 3) "#666"
+       marginRight (px 10)
+       transitions [("color", sec 0.2, ease, sec 0)] --("background-color", sec 0.5, ease, sec 0)
+       hover & do
+           color      white
 
 articleBlock :: Css
 articleBlock = article ? do
@@ -163,7 +155,10 @@ articleBlock = article ? do
     marginBottom (px 5)
     width (pct 100)
     overflow hidden
-
+    Clay.div ? do
+      transitions [("color", sec 0.8, ease, sec 0.5)]
+      target & do
+          color "#8293ad"
 
 meta :: Css
 meta = ".meta" ?

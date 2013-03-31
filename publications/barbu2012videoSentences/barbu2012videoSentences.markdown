@@ -8,6 +8,7 @@ year: 2012
 other: pp. 102-12
 date: 2012-08-15
 paperid: barbu2012videoSentences
+tags: action recognition, tracking, sentence generation, video description, uai
 ---
 ~~~ {.bibtex}
 @inproceedings{barbu2012videoSentences,

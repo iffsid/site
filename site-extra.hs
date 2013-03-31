@@ -1,3 +1,14 @@
+    tags <- buildTags "publications/*/*.markdown" (fromCapture "aaa")
+
+    create ["foo.html"] $ do
+        route idRoute
+        compile $ do
+            -- str <- renderTagList (traceShow tags tags)
+            str <- renderTagList tags
+            makeItem str
+                  >>= loadAndApplyTemplate defaultTemplate defaultContext
+                  >>= relativizeUrls
+
     match (fromList ["about.rst", "contact.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
@@ -22,6 +33,10 @@
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
+
+
+getCategory :: MonadMetadata m => Identifier -> m [String]
+getCategory = return . return . takeBaseName . takeDirectory . toFilePath
 
 indexCtx = field "posts" $ \_ -> postList $ fmap (take 3) . recentFirst
 

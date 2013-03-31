@@ -8,6 +8,7 @@ year: 2013
 other: TBD
 date: 2013-01-15
 paperid: cao2013partiallyObserved
+tags: action recognition, sparse coding, cvpr
 ---
 ~~~ {.bibtex}
 @inproceedings{cao2013partiallyObserved,

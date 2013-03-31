@@ -8,6 +8,7 @@ year: 2011
 other: pp. 4854-60
 date: 2011-05-15
 paperid: siddharth2011VisualLanguage
+tags: assembly imitation, lincoln logs, structure estimation, icra
 ---
 ~~~ {.bibtex}
 @inproceedings{siddharth2011VisualLanguage,

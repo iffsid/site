@@ -8,6 +8,7 @@ year: 2010
 other: pp. 1879-86
 date: 2010-05-15
 paperid: barbu2010RobotGames
+tags: game rule learning, tic tac toe, hexapawn, board games, icra
 ---
 ~~~ {.bibtex}
 @inproceedings{barbu2010RobotGames,
