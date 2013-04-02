@@ -1,12 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Control.Applicative    ((<$>), (<*>))
-import           Control.Monad          (join)
+import           Control.Monad          (join, (>=>))
 import           Data.Binary
 import           Data.Monoid            ((<>))
 import           Data.Typeable.Internal
 import           Debug.Trace
 import           Hakyll
-import           System.FilePath        (takeBaseName, takeDirectory)
+-- import           System.FilePath        (takeBaseName, takeDirectory)
 import           Text.Pandoc.Options    (writerHtml5)
 
 pandocHtml5Compiler :: Compiler (Item String)
@@ -28,56 +28,55 @@ main = hakyll $ do
 
     -- publications
   match "publications/*/*.markdown" $
-    compile $ baseProcess $ pandocHtml5Compiler >>= saveSnapshot "pubs"
+    compile $ pandocHtml5Compiler >>= saveSnapshot "pubs" >>= defaultCompiler
 
   create ["publications.html"] $ do
     route idRoute
-    compile $ baseProcess $ makeItem "" >>= loadAndApplyTemplate elemsTemplate pubCtx
+    compile $ makeItem "" >>= loadAndApplyTemplate elemsTemplate pubCtx >>= defaultCompiler
 
   create ["bibtex.html"] $ do
     route idRoute
-    compile $ baseProcess $ makeItem "" >>= loadAndApplyTemplate elemsTemplate bibCtx
+    compile $ makeItem "" >>= loadAndApplyTemplate elemsTemplate bibCtx >>= defaultCompiler
 
     -- research page
   match "pages/research/short-*.markdown" $
-    compile $ baseProcess $ pandocHtml5Compiler >>= saveSnapshot "short-desc"
+    compile $ pandocHtml5Compiler >>= saveSnapshot "sdesc" >>= defaultCompiler
 
   match "pages/research/index.markdown" $ do
     route $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
-    compile $ baseProcess $ pandocHtml5Compiler >>= applyAsTemplate descCtx
+    compile $ pandocHtml5Compiler >>= applyAsTemplate descCtx >>= defaultCompiler
 
     -- main stuff
-  match (fromList ["pages/index.html", "pages/reading.html"]) $ do
+  match (fromList ["pages/index.html", "pages/reading.html", "pages/code.html"]) $ do
     route (gsubRoute "pages/" (const ""))
-    compile $ baseProcess getResourceBody
+    compile $ getResourceBody >>= defaultCompiler
 
   match "templates/*" $ compile templateCompiler
 
-baseProcess :: Compiler (Item String) -> Compiler (Item String)
-baseProcess m = m >>= loadAndApplyTemplate defaultTemplate defaultContext >>= relativizeUrls
+mkT :: Identifier -> Identifier
+mkT a = fromFilePath $ "templates/" ++ toFilePath a ++ ".html"
 
-elemsTemplate, pubTemplate, bibTemplate, descTemplate, defaultTemplate :: Identifier
-elemsTemplate = "templates/elements.html"
-pubTemplate = "templates/publication.html"
-bibTemplate = "templates/bibtex.html"
-descTemplate = "templates/short-description.html"
-defaultTemplate = "templates/default.html"
+elemsTemplate :: Identifier
+elemsTemplate = mkT "elements"
+
+defaultCompiler :: Item String -> Compiler (Item String)
+defaultCompiler = loadAndApplyTemplate "templates/default.html" defaultContext >=> relativizeUrls
+
+eCtx :: (Item String -> Compiler String) -> Context String
+eCtx fn = field "elements" fn <> defaultContext
 
 bibCtx, pubCtx, descCtx :: Context String
-bibCtx = field "elements" (\_ -> elemList bibTemplate recentFirst "publications/*/*.markdown" "pubs")
-         <> defaultContext
-pubCtx = field "elements" (\_ -> elemList pubTemplate recentFirst "publications/*/*.markdown" "pubs")
-         <> defaultContext
-descCtx = field "elements" (\_ -> elemList descTemplate return "pages/research/short-*.markdown" "short-desc")
-          <> defaultContext
+bibCtx = eCtx (\_ -> eList (mkT "bibtex") recentFirst "publications/*/*.markdown" "pubs")
+pubCtx = eCtx (\_ -> eList (mkT "publication") recentFirst "publications/*/*.markdown" "pubs")
+descCtx = eCtx (\_ -> eList (mkT "short-description") return "pages/research/short-*.markdown" "sdesc")
 
-elemList :: (Typeable a, Binary a) =>
-            Identifier
-            -> ([Item a] -> Compiler [Item String])
-            -> Pattern
-            -> Snapshot
-            -> Compiler String
-elemList template sorter pattern name =
+eList :: (Typeable a, Binary a)
+         => Identifier
+         -> ([Item a] -> Compiler [Item String])
+         -> Pattern
+         -> Snapshot
+         -> Compiler String
+eList template sorter pattern name =
   join $ applyTemplateList
   <$> loadBody template
   <*> return defaultContext

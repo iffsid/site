@@ -1,9 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
-import Clay hiding (menu, contents)
-import Data.Monoid
-import Data.Text (Text)
-import Prelude hiding (all)
-import qualified Clay.Media as Media
+import           Clay        hiding (contents, menu)
+import qualified Clay.Media  as Media
+import           Data.Monoid
+import           Data.Text   (Text)
+import           Prelude     hiding (all)
 
 -- helpers
 nil :: Size Abs
@@ -40,7 +40,7 @@ alignCenter = textAlign (alignSide sideCenter)
 -- http://www.bestwebfonts.com/
 dejaVu = fontFamily ["DejaVu"] [sansSerif]
 anonymousPro = fontFamily ["Anonymous Pro"] [monospace]
-kreon = fontFamily ["Kreon"] [sansSerif]
+-- kreon = fontFamily ["Kreon"] [sansSerif]
 montserrat = fontFamily ["Montserrat"] [sansSerif]
 amaranth = fontFamily ["Amaranth"] [serif]
 
@@ -199,7 +199,7 @@ preBlock :: Css
 preBlock = pre ? do
     monoSpace
     sym margin 0
-    fontSize (px 8)
+    fontSize (em 0.8)
     transform (scale 0.95 0.95)
     -- display inlineBlock
     lineHeight (pct 100)
