@@ -16,7 +16,7 @@ tags: game rule learning, tic tac toe, hexapawn, board games, icra
   title = {Learning Physically-Instantiated Game Play Through Visual Observation},
   booktitle = {Proceedings of the IEEE International Conference on Robotics and Automation (ICRA)},
   location = {Anchorage, AK},
-  pages = {1879-86}
+  pages = {1879-86},
   month = may,
   year = 2010}
 ~~~

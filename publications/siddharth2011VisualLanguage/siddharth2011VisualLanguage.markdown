@@ -16,7 +16,7 @@ tags: assembly imitation, lincoln logs, structure estimation, icra
   title = {A Visual Language Model for Estimating Object Pose and Structure in a Generative Visual Domain},
   booktitle = {Proceedings of the IEEE International Conference on Robotics and Automation (ICRA)},
   location = {Shanghai, China},
-  pages = {4854-60}
+  pages = {4854-60},
   month = may,
   year = 2011}
 ~~~

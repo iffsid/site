@@ -3,9 +3,11 @@ heading: Assembly Imitation
 category: assembly-imitation
 ---
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
-dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam
-rutrum. Nam vestibulum accumsan nisl.
+This work involves reasoning about the physical structure of composable
+entities, involving integration within vision, and across vision and language,
+through the medium of robotics. It shows how even information extracted from
+unreliable sources, such as low-level image-feature detectors in the presence
+of noise and occlusion, is useful when reasoned about in the context of basic
+world knowledge such as rules regarding how such assemblies may be composed and
+incorporation of additional information in the form of changing viewpoints,
+physical interaction, and natural-language descriptions.

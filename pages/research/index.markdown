@@ -12,15 +12,12 @@ title: Research
 <!--    with pointers to code/CAD-stuff/videos/images as necessary. -->
 <!--    Also includes the appropriate publications (dupilcate relevant from publications) -->
 
-I work at the
-[Center for the Computational Study of Cognition, Communication, Control, and Perception](http://upplysingaoflun.ecn.purdue.edu/~qobi/cccp/),
-with [Jeffrey Mark Siskind](https://engineering.purdue.edu/~qobi/),
-at Purdue University.
-
-
-My research involves the confluence of computer vision, robotics,
-natural-language processing, and elements of cognitive neuroscience, towards a
-central research goal to ground semantics in different modalities.
-
+People often perceive and/or infer things about the world by incorporating
+information available from multiple sources in the context of world
+knowledge. This ability to integrate information both within and across
+modalities is the primary focus of my research, especially, the integration
+between vision and language. I endeavour to build systems that exhibit this
+ability, and in the process, gain further insight into the processes of
+perception and inference.
 
 \$elements\$

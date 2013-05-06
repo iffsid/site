@@ -53,6 +53,18 @@
   \end{tabular*}
 } {}
 
+\newcommand{\reference}[7]{%
+  \begin{tabular}{@{}l@{}}%
+    \textbf{#1}\\%
+    #2\\%
+    #3\\%
+    #4\\%
+    #5\\%
+    #6\\%
+    \href{mailto:#7}{#7}%
+  \end{tabular}%
+}
+
 %% -- For Hevea translation (latex -> html)
 %% -- It has difficulty expanding macros unless completely contained
 %% -- also need to comment out \url
@@ -90,11 +102,11 @@
 
 \begin{region}{Skills}
 \item
-  extensive computer-vision, signals~and~systems, and robotics background,\\
-  strong experience with machine learning, statistics, visual perception,\\
-  cognitive science, knowledge representation, algorithms and compiler design,\\
-  haptics, automatic-differentiation, stochastic and non-deterministic\\
-  programming languages, functional, logic, and constraint programming.
+  extensive experience with algorithms, computer-vision, signals~and~systems, robotics,\\
+  machine learning, statistics, visual perception, cognitive science, linguistice,\\
+  knowledge representation, compiler design, haptics, automatic-differentiation,\\
+  stochastic and non-deterministic programming languages, functional programming,\\
+  logic and constraint programming, parallel programming, contributions to open-source projects
 \item \textbf{Languages} \\
   Scheme, Haskell, Lisp, C/C++, MATLAB, Python, Prolog, Java, VHDL, \\
   Verilog, DSP(AD Blackfin) assembly, microcontroller assembly, x86 assembly \\
@@ -116,8 +128,10 @@
     \  methods as part of the DARPA Mind's Eye program
   \item nondeterministic programming for solving constraint-satisfaction problems
   \item stochastic modeling via probabilistic programming
+  \item designed and evaluated human-subject experiments on event recognition\\
+    \  using fMRI data collection and analysis tools
   \item TA for ECE473 \& ECE570, Artificial Intelligence
-  \item \url{http://iffsid.com/research.html}
+  \item \url{http://iffsid.com/research/}
   \end{position}
   \begin{position} {Undergraduate Research Project}
     {May 2007 -- Aug. 2008}
@@ -156,7 +170,7 @@
     {Purdue University}
     \vspace{-0.2in}
   \item Artificial Intelligence, Computer Vision, Natural Language Processing
-  \item Machine Learning, Robotics
+  \item Machine Learning, Robotics, Cognitive Neuroscience
   \end{position}
   \begin{position} {Bachelor of Engineering - Electronics and Communication}
     {2004 -- 2008}
@@ -223,6 +237,27 @@
     {}
   \end{publication}
 \end{region}
+
+% \newpage
+% \begin{region}{References}
+% \item
+%   \begin{tabular*}{0.95\textwidth}{@{}l@{\hspace*{2ex}}l@{}}
+%     \reference{Jeffrey Mark Siskind}
+%     {School of Electrical \& Computer Engineering}
+%     {Purdue University}
+%     {465 Northwestern Avenue}
+%     {West Lafayette, IN 47907, USA}
+%     {765-496-3197}
+%     {qobi@purdue.edu}&
+%     \reference{Patrick Winston}
+%     {MIT Computer Science \& Artificial Intelligence Laboratory}
+%     {The Stata Center, Building 32}
+%     {32 Vassar Street}
+%     {Cambridge, MA 02139, USA}
+%     {617-253-6754}
+%     {pwh@csail.mit.edu}\\
+%   \end{tabular*}
+% \end{region}
 
 \end{document}
 \url{http://iffsid.com/icra2010}

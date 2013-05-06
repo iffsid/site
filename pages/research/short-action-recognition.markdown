@@ -3,9 +3,10 @@ heading: Action Recognition
 category: action-recognition
 ---
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
-dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam
-rutrum. Nam vestibulum accumsan nisl.
+Here, we show how the compositional structure of events, in concert with the
+compositional structure of language, can interplay with the underlying focusing
+mechanisms in video action recognition. Such an integrated framework allows for
+a multitude of tasks simply by leveraging its features in different ways. This
+allows, on videos depicting multiple activities, to perform taks such as
+sentential-query based video retrieval, sentential video description, and a
+natural-language guided focus-of-attention mechanism.

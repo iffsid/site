@@ -53,7 +53,7 @@ navbarFont = amaranth
 site :: Css
 site =
   do body ?
-       do background  black
+       do background black
           baseFont
           fontSize (pt 10)
           sym margin  0
@@ -94,7 +94,7 @@ centered =
 contents :: Css
 contents = ".content" ? do
      color lightgrey
-     backgroundColor (setA 200 black)
+     -- backgroundColor (setA 200 black)
      padding         u1 u1 u2 u1
      a ? do
        link & do
@@ -136,7 +136,7 @@ navFont =
      -- fontVariant smallCaps
      textTransform lowercase
      a ? do
-       color          grey
+       -- color          grey
        textDecoration none
        alignCenter
        -- borderBottom solid (px 3) "#666"

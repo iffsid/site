@@ -16,7 +16,7 @@ tags: action recognition, tracking, sentence generation, video description, uai
   title = {Video In Sentences Out},
   booktitle = {Proceedings of the Twenty-Eighth Conference on Uncertainty in Artificial Intelligence (UAI)},
   location = {Catalina Island, CA},
-  pages = {102-12}
+  pages = {102-12},
   month = aug,
   year = 2012}
 ~~~
