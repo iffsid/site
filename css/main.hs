@@ -4,7 +4,7 @@ import qualified Clay.Media  as Media
 import           Data.Monoid
 import           Data.Text   (Text)
 import           Prelude     hiding (all)
-
+import           Clay.Stylesheet
 -- helpers
 nil :: Size Abs
 nil = px 0
@@ -23,10 +23,10 @@ pageWidth :: Size Abs
 pageWidth = unit 40
 
 whenNarrow :: Css -> Css
-whenNarrow = query Media.all [Media.maxWidth pageWidth]
+whenNarrow = query (MediaType "all") [Media.maxWidth pageWidth]
 
 whenWide :: Css -> Css
-whenWide = query Media.all [Media.minWidth pageWidth]
+whenWide = query (MediaType "all") [Media.minWidth pageWidth]
 
 box :: Css
 box = boxSizing borderBox
@@ -163,7 +163,7 @@ articleBlock = article ? do
 meta :: Css
 meta = ".meta" ?
   do textAlign (alignSide sideRight)
-     float     sideRight
+     float     floatRight
      -- marginTop (unit (-1))
      Clay.span ?
        do display block
@@ -172,17 +172,17 @@ meta = ".meta" ?
 sectionBlock :: Css
 sectionBlock = section ? do
     Main.meta
-    float sideLeft
+    float floatLeft
     width (pct 74)
 
 asideBlock :: Css
 asideBlock = aside ? do
-    float sideRight
+    float floatRight
     width (pct 25)
 
 footerBlock :: Css
 footerBlock = footer ? do
-    float sideLeft
+    float floatLeft
     width (pct 100)
     color "#909090"
     margin (px 30) auto auto auto
@@ -228,7 +228,7 @@ imgBlock = img ? do
 
 imgAside :: Css
 imgAside = aside |> img ? do
-    borderRadius (px 5)
+    sym borderRadius (px 5)
 
 -- main - required for hakyll
 main :: IO ()
