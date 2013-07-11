@@ -149,6 +149,7 @@ articleBlock :: Css
 articleBlock = article ? do
     -- sym margin 0
     -- margin 0 (em 4) 0 (em 6)
+    Main.meta
     marginLeft auto
     marginRight auto
     marginTop (px 5)
@@ -164,7 +165,7 @@ meta :: Css
 meta = ".meta" ?
   do textAlign (alignSide sideRight)
      float     floatRight
-     -- marginTop (unit (-1))
+     marginRight (unit (2))
      Clay.span ?
        do display block
           color "#947662"
