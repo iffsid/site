@@ -1,5 +1,5 @@
 ---
-title: Seeing unseeability to see the unseeable
+title: Seeing Unseeability to See the Unseeable
 authors: N. Siddharth, Andrei Barbu, and Jeffrey Mark Siskind
 venue: Advances in Cognitive Systems (ACS)
 type: article
