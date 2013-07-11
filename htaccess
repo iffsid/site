@@ -1,0 +1,3 @@
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/x-tex text/x-csrc
+AddType application/x-install-instructions install
+Options +Indexes
