@@ -11,6 +11,11 @@ then
 
   ./_dist/site build
 
+elif [ "$1" = "preview" ]
+then
+
+  ./_dist/site preview -p 9000
+
 else
 
   mkdir -p _dist

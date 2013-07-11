@@ -16,8 +16,10 @@ pandocHtml5Compiler =
 main :: IO ()
 main = hakyll $ do
     -- copy as is
-  match ("images/*" .||. "cv/cv.pdf" .||. "cv/cv.tex" .||. "publications/*/*.pdf" .||.
-         "publications/*/image-thumbnail.png") $ route idRoute >> compile copyFileCompiler
+  match ("images/*" .||. "cv/cv.pdf" .||. "cv/cv.tex" .||. "publications/*/*.pdf") $
+    route idRoute >> compile copyFileCompiler
+
+  match "htaccess" $ route (gsubRoute "htaccess" (const ".htaccess")) >> compile copyFileCompiler
 
   match "pages/research/*/*.png" $ route (gsubRoute "pages/" (const "")) >> compile copyFileCompiler
 

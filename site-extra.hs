@@ -1,3 +1,4 @@
+    "publications/*/image-thumbnail.png"
     tags <- buildTags "publications/*/*.markdown" (fromCapture "aaa")
 
     create ["foo.html"] $ do
