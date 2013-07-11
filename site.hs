@@ -16,7 +16,7 @@ pandocHtml5Compiler =
 main :: IO ()
 main = hakyll $ do
     -- copy as is
-  match ("images/*" .||. "cv/cv.pdf" .||. "cv/cv.tex" .||. "publications/*/*.pdf") $
+  match ("images/*" .||. "cv/cv.pdf" .||. "cv/cv.tex" .||. "publications/*.pdf") $
     route idRoute >> compile copyFileCompiler
 
   match "htaccess" $ route (gsubRoute "htaccess" (const ".htaccess")) >> compile copyFileCompiler
@@ -29,7 +29,7 @@ main = hakyll $ do
     compile $ getResourceString >>= withItemBody (unixFilter "runghc" [])
 
     -- publications
-  match "publications/*/*.markdown" $
+  match "publications/*.markdown" $
     compile $ pandocHtml5Compiler >>= saveSnapshot "pubs" >>= defaultCompiler
 
   create ["publications.html"] $ do
@@ -68,8 +68,8 @@ eCtx :: (Item String -> Compiler String) -> Context String
 eCtx fn = field "elements" fn <> defaultContext
 
 bibCtx, pubCtx, descCtx :: Context String
-bibCtx = eCtx (\_ -> eList (mkT "bibtex") recentFirst "publications/*/*.markdown" "pubs")
-pubCtx = eCtx (\_ -> eList (mkT "publication") recentFirst "publications/*/*.markdown" "pubs")
+bibCtx = eCtx (\_ -> eList (mkT "bibtex") recentFirst "publications/*.markdown" "pubs")
+pubCtx = eCtx (\_ -> eList (mkT "publication") recentFirst "publications/*.markdown" "pubs")
 descCtx = eCtx (\_ -> eList (mkT "short-description") return "pages/research/short-*.markdown" "sdesc")
 
 eList :: (Typeable a, Binary a)
