@@ -7,17 +7,16 @@
 \usepackage{hyperref}
 \usepackage[flushleft,neverdecrease,neveradjust]{paralist}
 \usepackage{multicol}
-\usepackage{url}
 \pagestyle{empty}
 \raggedbottom
 \raggedright
 
-\textheight=9.5in
+\textheight=9.0in
+% \setlength{\topmargin}{-0.4cm}
 \setlength{\tabcolsep}{0in}
-\setlength{\oddsidemargin}{-0.7cm}
-\setlength{\evensidemargin}{-0.7cm}
+\setlength{\oddsidemargin}{-0.5cm}
+\setlength{\evensidemargin}{-0.5cm}
 \setlength{\textwidth}{7.0in}
-\setlength{\topmargin}{-1.0cm}
 \usepackage[T1]{fontenc}
 % \usepackage{cmbright}
 %% \usepackage[sc]{mathpazo}
@@ -29,11 +28,12 @@
 \hypersetup{
   colorlinks=true,
   urlcolor=Sepia,
+  linkcolor=RoyalBlue,
   pdfborder= 0 0 0,
   bookmarks=false,
   pdftitle={Siddharth Narayanaswamy - CV},
   pdfauthor={Siddharth Narayanaswamy},
-  pdfsubject={Resume},
+  pdfsubject={Curriculum Vitae},
   pdfkeywords={Siddharth Narayanaswamy, resume, cv, mathematics, cs,
     computer science, phd, computer vision, vision, perception, robots,
     robotics, cognitive neuroscience, image processing, speech processing, AI,
@@ -42,14 +42,25 @@
     automatic differentiation, stochastic programming, C++, Scheme, Lisp, C,
     Prolog, MATLAB, Java, Python, purdue}}
 
+% http://tex.stackexchange.com/questions/110236/is-there-a-way-to-get-reverse-numbering-on-the-enumerate-environment
+\newenvironment{benumerate}[2]{
+    \let\oldItem\item
+    \def\item{\addtocounter{enumi}{-2}\oldItem}
+    \begin{enumerate}[#2]
+    \setcounter{enumi}{#1}
+    \addtocounter{enumi}{1}}
+  {\end{enumerate}}
+
 \newenvironment{position}[4]
 {%\filbreak
 \item
   \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
     \textbf{#1} & \textit{#2} \\ #3 & \small{#4} \\
   \end{tabular*}
-  \begin{itemize} \setlength{\parskip}{-1pt}}
-  { \end{itemize} }
+  % \begin{itemize} \setlength{\parskip}{-1pt}\item
+  }
+  { % \end{itemize}
+}
 
 \newenvironment{publication}[5]
 { \item
@@ -71,219 +82,229 @@
 }
 
 \newcommand{\refrow}[2]{%
-\item \begin{tabular*}{1.0\textwidth}{@{}p{3.2in}@{\hspace*{2ex}}p{3in}@{}} #1 & #2 \end{tabular*}
-}
+\item \begin{tabular*}{0.9\textwidth}{@{}p{3.0in}@{\hspace*{0.3in}}p{3.0in}@{}} #1 & #2 \end{tabular*}
+\vspace*{1ex}}
 
-\newenvironment{region}[2]{%
+\newenvironment{region}[3]{%
   \vspace*{0.5ex}
   {\large \textbf{#1}}
-  \begin{enumerate}[\color{RoyalBlue}#2]}
-  {\end{enumerate}}
+  \begin{benumerate}{#3}{\color{RoyalBlue}#2}}
+  {\end{benumerate}}
+
+\newenvironment{nonumregion}[1]{%
+\begin{region}{#1}{}{1}}
+{\end{region}}
 
 \begin{document}
 
-\begin{tabular*}{6.6in}{@{\extracolsep{\fill}}lr}
+\begin{tabular*}{6.86in}{@{\extracolsep{\fill}}lr}
   \textbf{\huge{Curriculum Vitae}} & \today
 \end{tabular*}
 \vspace{0.1in}
 
-\begin{tabular*}{6.6in}{@{\extracolsep{\fill}}lr}
-  \textbf{\large{Siddharth Narayanaswamy}} & \url{http://www.iffsid.com}\\[0.6ex]
+\begin{tabular*}{6.86in}{@{\extracolsep{\fill}}lr}
+  \textbf{\large{Siddharth Narayanaswamy}} & \url{http://iffsid.com}\\[0.6ex]
   School of Electrical and Computer Engineering &  465 Northwestern Avenue\\
   Purdue University & West Lafayette, IN 47907, USA\\
-  \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} & \emph{Tel}: \textrm{(765) 413-3239}\\
+  \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} & \emph{Tel}: \textrm{+1 765-413-3239}\\
 \end{tabular*}
-\vspace{0.1in}
+\vspace{0.2in}
 
-\begin{region}{Skills}{}
-\item
-  extensive experience with algorithms, computer-vision, signals~and~systems, robotics,\\
-  machine learning, statistics, visual perception, cognitive science, linguistice,\\
-  knowledge representation, compiler design, haptics, automatic-differentiation,\\
-  stochastic and non-deterministic programming languages, functional programming,\\
-  logic and constraint programming, parallel programming, contributions to open-source projects
-\item \textbf{Languages}\\
-  Scheme, Haskell, Lisp, Python, C/C++, MATLAB, Prolog, Java, VHDL,\\
-  Verilog, DSP(AD Blackfin) assembly, microcontroller assembly, x86 assembly\\
-  \vspace*{1ex}
-  native English, Tamil, and Hindi
-\end{region}
+% \begin{nonumregion}{Skills}
+%   \vspace*{-1ex}
+% \item
+%   extensive experience with algorithms, computer-vision, signals~and~systems, robotics,\\
+%   machine learning, statistics, visual perception, cognitive science, linguistics,\\
+%   knowledge representation, compiler design, haptics, automatic-differentiation,\\
+%   stochastic and non-deterministic programming languages, functional programming,\\
+%   logic and constraint programming, parallel programming, contributions to open-source projects
+% \item \textbf{Languages}\\
+%   Scheme, Haskell, Lisp, Python, C/C++, MATLAB, Prolog, Java, VHDL,\\
+%   Verilog, DSP(AD Blackfin) assembly, microcontroller assembly, x86 assembly\\
+%   \vspace*{1ex}
+%   native English, Tamil, and Hindi
+% \end{nonumregion}
 
-\begin{region} {Education}{}
-  \begin{position}{PhD - Artificial Intelligence}
-    {Aug. 2008 -- expected Jan. 2014}
+\begin{nonumregion}{Education}
+  \begin{position}{PhD - Electrical \& Computer Engineering}
+    {Aug 2008 -- expected Jan 2014}
     {}
     {Purdue University, USA}
-    \vspace{-0.2in}
-  \item Thesis Title: Compositionality in Vision and Language
-  \item Advisor: Jeffrey Mark Siskind
-    \vspace{0.05in}
-  \item grounding language in vision and robotics
-  \item stochastic modeling of compositional entities via probabilistic programming
-  \item nondeterministic programming for solving constraint-satisfaction problems
-  \item optimization of stochastic cognitive models
-  \item integration of language and activity recognition
-  \item segmentation and tracking of objects in videos with high-level semantic priors
-  \item neural representation of verbs, events, and compositionality
-    \vspace{0.05in}
-  \item Artificial Intelligence, Computer Vision, Natural Language Processing
-  \item Machine Learning, Robotics, Cognitive Neuroscience
+    \vspace{-3ex}
+  \item Thesis Title: \textbf{Compositionality in Vision and Language}
+    \vspace{-1.5ex}
+  \item Advisor: \textit{Jeffrey Mark Siskind}
+    % \vspace{0.05in}
+  % \item grounding language in vision and robotics
+  % \item stochastic modeling of compositional entities via probabilistic programming
+  % \item nondeterministic programming for solving constraint-satisfaction problems
+  % \item optimization of stochastic cognitive models
+  % \item integration of language and activity recognition
+  % \item segmentation and tracking of objects in videos with high-level semantic priors
+  % \item neural representation of verbs, events, and compositionality
+  %   \vspace{0.05in}
+  % \item Artificial Intelligence, Computer Vision, Natural Language Processing,
+  % \item Machine Learning, Robotics, Cognitive Neuroscience
   \end{position}
   \begin{position} {Bachelor of Engineering - Electronics and Communication}
-    {Aug. 2004 -- Aug. 2008}
+    {Aug 2004 -- Aug 2008}
     {}
     {Anna University, India}
-    \vspace{-0.2in}
-  \item Image Processing, Speech Processing, Computer Vision
-  \item Communication Systems, Embedded Systems (Robotics)
+  %   \vspace{-0.2in}
+  % \item Image Processing, Speech Processing, Computer Vision
+  % \item Communication Systems, Embedded Systems (Robotics)
   \end{position}
-\end{region}
+\end{nonumregion}
 
 %% Honours
 %% Current Students
 %% Former Students
-
-\begin{region} {Experience}{}
-  \begin{position} {PhD student, Artificial Intelligence}
-    {2008 -- present}
+\vspace*{-1ex}
+\begin{nonumregion} {Experience}
+  \begin{position} {PhD student, Electrical \& Computer Engineering}
+    {Aug 2008 -- expected Jan 2014}
     {Advisor: Jeffrey Mark Siskind}
     {Purdue University, USA}
-  \item solved vision and robotic manipulation problems using AD-based optimization
-  \item developed and implemented stochastic programs to use language \& vision,\\
-    \  and reasoning about rules jointly, to solve for perception
-  \item developed novel and robust tracking, segmentation, and action recognition\\
-    \  methods as part of the DARPA Mind's Eye program
-  \item processed millions of frames of video on a top-500 supercomputer
-  \item designed and evaluated human-subject experiments on event recognition\\
-    \  using fMRI data collection and analysis tools
-  \item designed and built custom robots for general manipulation tasks
-  \item implemented closed-loop visual-servoing mechanism to drive motor control
-  \item TA for ECE473 \& ECE570, Artificial Intelligence
-  \item \url{http://iffsid.com/research/}
+  % \item solved vision and robotic manipulation problems using AD-based optimization
+  % \item developed and implemented stochastic programs to use language \& vision,\\
+  %   \  and reasoning about rules jointly, to solve for perception
+  % \item developed novel and robust tracking, segmentation, and action recognition\\
+  %   \  methods as part of the DARPA Mind's Eye program
+  % \item processed millions of frames of video on a top-500 supercomputer
+  % \item designed and evaluated human-subject experiments on event recognition\\
+  %   \  using fMRI data collection and analysis tools
+  % \item designed and built custom robots for general manipulation tasks
+  % \item implemented closed-loop visual-servoing mechanism to drive motor control
+  % \item \url{http://iffsid.com/research/}
   \end{position}
   \begin{position} {Undergraduate Research Project}
-    {May 2007 -- Aug. 2008}
-    {Guided by Professor Muniyandi Manivannan}
+    {May 2007 -- Aug 2008}
+    {Supervisor: Muniyandi Manivannan}
     {IIT-Madras, India}
-    \vspace{-0.05in}
-  \item implemented a DIY Part-Task Laparoscopic Simulator
-  \item optimized vision algorithms to run on low-cost uncalibrated components
-  \item tested against industry-standard equipment demonstrating low error margins
-  \item collaborated with practicing doctors to test feasibility
+    % \vspace{-0.05in}
+  % \item implemented a DIY Part-Task Laparoscopic Simulator
+  % \item optimized vision algorithms to run on low-cost uncalibrated components
+  % \item tested against industry-standard equipment demonstrating low error margins
+  % \item collaborated with practicing doctors to test feasibility
   \end{position}
   \begin{position} {Part-Time Instructor}
-    {Oct. 2007 -- Aug. 2008}
-    {The Princeton Review(Manya Education Pvt.Ltd.)}
+    {Oct 2007 -- Aug 2008}
+    {The Princeton Review (Manya Education Pvt.Ltd.)}
     {Chennai, India}
-    \vspace{-0.05in}
-  \item tutor for the GRE and GMAT standardized exams
+    % \vspace{-0.05in}
+  % \item tutor for the GRE and GMAT standardized exams
   \end{position}
   \begin{position} {Undergraduate Research Intern}
-    {May 2007 -- Sept. 2007}
+    {May 2007 -- Sep 2007}
     {Doors and Gates Pvt.Ltd.}
     {Chennai, India}
-    \vspace{-0.05in}
-  \item implemented a range of IR control mechanisms for controller operations
-  \item tested and used implemented mechanisms successfully in robots during competitions
-  \item designed hybrid autonomous switching mechanisms for non-line-of-sight applications
+    % \vspace{-0.05in}
+  % \item implemented a range of IR control mechanisms for controller operations
+  % \item tested and used implemented mechanisms successfully in robots during competitions
+  % \item designed hybrid autonomous switching mechanisms for non-line-of-sight applications
   \end{position}
-\end{region}
+\end{nonumregion}
 
 %% http://tinyurl.com/iffsid-pubs (google scholar)
+%% http://www.informatik.uni-trier.de/~ley/pers/hn/n/Narayanaswamy:Siddharth.html
 %% needs work: URLs for NIPS d,e publications
 
-\begin{region} {Refereed Journal Publications}{{J}1}
+\begin{region} {Refereed Journal Publications}{{J}1}{2}
   \begin{publication} {Seeing Unseeability to See the Unseeable}
-    {Oct 2012}
+    {Dec 2012}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS)}
-    {\url{http://iffsid.com/publications/siddharth2012unseeability.pdf}}
+    {Advances in Cognitive Systems (ACS), 2:77--94}
+    {\url{http://iffsid.com/publications/siddharth2012unseeability.pdf}\label{j:1}}
   \end{publication}
   \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
-    {Oct 2012}
+    {Dec 2012}
     {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS)}
-    {\url{http://iffsid.com/publications/barbu2012objectsTackingEvents.pdf}}
+    {Advances in Cognitive Systems (ACS), 2:203--20}
+    {\url{http://iffsid.com/publications/barbu2012objectsTackingEvents.pdf}\label{j:2}}
   \end{publication}
 \end{region}
 
-\begin{region} {Refereed Conference Publications}{{C}1}
-  \begin{publication} {Seeing what you're told: sentence-guided activity recognition in video}
+\begin{region} {Refereed Conference Publications}{{C}1}{10}
+  \begin{publication} {Seeing What You're Told: Sentence-Guided Activity Recognition in Video}
     {In review}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
     {Neural Information Processing Systems (NIPS)}
     {}
   \end{publication}
-  \begin{publication} {The compositional nature of verb and argument representations in the human brain}
+  \begin{publication} {The Compositional Nature of Verb and Argument Representations in the Human Brain}
     {In review}
     {A. Barbu, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum, C. Hanson, S. J. Hanson, S.
       H\'elie, E. Malaia, B. A. Pearlmutter, J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
     {Neural Information Processing Systems (NIPS)}
     {\url{http://arxiv.org/pdf/1306.2293v1}}
   \end{publication}
-  \begin{publication} {Saying what you're looking for: linguistics meets video search}
+  \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
     {In review}
     {A. Barbu, N. Siddharth, and J. M. Siskind}
     {Neural Information Processing Systems (NIPS)}
     {}
-  \end{publication}
+  \end{publication}\newpage
   \begin{publication} {Recognizing Human Activities from Partially Observed Videos}
     {Jun 2013}
     {Y. Cao, D. Barrett, A. Barbu, N. Siddharth, H. Yu, A. Michaux, Y. Lin,
-      S. Dickinson, J. Siskind, S. Wang}
+      S. Dickinson, \rule{6ex}{0pt} J. M. Siskind, and S. Wang}
     {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
-    {\url{http://iffsid.com/publications/cao2013partiallyObserved.pdf}}
+    {pp.~2658--65 \quad\small{[poster 412/1798 (22.9\%)]}\\
+      \url{http://iffsid.com/publications/cao2013partiallyObserved.pdf}}
   \end{publication}
   \begin{publication} {Seeing Unseeability to See the Unseeable}
-    {Oct 2012}
+    {Dec 2012}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
     {Advances in Cognitive Systems (ACS)}
-    {oral 14/38 (37\%), conference presentation associated with [{\color{RoyalBlue}J1}]\\
-    \url{http://iffsid.com/publications/siddharth2012unseeability.pdf}}
+    {2:77--94 \quad\small{[oral 14/38 (37\%)], conference presentation associated with [{\color{RoyalBlue}J\ref{j:1}}]}\\
+      \url{http://iffsid.com/publications/siddharth2012unseeability.pdf}}
   \end{publication}
   \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
-    {Oct 2012}
+    {Dec 2012}
     {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
     {Advances in Cognitive Systems (ACS)}
-    {oral 14/38 (37\%), conference presentation associated with [{\color{RoyalBlue}J2}]\\
-    \url{http://iffsid.com/publications/barbu2012objectsTackingEvents.pdf}}
+    {2:203--20 \quad\small{[oral 14/38 (37\%)], conference presentation associated with [{\color{RoyalBlue}J\ref{j:2}}]}\\
+      \url{http://iffsid.com/publications/barbu2012objectsTackingEvents.pdf}}
   \end{publication}
   \begin{publication} {Video In Sentences Out}
     {Aug 2012}
-    {A. Barbu, A. Bridge, Z. Burchill, D. Coroian and S. Dickinson , S. Fidler,
-      A. Michaux, S. Mussman and N. Siddharth , D. Salvi, L. Schmidt, J. Shangguan and
-      J. M. Siskind, J. Waggoner, S. Wang, J. Wei and Y. Yin and Z. Zhang}
-    {Proceedings of the Twenty-Eighth Conf. on Uncertainity in Artificial Intelligence(UAI)}
-    {oral 24/304 (8\%)\\
-    \url{http://iffsid.com/publications/barbu2012videoSentences.pdf}}
+    {A. Barbu, A. Bridge, Z. Burchill, D. Coroian, S. Dickinson, S. Fidler,
+      A. Michaux, S. Mussman, N. Siddharth , D. Salvi, L. Schmidt, J. Shangguan,
+      J. M. Siskind, J. Waggoner, S. Wang, J. Wei, Y. Yin and Z. Zhang}
+    {Proceedings of the Twenty-Eighth Conference on Uncertainity in Artificial
+      Intelligence (UAI)}
+    {pp.~102--12 \quad\small{[oral 24/304 (8\%)]}\\
+      \url{http://iffsid.com/publications/barbu2012videoSentences.pdf}}
   \end{publication}
   \begin{publication} {A Visual Language Model for Estimating Object
       Pose and Structure in a Generative Visual Domain}
     {May 2011}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {Proceedings of 2011 IEEE International Conf. on Robotics and Automation(ICRA)}
-    {oral 982/2004 (49\%)\\
-    \url{http://iffsid.com/publications/siddharth2011VisualLanguage.pdf}}
+    {Proceedings of 2011 IEEE International Conference on Robotics and
+      Automation (ICRA)}
+    {pp.~4854--60 \quad\small{[oral 982/2004 (49\%)]}\\
+      \url{http://iffsid.com/publications/siddharth2011VisualLanguage.pdf}}
   \end{publication}
   \begin{publication}{Learning Physically-Instantiated Game Play Through Visual Observation}
     {May 2010}
     {A. Barbu, N Siddharth, and J. M. Siskind}
-    {Proceedings of 2010 IEEE International Conf. on Robotics and Automation(ICRA)}
-    {oral 856/2062 (42\%)\\
-    \url{http://iffsid.com/publications/barbu2010RobotGames.pdf}}
+    {Proceedings of 2010 IEEE International Conference on Robotics and
+      Automation (ICRA)}
+    {pp.~1879--86 \quad\small{[oral 856/2062 (42\%)]}\\
+      \url{http://iffsid.com/publications/barbu2010RobotGames.pdf}}
   \end{publication}
   \begin{publication} {Design of a Do-It-Yourself VR Based Laparoscopic Simulator}
-    {Jan. 2009}
+    {Jan 2009}
     {N. Siddharth, M. Manivannan, S. Devasahayam, and G. Mathew}
     {Medicine Meets Virtual Reality (MMVR17)}
     {}
   \end{publication}
 \end{region}
 
-\begin{region} {Patent Applications}{{P}1}
+\begin{region} {Patent Applications}{{P}1}{1}
   \begin{publication} {Sentential Video Search}
-    {Jun. 2013}
-    {A. Barbu, N. Siddharth, H. Yu, and J. M. Sikind}
+    {Jun 2013}
+    {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
     {US Provisional Application 61/835,541}
     {}
   \end{publication}
@@ -292,11 +313,12 @@
 %% Book Chapters
 %% Workshop Publications
 
-\begin{region} {Technical Reports}{{T}1}
-  \begin{publication} {Large-scale automatic labeling of video events with verbs based on event-participant interaction}
-    {Apr. 2012}
+\begin{region} {Technical Reports}{{T}1}{1}
+  \begin{publication} {Large-Scale Automatic Labeling of Video Events with
+      Verbs Based on \rule{10ex}{0pt} Event-Participant Interaction}
+    {Apr 2012}
     {A. Barbu, N. Siddharth, H. Yu, and J. M. Sikind}
-    {arXiv:1204.3616}
+    {CoRR abs/1204.3616}
     {\url{http://arxiv.org/abs/1204.3616}}
   \end{publication}
 \end{region}
@@ -306,89 +328,98 @@
 %% Teaching Experience
 %% Entrepreneurial Experience
 
-\begin{region} {Professional Society Membership}{}
-  \item Member, IEEE
-\end{region}
+\begin{nonumregion} {Professional Society Membership}
+\item Member, IEEE
+\end{nonumregion}
 
-\begin{region} {Referee Activity}{}
-  \item
-    \begin{multicols}{8}
-      \begin{itemize}
-      \item \href{http://www.aaai.org/home.html}{AAAI}
-      \item \href{http://nips.cc/}{NIPS}
-      \item \href{http://www.pamitc.org/cvpr14/}{CVPR}
-      \item \href{http://www.computer.org/portal/web/tpami}{PAMI}
-      \item \href{http://www.icdl-epirob.org/}{ICDL}
-      \item \href{http://www.journals.elsevier.com/pattern-recognition-letters/}{PRL}
-      \end{itemize}
-    \end{multicols}
-\end{region}
+\begin{nonumregion} {Referee Activity}
+\item
+  \begin{multicols}{8}
+    \begin{itemize}
+    \item \href{http://www.aaai.org/home.html}{AAAI}
+    \item \href{http://nips.cc/}{NIPS}
+    \item \href{http://www.pamitc.org/cvpr14/}{CVPR}
+    \item \href{http://www.computer.org/portal/web/tpami}{PAMI}
+    \item \href{http://www.icdl-epirob.org/}{ICDL}
+    \item \href{http://www.journals.elsevier.com/pattern-recognition-letters/}{PRL}
+    \end{itemize}
+  \end{multicols}
+\end{nonumregion}
 
+\begin{nonumregion} {Personal}
+\item Native English, Tamil, and Hindi
+\end{nonumregion}
+\vspace*{2ex}
 %% Independent Consulting
 %% Other Activities
 
-\newpage
-\begin{region}{References}{}
-  \refrow
-  {\reference{Stephen Jos\'e Hanson}
-    {RUBIC, Psychology Department}
-    {Rutgers University}
-    {Room 324, Smith Hall, 101 Warren Street}
-    {Newark, NJ 07102, USA}
-    {973-353-5440}
-    {jose@psychology.rutgers.edu}}
-  {\reference{Sven Dickinson}
-    {Department of Computer Science}
-    {University of Toronto}
-    {Room 283B, Pratt Building, 6 King's College Road}
-    {Toronto, Ontario, Canada M5S 3G4}
-    {416-978-3853}
-    {sven@cs.toronto.edu}}
-  \refrow
-  {\reference{Tony Cohn}
+\begin{nonumregion}{References}
+  \refrow{
+    \reference{Tony Cohn}
     {School of Computing}
     {University of Leeds}
     {Leeds LS2 9JT}
     {England}
-    {0113-343-5482}
-    {a.g.cohn@leeds.ac.uk}}
-  {\reference{Larry Davis}
+    {+44 0113-343-5482}
+    {a.g.cohn@leeds.ac.uk}
+  }{
+    \reference{Larry Davis}
     {Department of Computer Science}
     {University of Maryland}
     {Room 3301, A.V. Williams Building}
     {College Park, MD 20742, USA}
-    {301-405-6718}
-    {lsd@cs.umd.edu}}
-  \refrow
-  {\reference{Ram Nevatia}
-    {Institute for Robotics and Intelligence Systems}
-    {University of Southern California}
-    {PHE 204, MC-0273, 3737 Watt Way}
-    {Los Angeles, CA 90089, USA}
-    {213-740-6427}
-    {nevatia@usc.edu}}
-  {\reference{Ronnie Wilbur}
-    {Audiology \& Speech Sciences}
-    {Purdue University}
-    {Heavilon Hall, Room B-11, 500 Oval Drive}
-    {West Lafayette, IN 47907, USA}
-    {765-494-3822}
-    {wilbur@purdue.edu}}
-  \refrow
-  {\reference{Jeffrey Mark Siskind}
+    {+1 301-405-6718}
+    {lsd@cs.umd.edu}
+  }
+  \refrow{
+    \reference{Sven Dickinson}
+    {Department of Computer Science}
+    {University of Toronto}
+    {Room 283B, Pratt Building, 6 King's College Road}
+    {Toronto, Ontario, Canada M5S 3G4}
+    {+1 416-978-3853}
+    {sven@cs.toronto.edu}
+  }{
+    \reference{Stephen Jos\'e Hanson}
+    {RUBIC, Psychology Department}
+    {Rutgers University}
+    {Room 324, Smith Hall, 101 Warren Street}
+    {Newark, NJ 07102, USA}
+    {+1 973-353-5440}
+    {jose@psychology.rutgers.edu}
+  }
+  \refrow{
+    \reference{Jeffrey Mark Siskind}
     {School of Electrical \& Computer Engineering}
     {Purdue University}
     {465 Northwestern Avenue}
     {West Lafayette, IN 47907, USA}
-    {765-496-3197}
-    {qobi@purdue.edu}}
-  {\reference{Patrick Winston}
-    {MIT Computer Science \& Artificial Intelligence Laboratory}
-    {The Stata Center, Building 32}
-    {32 Vassar Street}
-    {Cambridge, MA 02139, USA}
-    {617-253-6754}
-    {pwh@csail.mit.edu}}
-\end{region}
+    {+1 765-496-3197}
+    {qobi@purdue.edu}
+  }{
+    \reference{Ronnie Wilbur}
+    {Audiology \& Speech Sciences}
+    {Purdue University}
+    {Heavilon Hall, Room B-11, 500 Oval Drive}
+    {West Lafayette, IN 47907, USA}
+    {+1 765-494-3822}
+    {wilbur@purdue.edu}
+  }
+  % \refrow
+% \reference{Ram Nevatia}
+%     {Institute for Robotics and Intelligence Systems}
+%     {University of Southern California}
+%     {PHE 204, MC-0273, 3737 Watt Way}
+%     {Los Angeles, CA 90089, USA}
+%     {213-740-6427}
+%     {nevatia@usc.edu}
+  % {\reference{Patrick Winston}
+  %   {MIT Computer Science \& Artificial Intelligence Laboratory}
+  %   {The Stata Center, Building 32}
+  %   {32 Vassar Street}
+  %   {Cambridge, MA 02139, USA}
+  %   {617-253-6754}
+  %   {pwh@csail.mit.edu}}
+\end{nonumregion}
 
 \end{document}

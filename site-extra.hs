@@ -65,3 +65,9 @@ pubList sortFilter = do
                   >>= loadAndApplyTemplate elemsTemplate descCtx
                   >>= loadAndApplyTemplate defaultTemplate defaultContext
                   >>= relativizeUrls
+
+  where
+    asIs = route idRoute >> compile copyFileCompiler
+    routeUpOne pattern =
+        let stringified = toFilePath $ fromCapture pattern (toFilePath "")
+        in route $ gsubRoute (head $ splitPath stringified) (const "")

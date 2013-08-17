@@ -1,0 +1,9 @@
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/x-tex text/x-csrc
+AddType application/x-install-instructions install
+Options +Indexes
+AddType video/mp4             .mp4
+AddType video/webm            .webm
+AddType video/ogg             .ogv
+AddType application/x-mpegurl .m3u8
+# hls transport stream segments:
+AddType video/mp2t            .ts

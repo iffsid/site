@@ -20,7 +20,7 @@ unit = px . (* 24)
 half = px . (* 12)
 
 pageWidth :: Size Abs
-pageWidth = unit 40
+pageWidth = unit 43
 
 whenNarrow :: Css -> Css
 whenNarrow = query (MediaType "all") [Media.maxWidth pageWidth]
@@ -89,7 +89,7 @@ centered =
           marginLeft  auto
           marginRight auto
      whenNarrow $
-       do width       (pct 100)
+       do width       (pct 95)
 
 contents :: Css
 contents = ".content" ? do
@@ -117,6 +117,7 @@ menu = nav ? do
     paddingLeft u1
     lineHeight  u2
 
+-- http://matthewlein.com/ceaser/
 navHR = ".navsep" ? do
     "border" -: "0"
     alignCenter
@@ -200,15 +201,28 @@ preBlock :: Css
 preBlock = pre ? do
     monoSpace
     sym margin 0
-    fontSize (em 0.8)
-    transform (scale 0.95 0.95)
+    fontSize (em 0.75)
+    -- transform (scale 0.95 0.95)
     -- display inlineBlock
-    lineHeight (pct 100)
+    box
+    sym padding (em 0.5)
+    sym borderRadius (px 5)
+    -- lineHeight (pct 100)
     "white-space" -: "-moz-pre-wrap"
     "white-space" -: "-pre-wrap"
     "white-space" -: "-o-pre-wrap"
     "white-space" -: "pre-wrap"
     "word-wrap"   -: "break-word"
+
+myCode :: Css
+myCode = ".code" ? do
+    sym margin (em 1)
+    whenWide $ do
+      marginLeft (em 18)
+      marginRight (em 17)
+    whenNarrow $ do
+      marginLeft (em 1)
+      marginRight (em 1)
 
 iBlock :: Css
 iBlock = i # ".venue" ? do
@@ -223,13 +237,33 @@ bBlock = b # ".title" ? do
 
 imgBlock :: Css
 imgBlock = img ? do
-    maxWidth (pct 100)
+    maxWidth (pct 90)
     height auto
     "width" -: "auto\9"
+    -- whenNarrow $ do
+    --   display none
 
 imgAside :: Css
 imgAside = aside |> img ? do
     sym borderRadius (px 5)
+
+-- http://webdesignerwall.com/tutorials/css-elastic-videos
+videoContainer :: Css
+videoContainer = ".videoContainer" ? do
+    position relative
+    -- paddingBottom (pct 56.25) -- 16:9
+    "padding-bottom" -: "56.25%"
+    paddingTop (px 25)
+    height (px 0)
+    "iframe" ? do
+        position absolute
+        top 0
+        left 0
+        width (pct 100)
+        height (pct 100)
+
+-- absolute centering
+-- http://codepen.io/shshaw/full/gEiDt
 
 -- main - required for hakyll
 main :: IO ()
@@ -250,3 +284,8 @@ main = putCss $
      bBlock
      imgBlock
      imgAside
+     videoContainer
+     myCode
+
+-- extra css for codeblocks
+-- https://github.com/Anomareh/pygments-styles-dump

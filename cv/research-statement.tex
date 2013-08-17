@@ -1,0 +1,92 @@
+\documentclass[10pt]{article}
+\usepackage{charter}
+\usepackage{textcomp}
+\usepackage{stmaryrd}
+\usepackage{fullpage}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage{hyperref}
+\usepackage[flushleft,neverdecrease,neveradjust]{paralist}
+\pagestyle{empty}
+\raggedbottom
+\raggedright
+
+\textheight=9.0in
+\setlength{\tabcolsep}{0in}
+\setlength{\oddsidemargin}{-0.5cm}
+\setlength{\evensidemargin}{-0.5cm}
+\setlength{\textwidth}{7.0in}
+\usepackage[T1]{fontenc}
+
+\renewcommand{\labelitemi}{}
+\renewcommand{\labelitemii}{}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=Sepia,
+  pdfborder= 0 0 0,
+  bookmarks=false,
+  pdftitle={Siddharth Narayanaswamy - Research Statement},
+  pdfauthor={Siddharth Narayanaswamy},
+  pdfsubject={Research Statement}}
+
+\newenvironment{researchBlock}[2]{%
+  \vspace*{0.5ex}
+  {\large \textbf{#1}}
+  \begin{enumerate}[\color{RoyalBlue}#2]\item}
+  {\end{enumerate}}
+
+\begin{document}
+
+\begin{tabular*}{6.86in}{@{\extracolsep{\fill}}lr}
+  \textbf{\huge{Research Statement}} & \today
+\end{tabular*}
+\vspace{0.1in}
+
+\begin{tabular*}{6.86in}{@{\extracolsep{\fill}}lr}
+  \textbf{\large{Siddharth Narayanaswamy}} & \url{http://www.iffsid.com}
+\end{tabular*}
+\vspace{0.4in}
+
+\begin{researchBlock}{Action Recognition}{}
+  Here, we show how the compositional structure of events, in concert with the
+  compositional structure of language, can interplay with the underlying
+  focusing mechanisms in video action recognition. Such an integrated framework
+  allows for a multitude of tasks simply by leveraging its features in
+  different ways. This allows, on videos depicting multiple activities, to
+  perform taks such as sentential-query based video retrieval, sentential video
+  description, and a natural-language guided focus-of-attention mechanism.
+\end{researchBlock}
+
+\begin{researchBlock}{Assembly Imitation}{}
+  This work involves reasoning about the physical structure of composable
+  entities, involving integration within vision, and across vision and
+  language, through the medium of robotics. It shows how even information
+  extracted from unreliable sources, such as low-level image-feature detectors
+  in the presence of noise and occlusion, is useful when reasoned about in the
+  context of basic world knowledge such as rules regarding how such assemblies
+  may be composed and incorporation of additional information in the form of
+  changing viewpoints, physical interaction, and natural-language descriptions.
+\end{researchBlock}
+
+\begin{researchBlock}{Compositionality in the Brain}{}
+  In keeping with the overarching theme, we further explore compositionality in
+  a fist-of-its-kind study where people in an fMRI machine are shown videos
+  depicting activities that correspond to unique sentential descriptions. By
+  classifying brain-activity with different subsets of the sentential
+  structure, first independently and then jointly, we show that brain-activity
+  patterns reflect compositionality in sentence structure as the composition of
+  independent classifications matches those obtained jointly.
+\end{researchBlock}
+
+\begin{researchBlock}{Learning Rules through Game Play}{}
+  Children learn to play games by watching others play. While both formal board
+  games such as Chess and Checkers, and less formal play such as Hopscotch and
+  Tag, all have well defined rules that children ultimately come to know, they
+  are rarely told those rules explicitly. This work features an integrated
+  vision and robotic system that plays, and learns to play, simple
+  physically-instantiated board games that are variants of TicTacToe and
+  Hexapawn. The rules of the games are learned solely by observing physical
+  play can subsequently be used to drive further physical play.
+\end{researchBlock}
+
+\end{document}
