@@ -5,7 +5,7 @@ venue: Proceedings of the IEEE Conference on Computer Vision and Pattern Recogni
 type: inproceedings
 month: June
 year: 2013
-other: TBD
+other: pp. 2658-65
 date: 2013-01-15
 paperid: cao2013partiallyObserved
 tags: action recognition, sparse coding, cvpr
