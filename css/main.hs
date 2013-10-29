@@ -171,14 +171,9 @@ meta = ".meta" ?
        do display block
           color "#947662"
 
-fullWidth :: Css
-fullWidth = ".fullWidth" ? do
-    width (pct 100)
-
 sectionBlock :: Css
 sectionBlock = section ? do
     Main.meta
-    Main.fullWidth
     float floatLeft
     width (pct 74)
 
@@ -222,12 +217,12 @@ preBlock = pre ? do
 myCode :: Css
 myCode = ".code" ? do
     sym margin (em 1)
-    whenWide $ do
-      marginLeft (em 18)
-      marginRight (em 17)
-    whenNarrow $ do
-      marginLeft (em 1)
-      marginRight (em 1)
+    -- whenWide $ do
+    --   marginLeft (em 18)
+    --   marginRight (em 17)
+    -- whenNarrow $ do
+    --   marginLeft (em 1)
+    --   marginRight (em 1)
 
 iBlock :: Css
 iBlock = i # ".venue" ? do

@@ -12,7 +12,7 @@ first independently and then jointly, we show that brain-activity patterns
 appear to reflect compositionality in sentence structure as the composition of
 independent classifications matches those obtained jointly.
 
-
-§youtube(BPitjn2_JRs)§
+<!-- BPitjn2_JRs -->
+§youtube(eUuJZpCdo2E)§
 
 ![Searchlight analysis](9events-searchlight.jpg)

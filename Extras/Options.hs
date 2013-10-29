@@ -24,7 +24,7 @@ pandocWriterOptions :: WriterOptions
 pandocWriterOptions = defaultHakyllWriterOptions
   { writerHTMLMathMethod = MathML Nothing -- MathJax ""
   , writerHtml5 = True
-  , writerSectionDivs = True
+  , writerSectionDivs = False
   , writerReferenceLinks = True
   }
 

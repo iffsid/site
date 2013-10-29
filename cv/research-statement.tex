@@ -38,6 +38,7 @@
 \newcommand{\refr}[1]{{\color{RoyalBlue} #1}}
 \newcommand{\LincolnLogs}{\textsc{Lincoln Logs}}
 \newcommand{\LincolnLog}{\textsc{Lincoln Log}}
+\newcommand{\ie}{\emph{i.e.,}}
 
 \defaultleftmargin{10pt}{}{}{}
 
@@ -62,7 +63,7 @@
   As humans, we are able to perceive the underlying structure of such entities,
   interact with them, and describe them where necessary.
   %
-  In order to do so, we collate information from and across vision, language,
+  In order to do so, we collate information within and across vision, language,
   and action, in the context of what we know about the physics of the world.
   %
   The fact that we are able to achieve this, is however, no indication of the
@@ -71,7 +72,7 @@
   The general dearth of distinctive visual features and an overabundance of
   occlusion combine to exacerbate the difficulty of the process.
 
-  We develop an integrated and cross-modal approach which can percieve,
+  We develop an integrated and cross-modal approach which can perceive,
   manipulate, and describe part-based 3D structures.
   %
   It combines knowledge about the different kinds of parts used to construct a
@@ -83,188 +84,241 @@
   about the part-by-part composition of 3D structures necessitates reasoning
   about the parts of it that cannot be seen due to occlusion.
   %
-
-
+  Furthermore, it estimates a confidence measure of the underlying
+  part-by-part composition perceived, mimicking the manner in which people
+  evaluate the goodness of their own perception.
+  %
   All of this is facilitated by representing the knowledge about the
   parts, how they combine, and some basic world knowledge in a large graphical
-  model.
-  %
-  The compositional nature of
+  model, using a probabilistic programming language.
 
-
-
-  This work involves reasoning about the physical structure of composable
-  entities, involving integration within vision, and across vision and language
-  through the medium of robotics.
+  The compositional nature of vision, language, and actions that one can
+  perform in this domain, enable the natural integration of these modalities
+  into the model.
   %
-  The work is instantiated in the domain of \LincolnLogs, which allows for a
-  combinatorially large number of assemblies from a relatively tiny inventory of
-  1-, 2-, and 3-notch logs.
+  For example, if it is determined that a large part of the structure is
+  occluded, a possible course of action might be to view the structure from a
+  different view-point.
   %
-  We estimate the composition of a given assembly of \LincolnLogs\ by reasoning
-  about the unreliable low-level visual features in the context of high-level
-  physical constraints of assembly (E.g., logs combine orthogonally and only at
-  notches).
+  An alternate course of action would be to peek inside the structure.
   %
-  The framework allows for reasoning about occlusion, reasoning about an assembly
-  from multiple views and partial disassembly, and reasoning about an assembly in
-  the context of natural-language descriptions of the structure.
+  Yet another approach could involve asking for a natural-language description
+  from someone who knows more about the structure.
   %
-  The linguistic framework derives the lexicon to describe a \LincolnLog\
-  assembly from topology, Such integration in our framework is made easy by the
-  fact that, in practice, they only involve expanding and contracting the overall
-  constraint-satisfaction problem.
+  Not only are we able to emulate such cross-modal approaches due to the
+  integrative nature of the framework, we are able to reason about \emph{which}
+  action(s) to perform.
+  %
+  Such capability is derived from an \emph{imaginative} approach to exploration
+  of the domain, evaluating which imagined view, for example, best increases
+  potential confidence in perception from the current view.
+  %
+  We use such a framework to build structures from natural-language input,
+  describe an observed structures in language, and manipulate such structures
+  based on resulting percepts. We demonstrate this approach using a physical
+  robots in the domain of \LincolnLogs, a children's assembly toy.
 
   Publications: \refr{J2}, \refr{C6}, and \refr{C3}
-
 \end{researchBlock}
 
 \begin{researchBlock} {Learning rules of games through perception}
-
-  Children learn to play games by watching others play. While both formal board
-  games such as Chess and Checkers, and less formal play such as Hopscotch and
-  Tag, all have well defined rules that children ultimately come to know, they
-  are rarely told those rules explicitly. This work features an integrated
-  vision and robotic system that plays, and learns to play, simple
-  physically-instantiated board games that are variants of TicTacToe and
-  Hexapawn. The rules of the games are learned solely by observing physical
-  play can subsequently be used to drive further physical play.
-
-  Inspired by how children appear to learn rules about the world from
-  demonstration and interaction, we model, in the domain of board games, an
-  analogous system that learns the rules of board games from visual
+  %
+  Children learn to play games by watching others play.
+  %
+  While both formal board games such as Chess and Checkers, and less formal
+  play such as Hopscotch and Tag, all have well defined rules that children
+  ultimately come to know, they are rarely told those rules explicitly.
+  %
+  More generally, such ability to learn is crucial, as often there is no fixed
+  set of codified rules that one could be given explicitly.
+  %
+  Inspired by children's ability to learn rules about the world from
+  demonstration, instruction, and interaction, we model, in the domain of board
+  games, an analogous system that learns the rules of board games from visual
   observation.
   %
-  Here, two robotic agents, the protagonist and the antagonist play a physically
-  instantiated board game.
+  The goal here is to learn \emph{how} to play, rather than to play
+  \emph{well}.
+
+  To this end, we develop a framework that features an integrated vision and
+  robotic system that plays, and learns to play, physically-instantiated board
+  games, in the context of basic knowledge about the world such as spatial
+  relations, ownership, and opponency.
   %
-  A third agent, the wannabe, watches the gameplay and attempts to infer the
-  rules of the game, given some minor background knowledge (what directions mean,
-  etc.) about the world.
+  Two robotic agents are given the rules of a game in natural language which
+  drives their play. A third robotic agent, the learner, which does not know
+  the rules in advance, watches the other agents play the game.
   %
-  The physical instantiation forces the inference process, driven by Inductive
-  Logic Programming (ILP), to happen from real-world input.
+  It then attempts to learn \emph{how} to play the game, \ie\ the rules of the
+  game, solely from the observed input.
   %
-  Using this frame- work, we learn the complete rules (initial board, legal move
-  generator, and outcome predicate) of six games -- Tic-Tac-Toe, Hexapawn and 4
-  variants thereof.
+  The learned rules are subsequently used to drive the gameplay of the learner
+  against one of the original agents, to test how well it has learned the
+  rules.
   %
-  Furthermore, We introduce a natural-language component into the system, by
-  giving the protagonist and the antagonist the rules of the game being played in
-  English, and enabling translation from the internal representations to natural
-  language.
+  The physical instantiation in the form of robotic agents forces the inference
+  process, driven by Inductive Logic Programming (ILP), to happen from
+  real-world input.
+  %
+  Using this framework, we learn the rules of six games --- Tic-Tac-Toe,
+  Hexapawn and 4 different variants of Hexapawn, only needing to observe a
+  small number (3--5) of games.
+  %
+  Such a framework enables the exploration of a teacher-student relationship,
+  where, for example, learning an incomplete set of rules could trigger a
+  conversation with a teacher to fill in the missing gaps, or corrections may
+  be issued by the teacher for rules learned incorrectly by the student.
 
   Publications: \refr{C2}
 \end{researchBlock}
 
 \begin{researchBlock} {Compositional representation of events in the human brain}
+  %
+  Humans exhibit the ability to describe what they see in natural language.
+  %
+  Such description often involves subjects, objects, actions and the like,
+  structured in a compositional fashion, which is often exploited.
+  %
+  For example, in computer vision, representations of event participants,
+  corresponding to nouns, are often independent of representations for the
+  actions, corresponding to verbs, when dealing with the problem of activity
+  recognition.
+  %
+  While we observe and represent these concepts in a compositional form, it is
+  not clear if the brain represents these concepts in such a compositional
+  fashion.
 
-  In keeping with the overarching theme, we further explore compositionality in
-  a fist-of-its-kind study where people in an fMRI machine are shown videos
-  depicting activities that correspond to unique sentential descriptions. By
-  classifying brain-activity with different subsets of the sentential
-  structure, first independently and then jointly, we show that brain-activity
-  patterns reflect compositionality in sentence structure as the composition of
-  independent classifications matches those obtained jointly.
+  To investigate if humans employ compositional representations, we conducted
+  an experiment where subjects viewed video clips of an activity involving
+  prepositions, verbs, and multiple nouns during neuroimaging (fMRI) sessions,
+  and we attempted to decode the labels for the video clips from the resulting
+  brain scans.
+  %
+  One of the key facets of this experiment was the comparison between decoding
+  a complex concept and the decoding its constituents.
+  %
+  Prior work relating to the recovery of individual constituents focused
+  primarily on the recovery of nouns, whereas, in order to conduct our
+  experiment, we required the ability to decode other components such as verbs;
+  something we addressed by running a separate experiment to test the
+  feasibility of recovering verbs from visual stimuli.
+  %
+  Here, we decoded labels corresponding to one of six verbs: carry, dig, hold,
+  pick up, put down, and walk from stimuli in the form of video clips that
+  depicted one of those events.
+  %
+  We were able to successfully recover the correct verb label with an accuracy
+  of 65\%, where chance is 16.66\%.
+  %
+  Extending this manner of experiment to the other constituents such as
+  prepositions enabled us to conduct the comparison between recovering complex
+  concepts and recovering its constituents.
+  %
+  This experiment involved showing subjects videos which depict three verbs
+  (carry, fold, and leave), each performed with three objects (chair, shirt,
+  and tortilla), each performed by four different human actors, and each
+  performed on either side of the field of view.
+  %
+  If the representation of complex concepts is indeed compositional, we expect
+  that the extent to which one could recover the label of a complex concept
+  such as an \emph{event}, an action performed with an object, would match the
+  extent to which one could recover its constituents, the action and the
+  object, independently.
+  %
+  We expect that decoding the object noun will provide little to no information
+  about the verb, and vice versa, given that our stimuli, as designed, depict
+  each action performed with each object.
+  %
+  We find that this is indeed backed up by experimental analyses, which
+  indicate that the extent to which we can recover nouns and verbs jointly
+  (48\% accuracy), \ie, the \emph{event}, is comparable to the extent to which
+  we can recover each independently (46\% accuracy), providing support for the
+  compositionality of representations in the brain.
 
-  We investigate the compositionality of argument structure, i.e., how
-  participants fill roles in events, of sentences in the human brain, in a
-  first-of-its-kind study where people in an fMRI machine are shown videos
-  depicting activities that correspond to unique sentential descriptions.
-  %
-  We recover the compositional-semantic components independently from
-  counterbalanced experiments on stimuli that vary multiple variables by
-  collapsing along different variables, showing that brain-activity patterns
-  reflect compositionality in sentence structure as the composition of
-  independent experiments matches those obtained jointly.
-  %
-  Additionally, we also produce the first result on the classification of verbs
-  in the human brain, performing with 80\% accuracy on a 1-out-of-6
-  classification task involving the picked up, put down, carry, hold, walk, and
-  dig events.
-  %
-  Furthermore, the robustness of these results were tested and verified by both
-  testing across subjects and across sites (to account for variance in
-  equipment).
+  Collaborators: Jason Corso (SUNY Buffalo), Stephen Hanson (Rutgers), Barak Pearlmutter (NUI Maynooth),
+  Tom Talavage (Purdue), and Ronnie Wilbur (Purdue).
 
   Publications: \refr{T2}
 \end{researchBlock}
 
-\begin{researchBlock} {Activity Reconition}
+\begin{researchBlock} {Activity Recognition}
 
   Here, we show how the compositional structure of events, in concert with the
-  compositional structure of language, can interplay with the underlying
-  focusing mechanisms in video action recognition. Such an integrated framework
-  allows for a multitude of tasks simply by leveraging its features in
-  different ways. This allows, on videos depicting multiple activities, to
-  perform taks such as sentential-query based video retrieval, sentential video
-  description, and a natural-language guided focus-of-attention mechanism.
+  compositional structure of language, enables a unified framework relating to
+  activity recognition in video.
+  %
+  This allows for a diverse range of capabilities, integrating across object
+  recognition, tracking, activity recognition, and natural-language generation
+  of descriptions.
 
-  We introduce a framework that integrates natural-language descriptions of
-  activities with a detection-based tracking mechanism for activity recognition
-  in a provably optimal fashion.
+  We first develop a detection-based tracker, referred to as the \emph{viterbi
+    tracker}, which constructs sequences of detections produced by candidate
+  object detectors that tracks an object through a video.
   %
-  We intend for the sentences, describing interaction between participant
-  objects, to provide high-level top-down guidance to the inherent tracking
-  process in the activity recognition framework.
+  We structure this problem in an analogous manner to finding optimal the state
+  sequence in event model lattices, which facilitates efficient tracking of
+  objects in video using the Viterbi algorithm.
   %
-  Given a video and a sentence as its input, it produces as output a score and a
-  set of tracks that best represent the provided sentential description.
+  Such structure is further exploited to enable the integration of top-down
+  information, in the form of event models, with bottom-up information, in the
+  form of tracking, enabling the knowledge of an event to affect the tracks
+  produced.
   %
-  By leveraging this framework in different ways, we are able to demonstrate its
-  efficacy and elegance in performing three disparate tasks: (a)
-  sentential-description based focus of attention, (b) sentential-description
-  generation for video, and (c) sentential-query based video retrieval.
+  This is made possible by viewing the tracking and even-recognition processes
+  through the common lens of finding an optimal path through a time-series
+  lattice, and combining them, except that instead of optimizing the two
+  processes independently, we do so jointly.
+  %
+  We refer to this as the \emph{event tracker}.
 
+  We further extend the event tracker to develop the \emph{sentence tracker},
+  which includes event models not just corresponding to verbs, but to other
+  parts of speech as well, such as prepositions and adverbs, to enable the
+  integration of top-down information in the form of an entire sentence, with
+  the trackers.
+  %
+  This is again facilitated by the shared underlying structure of the trackers
+  and event models, jointly optimizing a set of trackers, one for each
+  participant in an activity, and a set of event models, one for each word in a
+  given description.
+  %
+  At its core, the sentence tracker is a method that produces, for a given
+  video and a description, a score along with a set of tracks corresponding to
+  that description.
+  %
+  Such an integrated framework, simply by leveraging its features in different
+  manners, allows for a multitude of tasks:
+  %
+  \begin{compactdesc}
+  \item[focus of attention] Using the tracks that it produces, it can take a
+    sentential description as input and focus the attention of a tracker on the
+    activity described in the sentence.
+    %
+    In a video that depicts many participants, various subsets of whom are
+    engaged is different activities, as is typical in a natural context, this
+    allows us to track those particular participants that are engaged in a
+    particular activity as specified by the description.
+    %
+  \item[generation] Using the score that it produces, it can generate
+    sentential descriptions for videos by efficiently searching through the
+    space of possible sentences to find one that best describes a given video.
+    %
+  \item[retrieval] Using the score that it produces, it can perform
+    content-based video retrieval by searching through a corpus of videos to
+    find that video which best depicts the activity described by a given
+    description.
+  \end{compactdesc}
 
-  We modify and extend the Sentence Tracker’s ability to perform query-based
-  video retrieval on a very large corpus of videos using machine-learning
-  methods in order to learns models for the query lexicon.
-  %
-  We demonstrate how the roles that objects/participants play in the described
-  activities affects the retrieval mechanism, and how the lack of such a
-  mechanism is detrimental to the retrieval task.
-  %
-  Also, our tests are carried out with the help of off-the-shelf object
-  detectors.
-  %
-  Moreover, we do so restricting our method to only use off-the-shelf pre-trained
-  object detectors from the current state-of-the-art.
-  %
-  We do so to draw focus to the benefits of our underlying framework, avoiding
-  the confounds of detectors trained in-house.
-  %
-  The scalability and efficacy of our framework is demonstrated by deploying its
-  capabilities across a corpus of ten full-length Hollywood videos, amounting to
-  approximately 25 hours of video, and comparing against existing
-  state-of-the-art methods to do video retrieval.
-  %
-  The incorporation of query semantics provides us with a distinct advantage in
-  such tasks.
+  Collaborators: Sven Dickinson (Toronto) and Song Wang (South Carolina).
 
-
-  The central contribution of this body of work is the implementation and
-  deployment of a real-time multi-class activity and description system.
-  %
-  We make use of our viterbi-tracker framework for activity recognition, running
-  a multitude of such trackers in parallel on objects, using both our own
-  in-house object detector and the Felzenszwalb object detector optimized for the
-  GPU.
-  %
-  The in-house object detector is particularly effective in identifying rigid
-  objects under arbitrary spatial transformations, with only a handful of
-  training examples; a shortfall of existing state-of-the-art object detectors.
-  %
-  The system is capable of identifying actions such as picked up, put down,
-  raised, lowered, give, carry, walked, hold, replaced, and exchanged.
-  %
-  On identifying the action, the system produces natural-language output, both
-  orthographic and aural, describing any subset of the action, its constituents,
-  the roles played by such, spatial relations, and the temporal profile of the
-  action in sentential form.
-
-  Publications: \refr{J3}, \refr{J1}, \refr{C7}, \refr{C5}, \refr{C4},
-  \refr{T4}, and \refr{T3}
+  Publications: \refr{J1}, \refr{C7}, \refr{C5}, \refr{C4}, \refr{T4}, and
+  \refr{T3}
 \end{researchBlock}
 
 \end{document}
+
+%  LocalWords:  Siddharth Narayanaswamy compositional modalities percepts ILP
+%  LocalWords:  opponency gameplay instantiation Tac Hexapawn compositionality
+%  LocalWords:  fMRI sentential pre scalability multi viterbi Felzenszwalb GPU
+%  LocalWords:  children's neuroimaging versa Corso SUNY Barak Pearlmutter NUI
+%  LocalWords:  Maynooth Talavage detections

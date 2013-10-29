@@ -23,3 +23,5 @@ else
   ./_dist/site rebuild
 
 fi
+
+rm -f rubtmp*.{pdf,tex,log,aux,out} missfont.log

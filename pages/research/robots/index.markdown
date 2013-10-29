@@ -3,11 +3,11 @@ Title: Robots
 category: robots
 ---
 
-## Generation 2 ## {.fullWidth}
+## Generation 2 ##
 
 Details coming soon.
 
-## Generation 1 ## {.fullWidth}
+## Generation 1 ##
 
 Our custom robotic platform is built around a novel two-surface wood housing,
 whose upper surface serves as a workspace. A 5-DOF manipulator arm is mounted
@@ -29,7 +29,7 @@ color="#fe0000">computer-controllable laser pointer</font> to assist depth
 estimation, and two independent <font color="#ff7e00">force sensors</font> on
 each finger, one on the inside surface and one on the fingertip.
 
-### Arm ### {.fullWidth}
+### Arm ###
 
 The arm base is a
 [standard Lynxmotion design documented on their website](http://www.lynxmotion.com/images/html/build093.htm). We
@@ -75,7 +75,7 @@ adjustable Mean Well SP-320-5 at 7 volts.\
 | [SSC-32 Servo Controller](http://lynxmotion.com/Product.aspx?ProductID=395)                                                         | SSC-32    |        1 |
 
 
-### Head ### {.fullWidth}
+### Head ###
 
 The camera mount is built on top of an
 [MAB-01](http://www.lynxmotion.com/images/html/build093.htm), with an aluminum
@@ -109,7 +109,7 @@ controlled through a
 [Society of Robots Axon](http://www.societyofrobots.com/axon/). Unfortunately
 the Axon has too few PWM generators to replace the SSC-32.
 
-### Housing ### {.fullWidth}
+### Housing ###
 
 The housing is built of out two identical surfaces, connected and build to
 [these specifications](misc/box.dwg), the bases are screwed in to

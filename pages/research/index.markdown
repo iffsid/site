@@ -25,4 +25,8 @@ title: Research
 \
 \
 
+### [CV](../cv/cv.pdf)
+
+### [Research Statement](../cv/research-statement.pdf)
+
 \$elements\$

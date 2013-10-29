@@ -3,8 +3,10 @@ Title: Learning Rules through Game Play
 category: game-rule-learning
 extra_scripts: <link rel="stylesheet" href="/css/syntax.css"/>
 ---
-<!-- the syntax is set to haskell because the prolog one doesn't handle -->
-<!-- underscores properly-->
+
+## Tic-Tac-Toe ##
+
+Initial Rule Specification:
 
 <!-- tic-tac-toe-rules -->
 ~~~~~~ {.code}
@@ -22,6 +24,12 @@ player.
 A player draws when no player wins and that player has no move.
 ~~~~~~
 
+§youtube(GECpF_Mq9yY)§
+
+Learned Rules:
+
+<!-- the syntax is set to haskell because the prolog one doesn't handle -->
+<!-- underscores properly-->
 <!-- tic-tac-toe-rules.pl -->
 ~~~~~~ {.haskell .code}
 initial_board([[none,none,none],[none,none,none],[none,none,none]], player_x).
@@ -32,6 +40,12 @@ legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), at(D,E,B,G,H),
 outcome(A,B,C) :- opponent(A,D), owns_outcome(D,C), owns_piece(C, E),
 	at(F,G,B,E,H), at(I,J,B,E,K), at(L,M,B,E,N), linear_obj(K, H,N).
 ~~~~~~
+
+§youtube(mx0JSPUl4aU)§
+
+## Hexapawn ##
+
+Initial Rule Specification:
 
 <!-- hexapawn rules -->
 ~~~~~~ {.code}
@@ -51,6 +65,12 @@ piece of that player.
 A player draws when no player wins and that player has no move.
 ~~~~~~
 
+§youtube(FpOeJ-An6Io)§
+
+Learned Rules:
+
+<!-- the syntax is set to haskell because the prolog one doesn't handle -->
+<!-- underscores properly-->
 <!-- hexapawn-rules.pl -->
 ~~~~~~ {.haskell .code}
 initial_board([[x,x,x],[none,none,none],[o,o,o]],player_x).
@@ -67,78 +87,4 @@ outcome(A,B,C) :- row(D), opponent(A,E), forward(E,D,F), forward(E,F,G),
 outcome(A,B,C) :- opponent(A,D), has_no_move(A,B), owns_outcome(D,C).
 ~~~~~~
 
-<!-- variant-a-rules.pl -->
-~~~~~~ {.haskell .code}
-initial_board([[x,x,x],[none,none,none],[o,o,o]],player_x).
-
-legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), forward(A,H,D),
-	sideways(E,I), at(H,I,B,F,J), at(H,I,C,G,K), at(D,E,B,G,L), at(D,E,C,F,M),
-	frame_obj(J,L,K,M,B,C).
-legal_move(A,B,C) :- row(D), col(E), opponent(A,F), owns(A,G), empty(H),
-	forward(A,I,D), owns(F,J), sideways(E,K), at(D,E,C,G,L), at(I,K,B,G,M),
-	at(I,K,C,H,N), at(D,E,B,J,O), frame_obj(L,N,O,M,C,B).
-
-outcome(A,B,C) :- row(D), opponent(A,E), forward(E,D,F), forward(E,F,G),
-	owns_outcome(E,C), owns_piece(C,H), at(G,I,B,H,J).
-outcome(A,B,C) :- opponent(A,D), has_no_move(A,B), owns_outcome(D,C).
-~~~~~~
-
-<!-- variant-b-rules.pl -->
-~~~~~~ {.haskell .code}
-initial_board([[x,x,x],[none,none,none],[o,o,o]],player_x).
-
-legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), forward(A, H,D),
-	sideways(E,I), at(H,E,B,F,J), at(H,E,C,G,K), at(D, I,B,G,L), at(D,I,C,F,M),
-	frame_obj(J,L,K,M,B,C).
-legal_move(A,B,C) :- row(D), col(E), opponent(A,F), owns(A,G), empty(H),
-	forward(A,I,D), owns(F,J), sideways(E,K), at(D,K,C,G,L), at(I,E,B,G,M),
-	at(I,E,C,H,N), at(D,K,B,J,O), frame_obj(L,N,O,M,C,B).
-legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), forward(A,H,D),
-	sideways(E,I), at(D,I,B,F,J), at(D,I,C,G,K), at(H,E,B,G,L), at(H,E,C,F,M),
-	frame_obj(J,L,K,M,B,C).
-
-outcome(A,B,C) :- opponent(A,D), has_no_move(A,B), owns_outcome(D,C).
-outcome(A,B,C) :- row(D), opponent(A,E), forward(E,D,F), forward(E,F,G),
-	owns_outcome(E,C), owns_piece(C,H), at(G,I,B,H,J).
-~~~~~~
-
-<!-- variant-c-rules.pl -->
-~~~~~~ {.haskell .code}
-initial_board([[x,x,x],[none,none,none],[o,o,o]],player_x).
-
-legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), forward(A,H,D),
-	at(H,E,B,F,I), at(H,E,C,G,J), at(D,E,B,G,K), at(D,E,C,F,L),
-	frame_obj(I,K,J,L,B,C).
-legal_move(A,B,C) :- row(D), col(E), opponent(A,F), owns(A,G), empty(H),
-	forward(F,D,I), owns(F,J), sideways(E,K), at(I,K,B,G,L), at(I,K,C,H,M),
-	at(D,E,C,G,N), at(D,E,B,J,O), frame_obj(L,O,M,N,B,C).
-legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), forward(A,H,D),
-	at(H,E,B,G,I), at(H,E,C,F,J), at(D,E,B,F,K), at(D,E,C,G,L),
-	frame_obj(J,L,I,K,C,B).
-
-outcome(A,B,C) :- row(D), opponent(A,E), forward(E,D,F), forward(E,F,G),
-	owns_outcome(E,C), owns_piece(C,H), at(G,I,B,H,J).
-outcome(A,B,C) :- opponent(A,D), has_no_move(A,B), owns_outcome(D,C).
-~~~~~~
-
-<!-- variant-d-rules.pl -->
-~~~~~~ {.haskell .code}
-initial_board([[x,x,x],[none,none,none],[o,o,o]],player_x).
-
-legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), forward(A,H,D),
-	at(H,E,B,F,I), at(H,E,C,G,J), at(D,E,B,G,K), at(D,E,C,F,L),
-	frame_obj(I,K,J,L,B,C).
-legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), forward(A,H,D),
-	at(D,E,B,F,I), at(D,E,C,G,J), at(H,E,B,G,K), at(H,E,C,F,L),
-	frame_obj(I,K,J,L,B,C).
-legal_move(A,B,C) :- row(D), col(E), opponent(A,F), owns(A,G), empty(H),
-	forward(F,D,I), owns(F,J), sideways(E,K), at(D,E,C,G,L), at(I,K,B,G,M),
-	at(I,K,C,H,N), at(D,E,B,J,O), frame_obj(L,N,O,M,C,B).
-legal_move(A,B,C) :- row(D), col(E), owns(A,F), empty(G), sideways(E,H),
-	at(D,E,B,F,I), at(D,E,C,G,J), at(D,H,B,G,K), at(D,H,C,F,L),
-	frame_obj(I,K,J,L,B,C).
-
-outcome(A,B,C) :- row(D), opponent(A,E), forward(A,D,F), forward(A,F,G),
-	owns_outcome(E,C), owns_piece(C,H), at(D,I,B,H, J).
-outcome(A,B,C) :- opponent(A,D), has_no_move(A,B), owns_outcome(D,C).
-~~~~~~
+§youtube(TC7kQsCmELE)§
