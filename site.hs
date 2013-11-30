@@ -43,11 +43,23 @@ main = hakyllWith hakyllConf $ do
   match "pages/research/short-*.markdown" $
     compile $ pandocHtml5Compiler >>= saveSnapshot "sdesc" >>= defaultCompiler
 
-  match ("pages/research/index.markdown" .||. "pages/research/*/index.markdown") $ do
+  -- match ("pages/research/index.markdown" .||. "pages/research/*/index.markdown") $ do
+  --   route $ delDir "pages/" `composeRoutes` setExtension "html"
+  --   compile $ pandocHtml5Compiler
+  --             >>= aplKeywords
+  --             >>= applyAsTemplate descCtx
+  --             >>= defaultCompiler
+
+  match "pages/research/index.markdown" $ do
+    route $ delDir "pages/" `composeRoutes` setExtension "html"
+    compile $ pandocHtml5Compiler >>= applyAsTemplate descCtx >>= defaultCompiler
+
+  match "pages/research/*/*.markdown" $ do
     route $ delDir "pages/" `composeRoutes` setExtension "html"
     compile $ pandocHtml5Compiler
               >>= aplKeywords
               >>= applyAsTemplate descCtx
+              >>= saveSnapshot "res"
               >>= defaultCompiler
 
   match ("pages/research/*/*.png" .||. "pages/research/*/*.jpg") $
@@ -63,7 +75,6 @@ main = hakyllWith hakyllConf $ do
   where delDir = (flip gsubRoute) (const "")
 
 mkT :: Identifier -> Identifier
--- mkT a = fromFilePath $ "templates/" ++ toFilePath a ++ ".html"
 mkT a = fromFilePath $ "templates/" ++ toFilePath a ++ ".html"
 
 defaultCompiler :: Item String -> Compiler (Item String)
@@ -75,7 +86,7 @@ eCtx fn = field "elements" fn <> defaultContext
 bibCtx, pubCtx, descCtx :: Context String
 bibCtx = eCtx (\_ -> eList (mkT "bibtex") recentFirst "publications/*.markdown" "pubs")
 pubCtx = eCtx (\_ -> eList (mkT "publication") recentFirst "publications/*.markdown" "pubs")
-descCtx = eCtx (\_ -> eList (mkT "short-description") return "pages/research/short-*.markdown" "sdesc")
+descCtx = eCtx (\_ -> eList (mkT "short-description") recentFirst "pages/research/short-*.markdown" "sdesc")
 
 eList template sorter pattern name =
   join $ applyTemplateList
@@ -90,7 +101,4 @@ eList template sorter pattern name =
 -- todo
 --  1. generate tags for all publications
 --  2. for each research page, include publications whose tags match its tags
---  3. fill in the research pages' text
---  4. get Jeff to upload relevant videos to youtube under cccp account's username
---     get those videos linked to research page (and cccp's research pages)
 -- http://chrisdone.com/posts/hakyll-and-git-for-you-blog

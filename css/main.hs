@@ -171,6 +171,10 @@ meta = ".meta" ?
        do display block
           color "#947662"
 
+articlePubs :: Css
+articlePubs = article # ".pubs" ?
+  do width (pct 85)
+
 sectionBlock :: Css
 sectionBlock = section ? do
     Main.meta
@@ -274,6 +278,7 @@ main = putCss $
      header1
      header2
      articleBlock
+     articlePubs
      sectionBlock
      asideBlock
      footerBlock

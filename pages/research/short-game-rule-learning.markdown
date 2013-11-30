@@ -1,6 +1,7 @@
 ---
 heading: Learning Rules through Game Play
 category: game-rule-learning
+date: 2008-09-01
 ---
 
 Children learn to play games by watching others play. While both formal board

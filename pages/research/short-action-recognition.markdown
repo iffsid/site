@@ -1,6 +1,7 @@
 ---
 heading: Action Recognition
 category: action-recognition
+date: 2011-08-01
 ---
 
 Here, we show how the compositional structure of events, in concert with the

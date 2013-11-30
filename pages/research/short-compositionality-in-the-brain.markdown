@@ -1,6 +1,7 @@
 ---
 heading: Compositionality in the Brain
 category: compositionality-in-the-brain
+date: 2013-01-01
 ---
 
 In keeping with the overarching theme, we further explore compositionality in a

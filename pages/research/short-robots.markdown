@@ -1,6 +1,7 @@
 ---
 heading: Robots
 category: robots
+date: 2008-08-01
 ---
 
 We design and build our own robots for research using a mixture of

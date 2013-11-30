@@ -1,6 +1,7 @@
 ---
 heading: Assembly Imitation
 category: assembly-imitation
+date: 2009-08-01
 ---
 
 This work involves reasoning about the physical structure of composable
