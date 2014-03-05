@@ -25,7 +25,7 @@ main = hakyllWith hakyllConf $ do
   -- compile latex with rubber
   match ("cv/*.tex") $ do
     route $ setExtension "pdf"
-    compile $ getResourceLBS >>= withItemBody (unixFilterLBS "rubber-pipe" ["-d","-q"])
+    compile $ getResourceLBS >>= withItemBody (unixFilterLBS "rubber-pipe" ["-d"])
 
   -- publications
   match "publications/*.markdown" $
@@ -43,12 +43,12 @@ main = hakyllWith hakyllConf $ do
   match "pages/research/short-*.markdown" $
     compile $ pandocHtml5Compiler >>= saveSnapshot "sdesc" >>= defaultCompiler
 
-  -- match ("pages/research/index.markdown" .||. "pages/research/*/index.markdown") $ do
-  --   route $ delDir "pages/" `composeRoutes` setExtension "html"
-  --   compile $ pandocHtml5Compiler
-  --             >>= aplKeywords
-  --             >>= applyAsTemplate descCtx
-  --             >>= defaultCompiler
+  match ("pages/research/index.markdown" .||. "pages/research/*/index.markdown") $ do
+    route $ delDir "pages/" `composeRoutes` setExtension "html"
+    compile $ pandocHtml5Compiler
+              >>= aplKeywords
+              >>= applyAsTemplate descCtx
+              >>= defaultCompiler
 
   match "pages/research/index.markdown" $ do
     route $ delDir "pages/" `composeRoutes` setExtension "html"
@@ -69,6 +69,11 @@ main = hakyllWith hakyllConf $ do
   match (fromList ["pages/index.html", "pages/reading.html", "pages/code.html"]) $ do
     route $ delDir "pages/"
     compile $ getResourceBody >>= defaultCompiler
+
+  --- need to figure out how to get 404 to work
+  match "pages/404.html" $ do
+    route $ delDir "pages/"
+    compile $ getResourceBody >>= loadAndApplyTemplate "templates/default.html" defaultContext
 
   match "templates/*" $ compile templateCompiler
 

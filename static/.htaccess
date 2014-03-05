@@ -7,3 +7,4 @@ AddType video/ogg             .ogv
 AddType application/x-mpegurl .m3u8
 # hls transport stream segments:
 AddType video/mp2t            .ts
+ErrorDocument 404 /404.html

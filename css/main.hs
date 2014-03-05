@@ -247,6 +247,14 @@ imgBlock = img ? do
     -- whenNarrow $ do
     --   display none
 
+imgDisp :: Css
+imgDisp = img # ".displayed" ? do
+    display block
+    marginLeft auto
+    marginRight auto
+    sym borderRadius (px 5)
+    boxShadow (px 0) (px 0) (px 30) (rgba 50 50 50 190)
+
 imgAside :: Css
 imgAside = aside |> img ? do
     sym borderRadius (px 5)
@@ -288,6 +296,7 @@ main = putCss $
      iBlock
      bBlock
      imgBlock
+     imgDisp
      imgAside
      videoContainer
      myCode

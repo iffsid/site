@@ -5,10 +5,12 @@
 \usepackage{fullpage}
 \usepackage[usenames,dvipsnames,svgnames]{xcolor}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \usepackage[flushleft,neverdecrease,neveradjust]{paralist}
 \pagestyle{empty}
-\raggedbottom
-\raggedright
+% \raggedbottom
+% \raggedright
+\graphicspath{{images/}}
 
 \textheight=9.0in
 \setlength{\tabcolsep}{0in}
@@ -31,28 +33,137 @@
 
 \newenvironment{researchBlock}[1]{%
   \vspace*{0.5ex}
-  {\large \textbf{#1}}
-  \begin{enumerate}\item[]}
-  {\end{enumerate}}
+  {\noindent\large \textbf{#1}}
+  %
+  \begin{itemize}\item}
+  %
+  {\end{itemize}\vspace{3ex}}
 
 \newcommand{\refr}[1]{{\color{RoyalBlue} #1}}
 \newcommand{\LincolnLogs}{\textsc{Lincoln Logs}}
 \newcommand{\LincolnLog}{\textsc{Lincoln Log}}
 \newcommand{\ie}{\emph{i.e.,}}
 
-\defaultleftmargin{10pt}{}{}{}
+\defaultleftmargin{7pt}{10pt}{}{}
 
 \begin{document}
 
+\begin{flushleft}
 \begin{tabular*}{6.86in}{l@{\extracolsep{\fill}}r}
   \textbf{\huge{Research Statement}} & \today
 \end{tabular*}
-\vspace{0.1in}
+\end{flushleft}
 
+\begin{flushleft}
 \begin{tabular*}{6.86in}{l@{\extracolsep{\fill}}r}
   \textbf{\large{Siddharth Narayanaswamy}} & \url{http://www.iffsid.com}
 \end{tabular*}
-\vspace{0.4in}
+\end{flushleft}
+\vspace{2ex}
+
+\noindent
+%
+My work primarily focuses on aspects of perception and cognition, particularly
+involving vision, language, and action, through a combination of artificial
+intelligence and cognitive/computational neuroscience.
+%
+I'm interested in exploring the effect that integration of information, both
+within and across multiple modalities such as vision and language, has, on
+understanding the mechanisms of perception and cognition.
+%
+To this end, I study how the underlying similarity across such different
+modalities, the compositional or generative nature of the things we perceive,
+plays an important role in helping solve a wide variety of deep and complex
+problems.
+%
+Descriptions of such endeavours follow:
+\vspace*{3ex}
+
+\begin{researchBlock} {Compositional representation of events in the human brain}
+  %
+  Humans exhibit the ability to describe what they see in natural language.
+  %
+  Such description often involves subjects, objects, actions and the like,
+  structured in a compositional fashion, which is often exploited.
+  %
+  For example, in computer vision, representations of event participants,
+  corresponding to nouns, are often independent of representations for the
+  actions, corresponding to verbs, when dealing with the problem of activity
+  recognition.
+  %
+  While we observe and represent these concepts in a compositional form, it is
+  not clear if the brain represents these concepts in such a compositional
+  fashion.
+
+  To investigate if humans employ compositional representations, we conducted
+  an experiment where subjects viewed video clips of an activity involving
+  prepositions, verbs, and multiple nouns during neuroimaging (fMRI) sessions,
+  and we attempted to decode the labels for the video clips from the resulting
+  brain scans.
+  %
+  One of the key facets of this experiment was the comparison between decoding
+  a complex concept and the decoding its constituents.
+  %
+  Prior work relating to the recovery of individual constituents focused
+  primarily on the recovery of nouns, whereas, in order to conduct our
+  experiment, we required the ability to decode other components such as verbs;
+  something we addressed by running a separate experiment to test the
+  feasibility of recovering verbs from visual stimuli.
+  %
+  Here, we decoded labels corresponding to one of six verbs: carry, dig, hold,
+  pick up, put down, and walk from stimuli in the form of video clips that
+  depicted one of those events.
+  %
+  We were able to successfully recover the correct verb label with an accuracy
+  of 65\%, where chance is 16.66\%.
+
+  Extending this manner of experiment to the other constituents such as
+  prepositions enabled us to conduct the comparison between recovering complex
+  concepts and recovering its constituents.
+  %
+  This experiment involved showing subjects videos which depict three verbs
+  (carry, fold, and leave), each performed with three objects (chair, shirt,
+  and tortilla), each performed by four different human actors, and each
+  performed on either side of the field of view.
+  %
+  We show that recovering sentential descriptions of the form `the actor verb
+  the object direction/location' by separately recovering each lexical
+  component is possible, and on the 1-out-of-72 classification task, we decode
+  the correct sentence with 13\% accuracy (chance 1.3\%).
+  %
+  This is the first experiment which has demonstrated an ability to decode a
+  complex concept with multiple components.
+  %
+  Now, if the representation of complex concepts is indeed compositional, we
+  expect that the extent to which one could recover the label of a complex
+  concept such as an \emph{event}, an action performed with an object, would
+  match the extent to which one could recover its constituents, the action and
+  the object, independently.
+  %
+  We expect that decoding the object noun will provide little to no information
+  about the verb, and vice versa, given that our stimuli, as designed, depict
+  each action performed with each object.
+  %
+  We find that this is indeed backed up by experimental analyses, which
+  indicate that the extent to which we can recover nouns and verbs jointly
+  (50\% accuracy), \ie, the \emph{event}, is comparable to the extent to which
+  we can recover each independently (48\% accuracy), providing support for the
+  compositionality of representations in the brain.
+  %
+  We also show this for a variety of complex concepts.
+  %
+  Furthermore, we show that the brain regions associated with the individual
+  concepts are largely disjoint, and the regions associated with complex
+  concepts largely overlap with those corresponding to the union of individual
+  concepts, lending further evidence to the decomposability of the neural
+  representations of complex concepts.
+
+  \vspace{2ex}
+  Collaborators: Jason Corso (SUNY Buffalo), Stephen Hanson (Rutgers), Barak Pearlmutter (NUI Maynooth),
+  Tom Talavage (Purdue), and Ronnie Wilbur (Purdue).
+
+  Publications: \refr{T2}
+\end{researchBlock}
 
 \begin{researchBlock} {Reasoning about part-based 3D structures}
   %
@@ -84,9 +195,29 @@
   about the part-by-part composition of 3D structures necessitates reasoning
   about the parts of it that cannot be seen due to occlusion.
   %
-  Furthermore, it estimates a confidence measure of the underlying
-  part-by-part composition perceived, mimicking the manner in which people
-  evaluate the goodness of their own perception.
+  It involves reasoning about three-dimensional entities from incomplete
+  perceptual input. For example, when we see only two faces of a building and a
+  roof that extends beyond, we infer that other walls must exist that help
+  support the roof, despite the fact that we see no evidence for it. Correctly
+  inferring the structure, the particular arrangement of a particular set of
+  its components, requires resolution of a host of related questions:
+  %
+  \begin{compactitem}\vspace{1ex}
+  \item To begin with, how sure are we that other walls even exist?
+  \item If we're unsure, how do we alleviate doubt relating to the existence of other
+    supporting walls?
+  \end{compactitem}\vspace{1ex}
+  %
+  Furthermore, it estimates a confidence measure of the underlying part-by-part
+  composition perceived, in a manner intended to mirror the way people reason
+  about and evaluate the goodness of their own perception.
+  %
+  This involves answering questions of the kind
+  \begin{compactitem}\vspace{1ex}
+  \item For the portions that I know I cannot see, what possibilities can I
+    imagine that would cause my percept of the structure to change?
+  \item How vividly would I need to imagine these alternate hypotheses?
+  \end{compactitem}\vspace{1ex}
   %
   All of this is facilitated by representing the knowledge about the
   parts, how they combine, and some basic world knowledge in a large graphical
@@ -105,6 +236,17 @@
   Yet another approach could involve asking for a natural-language description
   from someone who knows more about the structure.
   %
+  Linguistic description is very likely generic, in that it describes the
+  structure not in terms of its particular constituents. such as logs, but in
+  terms of general topological constructs such as walls, doors, or windows.
+  %
+  Examples of such would be `window left of and perpendicular to the door',
+  `has four walls and four doors'.
+  %
+  Note that any information in such alternate forms might not completely
+  describe an assembly, but taken together with the information obtained from a
+  primary view, serves to help disambiguate the structure.
+  %
   Not only are we able to emulate such cross-modal approaches due to the
   integrative nature of the framework, we are able to reason about \emph{which}
   action(s) to perform.
@@ -113,12 +255,126 @@
   of the domain, evaluating which imagined view, for example, best increases
   potential confidence in perception from the current view.
   %
+  This ability to imagine is utilised to reason about which actions would best
+  disambiguate the parts of the structure that are known to be occluded---lesser
+  occlusion overall means more information to base a decision on.
+  %
   We use such a framework to build structures from natural-language input,
   describe an observed structures in language, and manipulate such structures
   based on resulting percepts. We demonstrate this approach using a physical
   robots in the domain of \LincolnLogs, a children's assembly toy.
 
+  \vspace{2ex}
   Publications: \refr{J2}, \refr{C6}, and \refr{C3}
+\end{researchBlock}
+
+\begin{researchBlock} {Activity Recognition}
+
+  Here, we show how the compositional structure of events, in concert with the
+  compositional structure of language, enables a unified framework relating to
+  activity recognition in video.
+  %
+  This allows for a diverse range of capabilities, integrating across object
+  recognition, tracking, activity recognition, and natural-language generation
+  of descriptions.
+
+  We first develop a detection-based tracker, referred to as the \emph{viterbi
+    tracker}, which constructs sequences of detections produced by candidate
+  object detectors that tracks an object through a video.
+  %
+  We structure this problem in an analogous manner to finding the optimal state
+  sequence in event model lattices, which facilitates efficient tracking of
+  objects in video using the Viterbi algorithm.
+  %
+  Such structure is further exploited to enable the integration of top-down
+  information, in the form of event models, with bottom-up information, in the
+  form of tracking, enabling the knowledge of an event to affect the tracks
+  produced.
+  %
+  This is made possible by viewing the tracking and even-recognition processes
+  through the common lens of finding an optimal path through a time-series
+  lattice, and combining them, except that instead of optimizing the two
+  processes independently, we do so jointly.
+  %
+  We refer to this as the \emph{event tracker}.
+
+  We further extend the event tracker to develop the \emph{sentence tracker},
+  which includes event models not just corresponding to verbs, but to other
+  parts of speech as well, such as prepositions and adverbs, to enable the
+  integration of top-down information in the form of an entire sentence, with
+  the trackers.
+  %
+  It does so by constructing cross-product lattices from multiple tracker
+  lattices and word lattices and constrains these cross-products to encode the
+  co-reference and predicate-argument relations present in any given sentence.
+  %
+  This is again facilitated by the shared underlying structure of the trackers
+  and event models, jointly optimizing a set of trackers, one for each
+  participant in an activity, and a set of event models, one for each word in a
+  given description.
+  %
+  At its core, the sentence tracker is a method that produces, for a given
+  video and a description, a score along with a set of tracks corresponding to
+  that description.
+  %
+  Such an integrated framework, simply by leveraging its features in different
+  manners, allows for a multitude of tasks:
+  %
+  \begin{compactdesc}\vspace{1ex}
+  \item[focus of attention] Using the tracks that it produces, it can take a
+    sentential description as input and focus the attention of a tracker on the
+    activity described in the sentence.
+    %
+    In a video that depicts many participants, various subsets of whom are
+    engaged is different activities, as is typical in a natural context, this
+    allows us to track those particular participants that are engaged in a
+    particular activity as specified by the description.
+    %
+    Furthermore, it allows for disambiguation even wen there are multiple
+    simultaneous instances of the \emph{same} event, by allowing for reference
+    to other concepts in the video.
+    %
+    If there exist two instances of an activity, say \emph{pick up}, occurring
+    simultaneously, we can specify which one to focus attention on by means of
+    other elements such as characteristics (adjectives) of the participants, manner
+    (adverbs) of the action, or relations (prepositions) between the participants
+    and other \emph{unrelated} objects in the scene.
+    %
+    \vspace{0.5ex}
+    %
+  \item[generation] Using the score that it produces, it can generate
+    sentential descriptions for videos by efficiently searching through the
+    space of possible sentences to find one that best describes a given video.
+    %
+    Prior approaches use special-purpose natural-language-generation methods,
+    whereas our method systematically searches for the highest-scoring sentence
+    generated by a grammar using the same video-sentence scoring function.
+    %
+    The generativity of our labeling domain allows us to label an unseen video
+    with any sentence, from a potentially unbounded set, including those that
+    have never appeared, in whole or in part, in any form of training.
+    %
+    \vspace{0.5ex}
+    %
+  \item[retrieval] Using the score that it produces, it can perform
+    content-based video retrieval by searching through a corpus of videos to
+    find that video which best depicts the activity described by a given
+    sentence.
+    %
+    Previous approaches treated queries as conjunctions of words and as such
+    are unable to distinguish between the queries `The person rode the horse'
+    and `The horse rode the person'.
+    %
+    The incorporation of sentential meaning in our system implies that such
+    nuances can indeed be observed, demonstrating that varying different parts
+    of speech affects the results of the queries differently.
+  \end{compactdesc}\vspace{1ex}
+
+  \vspace{2ex}
+  Collaborators: Sven Dickinson (Toronto) and Song Wang (South Carolina).
+
+  Publications: \refr{J1}, \refr{C7}, \refr{C5}, \refr{C4}, \refr{T4}, and
+  \refr{T3}
 \end{researchBlock}
 
 \begin{researchBlock} {Learning rules of games through perception}
@@ -163,170 +419,87 @@
   Using this framework, we learn the rules of six games --- Tic-Tac-Toe,
   Hexapawn and 4 different variants of Hexapawn, only needing to observe a
   small number (3--5) of games.
-  %
-  Such a framework enables the exploration of a teacher-student relationship,
-  where, for example, learning an incomplete set of rules could trigger a
-  conversation with a teacher to fill in the missing gaps, or corrections may
-  be issued by the teacher for rules learned incorrectly by the student.
 
+  \vspace{2ex}
   Publications: \refr{C2}
 \end{researchBlock}
 
-\begin{researchBlock} {Compositional representation of events in the human brain}
-  %
-  Humans exhibit the ability to describe what they see in natural language.
-  %
-  Such description often involves subjects, objects, actions and the like,
-  structured in a compositional fashion, which is often exploited.
-  %
-  For example, in computer vision, representations of event participants,
-  corresponding to nouns, are often independent of representations for the
-  actions, corresponding to verbs, when dealing with the problem of activity
-  recognition.
-  %
-  While we observe and represent these concepts in a compositional form, it is
-  not clear if the brain represents these concepts in such a compositional
-  fashion.
+\begin{researchBlock}{Future Work}
 
-  To investigate if humans employ compositional representations, we conducted
-  an experiment where subjects viewed video clips of an activity involving
-  prepositions, verbs, and multiple nouns during neuroimaging (fMRI) sessions,
-  and we attempted to decode the labels for the video clips from the resulting
-  brain scans.
-  %
-  One of the key facets of this experiment was the comparison between decoding
-  a complex concept and the decoding its constituents.
-  %
-  Prior work relating to the recovery of individual constituents focused
-  primarily on the recovery of nouns, whereas, in order to conduct our
-  experiment, we required the ability to decode other components such as verbs;
-  something we addressed by running a separate experiment to test the
-  feasibility of recovering verbs from visual stimuli.
-  %
-  Here, we decoded labels corresponding to one of six verbs: carry, dig, hold,
-  pick up, put down, and walk from stimuli in the form of video clips that
-  depicted one of those events.
-  %
-  We were able to successfully recover the correct verb label with an accuracy
-  of 65\%, where chance is 16.66\%.
-  %
-  Extending this manner of experiment to the other constituents such as
-  prepositions enabled us to conduct the comparison between recovering complex
-  concepts and recovering its constituents.
-  %
-  This experiment involved showing subjects videos which depict three verbs
-  (carry, fold, and leave), each performed with three objects (chair, shirt,
-  and tortilla), each performed by four different human actors, and each
-  performed on either side of the field of view.
-  %
-  If the representation of complex concepts is indeed compositional, we expect
-  that the extent to which one could recover the label of a complex concept
-  such as an \emph{event}, an action performed with an object, would match the
-  extent to which one could recover its constituents, the action and the
-  object, independently.
-  %
-  We expect that decoding the object noun will provide little to no information
-  about the verb, and vice versa, given that our stimuli, as designed, depict
-  each action performed with each object.
-  %
-  We find that this is indeed backed up by experimental analyses, which
-  indicate that the extent to which we can recover nouns and verbs jointly
-  (48\% accuracy), \ie, the \emph{event}, is comparable to the extent to which
-  we can recover each independently (46\% accuracy), providing support for the
-  compositionality of representations in the brain.
-  %
-  We show this for a variety of complex concepts.
-  %
-  Furthermore, we show that the brain regions associated with the individual
-  concepts are largely disjoint, and the regions associated with complex
-  concepts largely ovelap with those corresponding to the union of individual
-  concepts, lending further evidence to the decomposability of the neural
-  representations of complex concepts.
+  The multi-disciplinary nature of my research enables further exploration
+  along many different lines of inquiry, each interesting and challenging on its
+  own right.
 
-  Collaborators: Jason Corso (SUNY Buffalo), Stephen Hanson (Rutgers), Barak Pearlmutter (NUI Maynooth),
-  Tom Talavage (Purdue), and Ronnie Wilbur (Purdue).
+  On possible line of research involves the exploration of the neural basis of
+  object recognition and reasoning in vision.
+  %
+  Expanding upon the theme of reasoning about compositional objects in the
+  world, it would be interesting to study the neural representations employed
+  in such reasoning.
+  %
+  For example, is reasoning about an observed table as composed of a planar
+  surface supported by legs reflected in the brain by some compositional
+  representation?
+  %
+  Is support represented compositionally?
+  %
+  Expanding further, are verbs in general represented compositionally?
+  %
+  Further extensions could involve exploring such questions with other animals
+  and investigate similarities and differences with language in non-humans.
+  %
+  These questions, while fundamentally neuroscientific in nature, potentially
+  inform the artificial systems that may be build to exhibit similar levels of
+  reasoning or intelligence.
 
-  Publications: \refr{T2}
+  Another line of research involves the integration of speech and vision.
+  %
+  While prior work has incorporated vision and language to a certain extent,
+  information flow and inference has been primarily on the vision side.
+  %
+  It would be very interesting to extend such, first to language, and then
+  further to robotics, to truly take advantage of the underlying structure and
+  ubiquity of visual, aural, and proprioceptive inputs available in the world.
+  %
+  This would enable multi-directional inference where a shortage of information
+  in one modality can be compensated for by information from different
+  modalities.
+  %
+  So, for example, it would enable a system to perform spoken ambiguity
+  resolution, simply by taking into context the object or scene it observes;
+  disambiguating \emph{carry} from \emph{barry} by virtue of the fact that one
+  involves an action that exhibits certain dynamic characteristics and the other
+  involves, say, a particular person's facial identity.
+
+  Yet another line of research could explore more general notion of games, such
+  as concepts of utility, like controlling regions, reaching a goal fastest, or
+  choice of attack vs. defense.
+  %
+  These would enable the exploration of knowledge transfer between different
+  kinds of games.
+  %
+  Such a framework also enables the exploration of a teacher-student
+  relationship, where, for example, learning an insufficient amount about a game
+  could trigger a conversation with a teacher to fill in the missing gaps, or
+  corrections may be issued by the teacher for rules learned incorrectly by the
+  student.
+  %
+  The cross-modal aspect of such endeavours come into their own in such
+  situations as some instructions are easier given linguistically, whereas some
+  are easier demonstrated physically.
+
+  The richness of this domain offers a myriad of potential research problems to
+  tackle, and many possible ways of doing so for each---pursuing which I hope
+  will enrich our collective knowledge, and enable a long and fruitful research
+  career.
+
 \end{researchBlock}
-
-\begin{researchBlock} {Activity Recognition}
-
-  Here, we show how the compositional structure of events, in concert with the
-  compositional structure of language, enables a unified framework relating to
-  activity recognition in video.
-  %
-  This allows for a diverse range of capabilities, integrating across object
-  recognition, tracking, activity recognition, and natural-language generation
-  of descriptions.
-
-  We first develop a detection-based tracker, referred to as the \emph{viterbi
-    tracker}, which constructs sequences of detections produced by candidate
-  object detectors that tracks an object through a video.
-  %
-  We structure this problem in an analogous manner to finding optimal the state
-  sequence in event model lattices, which facilitates efficient tracking of
-  objects in video using the Viterbi algorithm.
-  %
-  Such structure is further exploited to enable the integration of top-down
-  information, in the form of event models, with bottom-up information, in the
-  form of tracking, enabling the knowledge of an event to affect the tracks
-  produced.
-  %
-  This is made possible by viewing the tracking and even-recognition processes
-  through the common lens of finding an optimal path through a time-series
-  lattice, and combining them, except that instead of optimizing the two
-  processes independently, we do so jointly.
-  %
-  We refer to this as the \emph{event tracker}.
-
-  We further extend the event tracker to develop the \emph{sentence tracker},
-  which includes event models not just corresponding to verbs, but to other
-  parts of speech as well, such as prepositions and adverbs, to enable the
-  integration of top-down information in the form of an entire sentence, with
-  the trackers.
-  %
-  This is again facilitated by the shared underlying structure of the trackers
-  and event models, jointly optimizing a set of trackers, one for each
-  participant in an activity, and a set of event models, one for each word in a
-  given description.
-  %
-  At its core, the sentence tracker is a method that produces, for a given
-  video and a description, a score along with a set of tracks corresponding to
-  that description.
-  %
-  Such an integrated framework, simply by leveraging its features in different
-  manners, allows for a multitude of tasks:
-  %
-  \begin{compactdesc}
-  \item[focus of attention] Using the tracks that it produces, it can take a
-    sentential description as input and focus the attention of a tracker on the
-    activity described in the sentence.
-    %
-    In a video that depicts many participants, various subsets of whom are
-    engaged is different activities, as is typical in a natural context, this
-    allows us to track those particular participants that are engaged in a
-    particular activity as specified by the description.
-    %
-  \item[generation] Using the score that it produces, it can generate
-    sentential descriptions for videos by efficiently searching through the
-    space of possible sentences to find one that best describes a given video.
-    %
-  \item[retrieval] Using the score that it produces, it can perform
-    content-based video retrieval by searching through a corpus of videos to
-    find that video which best depicts the activity described by a given
-    description.
-  \end{compactdesc}
-
-  Collaborators: Sven Dickinson (Toronto) and Song Wang (South Carolina).
-
-  Publications: \refr{J1}, \refr{C7}, \refr{C5}, \refr{C4}, \refr{T4}, and
-  \refr{T3}
-\end{researchBlock}
-
 \end{document}
 
 %  LocalWords:  Siddharth Narayanaswamy compositional modalities percepts ILP
 %  LocalWords:  opponency gameplay instantiation Tac Hexapawn compositionality
 %  LocalWords:  fMRI sentential pre scalability multi viterbi Felzenszwalb GPU
 %  LocalWords:  children's neuroimaging versa Corso SUNY Barak Pearlmutter NUI
-%  LocalWords:  Maynooth Talavage detections
+%  LocalWords:  Maynooth Talavage detections neuroscience endeavours percept
+%  LocalWords:  generativity utilised compositionally neuroscientific modality
+%  LocalWords:  disambiguating barry proprioceptive decomposability
