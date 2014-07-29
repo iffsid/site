@@ -1,10 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
-import           Clay        hiding (contents, menu)
-import qualified Clay.Media  as Media
-import           Data.Monoid
-import           Data.Text   (Text)
-import           Prelude     hiding (all)
+import           Clay            hiding (contents, menu)
+import qualified Clay.Media      as Media
 import           Clay.Stylesheet
+import           Data.Monoid
+import           Data.Text       (Text)
+import           Prelude         hiding (all)
 -- helpers
 nil :: Size Abs
 nil = px 0
@@ -53,7 +53,7 @@ navbarFont = amaranth
 site :: Css
 site =
   do body ?
-       do background black
+       do background (rgb 20 20 20, url "../images/bkg.png")      -- black
           baseFont
           fontSize (pt 10)
           sym margin  0
@@ -252,8 +252,8 @@ imgDisp = img # ".displayed" ? do
     display block
     marginLeft auto
     marginRight auto
-    sym borderRadius (px 5)
-    boxShadow (px 0) (px 0) (px 30) (rgba 50 50 50 190)
+    sym borderRadius (px 4)
+    boxShadow (px 0) (px 0) (px 12) (rgba 30 30 30 190)
 
 imgAside :: Css
 imgAside = aside |> img ? do

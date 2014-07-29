@@ -1,29 +1,32 @@
 \documentclass[10pt]{article}
 \usepackage{charter}
-\usepackage{textcomp}
-\usepackage{stmaryrd}
-\usepackage{fullpage}
+% \usepackage{sourcecodepro-type1-autoinst}
+% \usepackage{MinionPro}
 \usepackage[usenames,dvipsnames,svgnames]{xcolor}
 \usepackage{hyperref}
 \usepackage[flushleft,neverdecrease,neveradjust]{paralist}
 \usepackage{multicol}
+\usepackage{tikz}
+\usepackage{pifont}
 \pagestyle{empty}
-\raggedbottom
-\raggedright
 
-\textheight=9.0in
-% \setlength{\topmargin}{-0.4cm}
-\setlength{\tabcolsep}{0in}
-\setlength{\oddsidemargin}{-0.5cm}
-\setlength{\evensidemargin}{-0.5cm}
-\setlength{\textwidth}{7.0in}
-\usepackage[T1]{fontenc}
-% \usepackage{cmbright}
-%% \usepackage[sc]{mathpazo}
+\usepackage[left=1.5cm,top=2cm,right=1.5cm,bottom=2.5cm,nohead,nofoot]{geometry}
+
+\definecolor{darkgrey}{HTML}{333333}
+\definecolor{grey}{HTML}{4D4D4D}
+\definecolor{lightgrey}{HTML}{999999}
+\definecolor{green}{HTML}{C2E15F}
+\definecolor{orange}{HTML}{FDA333}
+% \definecolor{purple}{HTML}{D3A4F9}
+\definecolor{purple}{HTML}{9B59B6}
+\definecolor{red}{HTML}{FB4485}
+\definecolor{blue}{HTML}{6CE0F1}
+\definecolor{zest}{HTML}{E67E22}
 \linespread{1}
-
 \renewcommand{\labelitemi}{}
 \renewcommand{\labelitemii}{}
+
+\newcommand{\lbar}[1]{{\color{#1}\ding{118}}\hspace*{2pt}}
 
 \hypersetup{
   colorlinks=true,
@@ -40,6 +43,7 @@
     processing,  AI, Artificial Intelligence, cognitive science,machine
     learning, open source, open-source, functional programming, constraint,
     constraint satisfaction, automatic differentiation, stochastic programming,
+    probabilistic programming, church, stochastic lambda calculus,
     C++, Scheme, Lisp, C, Prolog, MATLAB, Java, Python, purdue}}
 
 % http://tex.stackexchange.com/questions/110236/is-there-a-way-to-get-reverse-numbering-on-the-enumerate-environment
@@ -95,7 +99,7 @@
 
 \newenvironment{region}[3]{%
   \vspace*{0.5ex}
-  {\large \textbf{#1}}
+  {\scalebox{1.4}{\textbf{#1}}}
   \begin{benumerate}{#3}{\color{RoyalBlue}#2}}
   {\end{benumerate}\vspace{1ex}}
 
@@ -106,24 +110,46 @@
 \newcommand{\oral}{{\color{PineGreen}\textsc{oral}}}
 \newcommand{\poster}{{\color{BurntOrange}\textsc{poster}}}
 
+\color{darkgrey}
 \begin{document}
 
-\begin{tabular*}{6.86in}{@{\extracolsep{\fill}}lr}
-  \textbf{\huge{Curriculum Vitae}} & \today
-\end{tabular*}
-\vspace{0.1in}
+\begin{tikzpicture}[remember picture,overlay]
+  \hypersetup{urlcolor=zest}
+  \node [rectangle, fill=grey, anchor=north, minimum width=\paperwidth, minimum height=4cm] (box) at (current page.north){};
+  \node [anchor=center] (name) at (box) {%
+    \color{white}%
+    \begin{tabular*}{6.5in}{@{\extracolsep{\fill}}lr}
+      \\
+      \textbf{\huge{Curriculum Vitae}} & \today\\*[2ex]
+      \textbf{\large{Siddharth Narayanaswamy}} & {\url{http://iffsid.com}}\\[0.5ex]
+      Department of Psychology &  450 Serra Mall\\
+      Stanford University & Stanford, CA 94305, USA\\
+      \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \textbar\
+      \href{mailto:nsid@stanford.edu}{nsid@stanford.edu}
+      & \emph{Tel}: \textrm{+1 765-409-6947}\\
+    \end{tabular*}
+  };
+\end{tikzpicture}
+\vspace{0.9in}
 
-\begin{tabular*}{6.86in}{@{\extracolsep{\fill}}lr}
-  \textbf{\large{Siddharth Narayanaswamy}} & \url{http://iffsid.com}\\[0.6ex]
-  School of Electrical and Computer Engineering &  465 Northwestern Avenue\\
-  Purdue University & West Lafayette, IN 47907, USA\\
-  \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} & \emph{Tel}: \textrm{+1 765-409-6947}\\
-\end{tabular*}
-\vspace{0.15in}
+% \begin{tabular*}{6.65in}{@{\extracolsep{\fill}}lr}
+%   \textbf{\huge{Curriculum Vitae}} & \today
+% \end{tabular*}
+% \vspace{0.1in}
 
-\begin{nonumregion}{Education}
+% \begin{tabular*}{6.65in}{@{\extracolsep{\fill}}lr}
+%   \textbf{\large{Siddharth Narayanaswamy}} & \url{http://iffsid.com}\\[0.6ex]
+%   Department of Psychology &  450 Serra Mall\\
+%   Stanford University & Stanford, CA 94305, USA\\
+%   \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \textbar\
+%   \href{mailto:nsid@stanford.edu}{nsid@stanford.edu}
+%   & \emph{Tel}: \textrm{+1 765-409-6947}\\
+% \end{tabular*}
+% \vspace{0.15in}
+
+\begin{nonumregion}{\lbar{red}Education}
   \begin{position}{PhD --- Electrical \& Computer Engineering}
-    {Aug 2008 -- expected Jan 2014}
+    {Aug 2008 -- Mar 2014}
     {}
     {Purdue University, USA}
     \vspace{-3ex}
@@ -145,9 +171,14 @@
 %% Current Students
 %% Former Students
 % \vspace*{-1ex}
-\begin{nonumregion} {Experience}
+\begin{nonumregion} {\lbar{orange}Experience}
+  \begin{position} {Postdoctoral Associate, Psychology}
+    {Apr 2014 -- present}
+    {Advisor: Noah Goodman}
+    {Stanford University, USA}
+  \end{position}
   \begin{position} {PhD Student, Electrical \& Computer Engineering}
-    {Aug 2008 -- expected Jan 2014}
+    {Aug 2008 -- Mar 2014}
     {Advisor: Jeffrey Mark Siskind}
     {Purdue University, USA}
   \end{position}
@@ -172,28 +203,28 @@
 %% http://www.informatik.uni-trier.de/~ley/pers/hn/n/Narayanaswamy:Siddharth.html
 %% needs work: URLs for nips2013b
 
-\begin{region} {Refereed Journal Publications}{{J}1}{2}
+\begin{region} {\lbar{purple}Refereed Journal Publications}{{J}1}{2}
   \begin{publication} {Seeing Unseeability to See the Unseeable}
     {Dec 2012}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
     {Advances in Cognitive Systems (ACS), 2:77--94}
-    {\url{http://iffsid.com/publications/siddharth2012unseeability.pdf}\label{j:2}}
+    {\url{http://papers.iffsid.com/siddharth2012unseeability.pdf}\label{j:2}}
   \end{publication}
   \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
     {Dec 2012}
     {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
     {Advances in Cognitive Systems (ACS), 2:203--20}
-    {\url{http://iffsid.com/publications/barbu2012objectsTackingEvents.pdf}\label{j:1}}
+    {\url{http://papers.iffsid.com/barbu2012objectsTackingEvents.pdf}\label{j:1}}
   \end{publication}
 \end{region}
 
-\begin{region} {Journal Publications in Review}{}{3}
+\begin{region} {\lbar{purple}Journal Publications in Review}{}{3}
   \begin{publication} {The Compositional Nature of Event Representations in the Human Brain}
     {In review}
     {A. Barbu, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum, C. Hanson, S. J. Hanson, S.
       H\'elie, E. Malaia, B. A. Pearlmutter, J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
     {Nature Neuroscience}
-    % {\url{http://iffsid.com/publications/jair2013.pdf}\label{j:5}}
+    % {\url{http://papers.iffsid.com/jair2013.pdf}\label{j:5}}
     {}
   \end{publication}
   \begin{publication} {A Compositional Framework for Grounding Language Inference, Generation,
@@ -201,49 +232,59 @@
     {In review}
     {H. Yu, N, Siddharth, A. Barbu, and J. M. Siskind}
     {Journal of Artificial Intelligence Research (JAIR)}
-    % {\url{http://iffsid.com/publications/jair2013.pdf}\label{j:4}}
+    % {\url{http://papers.iffsid.com/jair2013.pdf}\label{j:4}}
     {}
   \end{publication}
   \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
     {In review}
     {A. Barbu, N. Siddharth, and J. M. Siskind}
     {IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)}
-    % {\url{http://iffsid.com/publications/pami2013.pdf}\label{j:3}}
+    % {\url{http://papers.iffsid.com/pami2013.pdf}\label{j:3}}
     {}
   \end{publication}
 \end{region}
 
-\begin{region} {Refereed Conference Publications}{{C}1}{8}
+\begin{region} {\lbar{purple}Refereed Conference Publications}{{C}1}{9}
+  \begin{publication} {Seeing is \emph{Worse} than Believing: Reading People’s Minds
+      Better than\rule{10ex}{0pt} Computer-Vision Methods Recognize Actions}
+    {Sep 2014}
+    {A. Barbu, D. P. Barrett, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum,
+      C. Hanson, S. J. Hanson, S. H\'elie, E. Malaia, B. A. Pearlmutter,
+      J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
+    {European Conference on Computer Vision (ECCV)}
+    {pp.~612--627\\ %\hfill\small{[\poster]}\\
+      \url{http://papers.iffsid.com/barbu2014fmriAction.pdf}}
+  \end{publication}
   \begin{publication} {Seeing What You're Told: Sentence-Guided Activity Recognition in Video}
     {June 2014}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
     {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
-    {pp.~tbd \hfill\small{[\poster]}\\
-      \url{http://iffsid.com/publications/siddharth2014sentence.pdf}}
+    {pp.~tbd\\ %\hfill\small{[\poster]}\\
+      \url{http://papers.iffsid.com/siddharth2014sentence.pdf}}
   \end{publication}
   \begin{publication} {Recognizing Human Activities from Partially Observed Videos}
     {Jun 2013}
     {Y. Cao, D. Barrett, A. Barbu, N. Siddharth, H. Yu, A. Michaux, Y. Lin,
       S. Dickinson, \rule{6ex}{0pt} J. M. Siskind, and S. Wang}
     {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
-    {pp.~2658--65 \hfill\small{[\poster]}\\ %412/1798 (22.9\%)
-      \url{http://iffsid.com/publications/cao2013partiallyObserved.pdf}}
+    {pp.~2658--2665\\ % \hfill\small{[\poster]}\\ %412/1798 (22.9\%)
+      \url{http://papers.iffsid.com/cao2013partiallyObserved.pdf}}
   \end{publication}
   \begin{publication} {Seeing Unseeability to See the Unseeable}
     {Dec 2012}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
     {Advances in Cognitive Systems (ACS)}
     {2:77--94 \hfill\small{conference presentation associated with
-        [{\color{RoyalBlue}J\ref{j:2}}] [\oral]}\\ % 14/38 (37\%)
-      \url{http://iffsid.com/publications/siddharth2012unseeability.pdf}}
+        [{\color{RoyalBlue}J\ref{j:2}}] }\\ % [\oral]}\\ % 14/38 (37\%)
+      \url{http://papers.iffsid.com/siddharth2012unseeability.pdf}}
   \end{publication}
   \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
     {Dec 2012}
     {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
     {Advances in Cognitive Systems (ACS)}
-    {2:203--20 \hfill\small{conference presentation associated with
-        [{\color{RoyalBlue}J\ref{j:1}}] [\oral]}\\ % 14/38 (37\%)
-      \url{http://iffsid.com/publications/barbu2012objectsTackingEvents.pdf}}
+    {2:203--220 \hfill\small{conference presentation associated with
+        [{\color{RoyalBlue}J\ref{j:1}}] }\\ % [\oral]}\\ % 14/38 (37\%)
+      \url{http://papers.iffsid.com/barbu2012objectsTackingEvents.pdf}}
   \end{publication}
   \begin{publication} {Video In Sentences Out}
     {Aug 2012}
@@ -251,34 +292,34 @@
       A. Michaux, S. Mussman, N. Siddharth , D. Salvi, L. Schmidt, J. Shangguan,
       J. M. Siskind, J. Waggoner, S. Wang, J. Wei, Y. Yin and Z. Zhang}
     {Twenty-Eighth Conference on Uncertainity in Artificial Intelligence (UAI)}
-    {pp.~102--12 \hfill\small{[\oral]}\\ % 24/304 (8\%)
-      \url{http://iffsid.com/publications/barbu2012videoSentences.pdf}}
+    {pp.~102--112\\ % \hfill\small{[\oral]}\\ % 24/304 (8\%)
+      \url{http://papers.iffsid.com/barbu2012videoSentences.pdf}}
   \end{publication}
   \begin{publication} {A Visual Language Model for Estimating Object
       Pose and Structure in a\rule{10ex}{0pt} Generative Visual Domain}
     {May 2011}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
     {IEEE International Conference on Robotics and Automation (ICRA)}
-    {pp.~4854--60 \hfill\small{[\oral]}\\ % 982/2004 (49\%)
-      \url{http://iffsid.com/publications/siddharth2011VisualLanguage.pdf}}
+    {pp.~4854--4860\\ % \hfill\small{[\oral]}\\ % 982/2004 (49\%)
+      \url{http://papers.iffsid.com/siddharth2011VisualLanguage.pdf}}
   \end{publication}
   \begin{publication}{Learning Physically-Instantiated Game Play Through Visual Observation}
     {May 2010}
     {A. Barbu, N Siddharth, and J. M. Siskind}
     {IEEE International Conference on Robotics and Automation (ICRA)}
-    {pp.~1879--86 \hfill\small{[\oral]}\\ % 856/2062 (42\%)
-      \url{http://iffsid.com/publications/barbu2010RobotGames.pdf}}
+    {pp.~1879--1886\\ % \hfill\small{[\oral]}\\ % 856/2062 (42\%)
+      \url{http://papers.iffsid.com/barbu2010RobotGames.pdf}}
   \end{publication}
   \begin{publication} {Design of a Do-It-Yourself VR Based Laparoscopic Simulator}
     {Jan 2009}
     {N. Siddharth, M. Manivannan, S. Devasahayam, and G. Mathew}
     {Medicine Meets Virtual Reality (MMVR17)}
-    {{}\hfill[\poster]}
+    {} %{{}\hfill[\poster]}
   \end{publication}
 \end{region}
 
-\clearpage
-\begin{region} {Patent Applications}{{P}1}{1}
+% \clearpage
+\begin{region} {\lbar{purple}Patent Applications}{{P}1}{1}
   \begin{publication} {Grounded Language Learning from Video Described with Sentences}
     {Jun 2013}
     {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
@@ -289,7 +330,7 @@
 
 %% Book Chapters
 %% Workshop Publications
-\begin{region} {Technical Reports}{{T}1}{4}
+\begin{region} {\lbar{purple}Technical Reports}{{T}1}{3}
   \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
     {Sep 2013}
     {A. Barbu, N. Siddharth, and J. M. Siskind}
@@ -315,7 +356,7 @@
 
 %% Invited Presentations
 
-\begin{nonumregion}{Talks}
+\begin{nonumregion}{\lbar{blue}Talks}
   \begin{talk} {Artificial Intelligence and Natural Computation Seminar}
     {University of Birmingham}
     {Sep 2013}
@@ -347,14 +388,15 @@
 %% Teaching Experience
 %% Entrepreneurial Experience
 
-\begin{nonumregion} {Professional Society Membership}
+\begin{nonumregion} {\lbar{blue}Professional Society Membership}
 \item
   \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
-    Student Member, IEEE & \textit{Mar 2005 --}
+    Student Member, IEEE & \textit{Mar 2005 -- present}
   \end{tabular*}
 \end{nonumregion}
 
-\begin{nonumregion} {Referee Activity}
+\clearpage
+\begin{nonumregion} {\lbar{blue}Referee Activity}
 \item
   \begin{multicols}{8}
     \begin{itemize}
@@ -369,20 +411,20 @@
   \end{multicols}
 \end{nonumregion}
 
-\begin{nonumregion} {Personal}
-\item Native English, Tamil, and Hindi
+\begin{nonumregion} {\lbar{blue}Personal}
+\item \hspace{1ex}Native English, Tamil, and Hindi
 \end{nonumregion}
 % \vspace*{2ex}
 
 %% Independent Consulting
 %% Other Activities
 
-\begin{nonumregion}{Other Activities}
-  \item \textbf{Primary Operator} --- 3T MRI Scanner - InnerVision West - Purdue
+\begin{nonumregion}{\lbar{blue}Other Activities}
+\item \hspace{1ex}\textbf{Primary Operator} --- 3T MRI Scanner - InnerVision West - Purdue
 \end{nonumregion}
 
 % \clearpage
-\begin{nonumregion}{References}
+\begin{nonumregion}{\lbar{green}References}
   \refrow{
     \reference{Tony Cohn}
     {Professor of Automated Reasoning}

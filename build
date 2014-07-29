@@ -11,6 +11,11 @@ then
 
   ./_dist/site build
 
+elif [ "$1" = "deploy" ]
+then
+
+   ./_dist/site deploy
+
 elif [ "$1" = "preview" ]
 then
 

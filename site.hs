@@ -73,7 +73,9 @@ main = hakyllWith hakyllConf $ do
   --- need to figure out how to get 404 to work
   match "pages/404.html" $ do
     route $ delDir "pages/"
-    compile $ getResourceBody >>= loadAndApplyTemplate "templates/default.html" defaultContext
+    compile $ getResourceBody
+              >>= (loadAndApplyTemplate "templates/default.html" defaultContext
+                   >=> globalizeUrls "http://www.iffsid.com")
 
   match "templates/*" $ compile templateCompiler
 
@@ -98,6 +100,13 @@ eList template sorter pattern name =
   <$> loadBody template
   <*> return defaultContext
   <*> (sorter =<< loadAllSnapshots pattern name)
+
+globalizeUrls :: String -> Item String -> Compiler (Item String)
+globalizeUrls g item = do
+    route <- getRoute $ itemIdentifier item
+    return $ case route of
+        Nothing -> item
+        Just r  -> fmap (relativizeUrlsWith $ g ++ (tail $ toSiteRoot r)) item
 
 -- http://johnmacfarlane.net/pandoc/README.html#verbatim-code-blocks
 -- http://vapaus.org/text/hakyll-configuration.html

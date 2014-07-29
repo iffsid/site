@@ -14,7 +14,8 @@ dontIgnoreHtaccess path        = ignoreFile defaultConfiguration path
 -- deployCommand = "rsync -ave ssh _site/ xinitrc@corvus.uberspace.de:html/"
 hakyllConf :: Configuration
 hakyllConf = defaultConfiguration
-  { ignoreFile = dontIgnoreHtaccess }
+  { ignoreFile = dontIgnoreHtaccess
+  , deployCommand  = "rsync -avzc _site/ cardinal:~/WWW/" }
 
 pandocHtml5Compiler :: Compiler (Item String)
 pandocHtml5Compiler =
