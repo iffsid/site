@@ -2,22 +2,23 @@
 import           Clay            hiding (contents, menu)
 import qualified Clay.Media      as Media
 import           Clay.Stylesheet
-import           Data.Monoid
+import           Data.Monoid     ()
 import           Data.Text       (Text)
 import           Prelude         hiding (all)
 -- helpers
-nil :: Size Abs
-nil = px 0
+-- nil :: Size Abs
+-- nil = px 0
 
-u1, u2, u3, u4 :: Size Abs
+nil, u1, u2, u3, u4 :: Size Abs
+nil = unit 0
 u1 = unit 1
 u2 = unit 2
 u3 = unit 3
 u4 = unit 4
 
-unit, half :: Integer -> Size Abs
+unit :: Integer -> Size Abs
 unit = px . (* 24)
-half = px . (* 12)
+-- half = px . (* 12)
 
 pageWidth :: Size Abs
 pageWidth = unit 43
@@ -32,48 +33,51 @@ box :: Css
 box = boxSizing borderBox
 
 borderSpacing :: Text -> Css
-borderSpacing space = "border-spacing" -: space
+borderSpacing spacing = "border-spacing" -: spacing
 
 alignCenter :: Css
 alignCenter = textAlign (alignSide sideCenter)
 
 -- http://www.bestwebfonts.com/
-dejaVu = fontFamily ["DejaVu"] [sansSerif]
-anonymousPro = fontFamily ["Anonymous Pro"] [monospace]
+sourceCodePro, montserrat, amaranth, quando :: Css
+-- dejaVu = fontFamily ["DejaVu"] [sansSerif]
+-- anonymousPro = fontFamily ["Anonymous Pro"] [monospace]
 -- kreon = fontFamily ["Kreon"] [sansSerif]
+sourceCodePro = fontFamily ["Source Code Pro"] [monospace]
 montserrat = fontFamily ["Montserrat"] [sansSerif]
 amaranth = fontFamily ["Amaranth"] [serif]
+quando = fontFamily ["Quando"] [serif]
 
-baseFont, monoSpace, navbarFont :: Css
-monoSpace = anonymousPro
+baseFont, monoSpace, navbarFont, headerFont :: Css
+monoSpace = sourceCodePro
 baseFont = montserrat
 navbarFont = amaranth
+headerFont = quando
 
 -- actual css blocks
 site :: Css
-site =
-  do body ?
-       do background (rgb 20 20 20, url "../images/bkg.png")      -- black
+site = body ?
+       do background  (rgb 20 20 20, url "../images/bkg.png")      -- black
           baseFont
-          fontSize (pt 10)
+          fontSize    (pt 10)
           sym margin  0
           lineHeight  (pct 115)
           overflowY   scroll
 
 header1 :: Css
-header1 =
-    do h1 ?
-          do fontWeight normal
-             margin (em 0.2) 0 0 0
+header1 = h1 ?
+          do headerFont
+             -- fontWeight normal
+             margin (em 0.2) 0 (em 0.2) 0
 
 header2 :: Css
-header2 =
-    do h2 ?
-          do color "#666"
-             fontSize (em 1.4)
-             fontWeight bold
+header2 = h2 ?
+          do headerFont
+             -- color "#666"
+             -- fontSize (em 1.4)
+             -- fontWeight bold
              fontVariant smallCaps
-             margin (em 0.4) 0 (em 0.2) 0
+             margin (em 0.4) 0 (em 0.4) 0
              color "#8e5f1c"
 
 column :: Css
@@ -88,8 +92,7 @@ centered =
        do width       pageWidth
           marginLeft  auto
           marginRight auto
-     whenNarrow $
-       do width       (pct 95)
+     whenNarrow $ width (pct 95)
 
 contents :: Css
 contents = ".content" ? do
@@ -101,6 +104,7 @@ contents = ".content" ? do
            color "#606060"
            textDecoration none
            fontWeight bold
+           transitions [("color", sec 0.2, ease, sec 0.04)]
        visited & do
            color "#c0c0c0"
            textDecoration none
@@ -118,6 +122,7 @@ menu = nav ? do
     lineHeight  u2
 
 -- http://matthewlein.com/ceaser/
+navHR :: Css
 navHR = ".navsep" ? do
     "border" -: "0"
     alignCenter
@@ -125,26 +130,27 @@ navHR = ".navsep" ? do
     height (px 1)
     backgroundImage
         (linearGradient (straight sideLeft)
-         [((rgba 50 50 50 40), (pct 0)),
-          ((rgba 250 250 250 90), (pct 50)),
-          ((rgba 50 50 50 40), (pct 100)) ])
+         [(rgba 50 50 50 40, pct 0),
+          (rgba 250 250 250 90, pct 50),
+          (rgba 50 50 50 40, pct 100)])
 
 navFont :: Css
 navFont =
   do navbarFont
+     color lightgrey
      fontSize      (em 1.8)
      lineHeight    (em 1.5)
      -- fontVariant smallCaps
      textTransform lowercase
      a ? do
-       -- color          grey
-       textDecoration none
-       alignCenter
-       -- borderBottom solid (px 3) "#666"
-       marginRight (px 10)
-       transitions [("color", sec 0.2, ease, sec 0)] --("background-color", sec 0.5, ease, sec 0)
-       hover & do
-           color      white
+       link & do
+           color "#606060"
+           alignCenter
+           textDecoration none
+           fontWeight bold
+           marginRight (px 10)
+           transitions [("color", sec 0.2, ease, sec 0.04)]
+       hover & color "#4ccccf" -- "#44e3e0"
 
 articleBlock :: Css
 articleBlock = article ? do
@@ -159,8 +165,7 @@ articleBlock = article ? do
     overflow hidden
     Clay.div ? do
       transitions [("color", sec 0.8, ease, sec 0.5)]
-      target & do
-          color "#8293ad"
+      target & color "#8293ad"
 
 meta :: Css
 meta = ".meta" ?
@@ -172,8 +177,7 @@ meta = ".meta" ?
           color "#947662"
 
 articlePubs :: Css
-articlePubs = article # ".pubs" ?
-  do width (pct 85)
+articlePubs = article # ".pubs" ? width (pct 85)
 
 sectionBlock :: Css
 sectionBlock = section ? do
