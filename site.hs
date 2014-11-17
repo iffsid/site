@@ -1,12 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
-import           Control.Applicative    ((<$>), (<*>))
-import           Control.Monad          (join, (>=>))
-import           Data.Monoid            ((<>))
+import           Control.Applicative ((<$>), (<*>))
+import           Control.Monad       (join, liftM, (>=>))
+import           Data.Monoid         ((<>))
 -- import           Debug.Trace
 import           Hakyll
 -- local imports
-import           Extras.Options
 import           Extras.Filters
+import           Extras.Options
 
 main :: IO ()
 main = hakyllWith hakyllConf $ do
@@ -14,13 +14,16 @@ main = hakyllWith hakyllConf $ do
   match "static/**" $ route (gsubRoute "static/" (const "")) >> compile copyFileCompiler
 
   -- copy as is
-  match ("images/*" .||. "publications/*.pdf" .||. "css/*.css") $
+  match ("images/*" .||. "publications/*.pdf") $
     route idRoute >> compile copyFileCompiler
+
+  match  "css/*.css" $
+    route idRoute >> compile compressCssCompiler
 
   -- clay for css
   match "css/*.hs" $ do
     route $ setExtension "css"
-    compile $ getResourceString >>= withItemBody (unixFilter "runghc" [])
+    compile $ liftM (fmap compressCss) $ getResourceString >>= withItemBody (unixFilter "runghc" [])
 
   -- compile latex with rubber
   match ("cv/*.tex") $ do
