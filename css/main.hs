@@ -4,7 +4,7 @@ import qualified Clay.Media      as Media
 import           Clay.Stylesheet
 import           Data.Monoid     ()
 import           Data.Text       (Text)
-import           Prelude         hiding (all)
+import           Prelude         hiding (all, div, span)
 -- helpers
 -- nil :: Size Abs
 -- nil = px 0
@@ -60,7 +60,7 @@ site = body ?
        do background  (rgb 20 20 20, url "../images/bkg.png")      -- black
           baseFont
           fontSize    (pt 10)
-          sym margin  0
+          sym margin  (pt 0)
           lineHeight  (pct 115)
           overflowY   scroll
 
@@ -190,6 +190,11 @@ asideBlock = aside ? do
     float floatRight
     width (pct 25)
 
+pBlock :: Css
+pBlock = p ? do
+    textAlign justify
+    "text-justify" -: "inter-word"
+
 footerBlock :: Css
 footerBlock = footer ? do
     float floatLeft
@@ -202,13 +207,13 @@ footerBlock = footer ? do
 contactTable :: Css
 contactTable = table # ".contact" ? do
     borderSpacing "0px"
-    sym padding 0
+    sym padding (px 0)
     fontSize (em 1)
 
 preBlock :: Css
 preBlock = pre ? do
     monoSpace
-    sym margin 0
+    sym margin (px 0)
     fontSize (em 0.75)
     -- transform (scale 0.95 0.95)
     -- display inlineBlock
@@ -235,7 +240,7 @@ myCode = ".code" ? do
 iBlock :: Css
 iBlock = i # ".venue" ? do
     borderSpacing "0px"
-    sym padding 0
+    sym padding (px 0)
     color "#9aa6ab"
 
 bBlock :: Css
@@ -273,8 +278,8 @@ videoContainer = ".videoContainer" ? do
     height (px 0)
     "iframe" ? do
         position absolute
-        top 0
-        left 0
+        top (px 0)
+        left (px 0)
         width (pct 100)
         height (pct 100)
 
@@ -293,6 +298,7 @@ main = putCss $
      articlePubs
      sectionBlock
      asideBlock
+     pBlock
      footerBlock
      menu
      contactTable
