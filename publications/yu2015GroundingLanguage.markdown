@@ -11,12 +11,11 @@ paperid: yu2015GroundingLanguage
 tags: action recognition, jair, grounding language
 ---
 ~~~ {.bibtex}
-@inproceedings{yu2015GroundingLanguage,
+@article{yu2015GroundingLanguage,
   author = {H. Yu and N. Siddharth and A. Barbu and J.M. Siskind},
   title = {A Compositional Framework for Grounding Language Inference, Generation, and Acquisition in Video},
   journal = {Journal of Artificial Intelligence Research (JAIR)},
   volume = 52,
   pages = {601-713},
-  month = mar,
   year = 2015}
 ~~~
