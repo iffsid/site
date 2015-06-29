@@ -17,6 +17,10 @@ main = hakyllWith hakyllConf $ do
   match ("images/*" .||. "publications/*.pdf") $
     route idRoute >> compile copyFileCompiler
 
+  -- copy as is
+  match "js/jquery-proudify.min.js" $
+    route idRoute >> compile copyFileCompiler
+
   match  "css/*.css" $
     route idRoute >> compile compressCssCompiler
 
@@ -78,7 +82,8 @@ main = hakyllWith hakyllConf $ do
     route $ delDir "pages/"
     compile $ getResourceBody
               >>= (loadAndApplyTemplate "templates/default.html" defaultContext
-                   >=> globalizeUrls "http://www.iffsid.com")
+                   >=> globalizeUrls "https://web.stanford.edu/~nsid")
+              -- http://www.iffsid.com
 
   match "templates/*" $ compile templateCompiler
 
