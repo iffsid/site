@@ -10,6 +10,7 @@ venue: Proceedings of the European Conference on Computer Vision (ECCV)
 type: inproceedings
 month: Sep
 year: 2014
+other: pp. 612-27
 date: 2014-09-15
 paperid: barbu2014fmriAction
 tags: action recognition, fmri, eccv
@@ -21,5 +22,6 @@ tags: action recognition, fmri, eccv
   booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
   location = {Zurich, Switzerland},
   month = sep,
+  pages = {612-27}
   year = 2014}
 ~~~

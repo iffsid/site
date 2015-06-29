@@ -5,6 +5,7 @@ venue: Proceedings of the IEEE Conference on Computer Vision and Pattern Recogni
 type: inproceedings
 month: June
 year: 2014
+other: pp. 732-39
 date: 2014-03-15
 paperid: siddharth2014sentence
 tags: action recognition, sentence tracker, cvpr
@@ -16,5 +17,6 @@ tags: action recognition, sentence tracker, cvpr
   booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
   location = {Columbus, OH},
   month = jun,
+  pages = {732-39}
   year = 2014}
 ~~~
