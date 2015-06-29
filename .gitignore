@@ -5,3 +5,5 @@ _dist/*
 *.log
 *.out
 rubtmp*
+/cv/auto/
+/TAGS
