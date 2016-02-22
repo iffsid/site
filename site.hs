@@ -1,7 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
-import           Control.Applicative ((<$>), (<*>))
-import           Control.Monad       (join, liftM, (>=>))
-import           Data.Monoid         ((<>))
+
+import           Control.Monad  (join, liftM, (>=>))
+import           Data.Binary
+import           Data.Monoid    ((<>))
+import           Data.Typeable
 -- import           Debug.Trace
 import           Hakyll
 -- local imports
@@ -30,7 +32,7 @@ main = hakyllWith hakyllConf $ do
     compile $ liftM (fmap compressCss) $ getResourceString >>= withItemBody (unixFilter "runghc" [])
 
   -- compile latex with rubber
-  match ("cv/*.tex") $ do
+  match "cv/*.tex" $ do
     route $ setExtension "pdf"
     compile $ getResourceLBS >>= withItemBody (unixFilterLBS "rubber-pipe" ["-d"])
 
@@ -77,7 +79,6 @@ main = hakyllWith hakyllConf $ do
     route $ delDir "pages/"
     compile $ getResourceBody >>= defaultCompiler
 
-  --- need to figure out how to get 404 to work
   match "pages/404.html" $ do
     route $ delDir "pages/"
     compile $ getResourceBody
@@ -87,7 +88,7 @@ main = hakyllWith hakyllConf $ do
 
   match "templates/*" $ compile templateCompiler
 
-  where delDir = (flip gsubRoute) (const "")
+  where delDir = flip gsubRoute (const "")
 
 mkT :: Identifier -> Identifier
 mkT a = fromFilePath $ "templates/" ++ toFilePath a ++ ".html"
@@ -95,24 +96,30 @@ mkT a = fromFilePath $ "templates/" ++ toFilePath a ++ ".html"
 defaultCompiler :: Item String -> Compiler (Item String)
 defaultCompiler = loadAndApplyTemplate "templates/default.html" defaultContext >=> relativizeUrls
 
-eCtx :: (Item String -> Compiler String) -> Context String
-eCtx fn = field "elements" fn <> defaultContext
+eCtx :: Compiler String -> Context String
+eCtx expr = field "elements" (const expr) <> defaultContext
 
 bibCtx, pubCtx, descCtx :: Context String
-bibCtx = eCtx (\_ -> eList (mkT "bibtex") recentFirst "publications/*.markdown" "pubs")
-pubCtx = eCtx (\_ -> eList (mkT "publication") recentFirst "publications/*.markdown" "pubs")
-descCtx = eCtx (\_ -> eList (mkT "short-description") recentFirst "pages/research/short-*.markdown" "sdesc")
+bibCtx  = eCtx $ eList "bibtex" recentFirst "publications/*.markdown" "pubs"
+pubCtx  = eCtx $ eList "publication" recentFirst "publications/*.markdown" "pubs"
+descCtx = eCtx $ eList "short-description" recentFirst "pages/research/short-*.markdown" "sdesc"
 
+eList :: (Typeable a, Binary a) =>
+         Identifier
+      -> ([Item a] -> Compiler [Item String])
+      -> Pattern
+      -> Snapshot
+      -> Compiler String
 eList template sorter pattern name =
   join $ applyTemplateList
-  <$> loadBody template
+  <$> loadBody (mkT template)
   <*> return defaultContext
   <*> (sorter =<< loadAllSnapshots pattern name)
 
 globalizeUrls :: String -> Item String -> Compiler (Item String)
 globalizeUrls g item = do
-    route <- getRoute $ itemIdentifier item
-    return $ case route of
+    aRoute <- getRoute $ itemIdentifier item
+    return $ case aRoute of
         Nothing -> item
         Just r  -> fmap (relativizeUrlsWith $ g ++ (tail $ toSiteRoot r)) item
 
