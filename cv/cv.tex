@@ -1,4 +1,4 @@
-\documentclass[10pt]{article}
+\documentclass[10pt,a4paper]{article}
 \usepackage{charter}
 % \usepackage{sourcecodepro-type1-autoinst}
 % \usepackage{MinionPro}
@@ -10,7 +10,7 @@
 \usepackage{pifont}
 \pagestyle{empty}
 
-\usepackage[left=1.5cm,top=2cm,right=1.5cm,bottom=2.5cm,nohead,nofoot]{geometry}
+\usepackage[left=1.5cm,top=1.5cm,right=1.5cm,bottom=1.5cm,nohead,nofoot]{geometry}
 
 \definecolor{darkgrey}{HTML}{333333}
 \definecolor{grey}{HTML}{4D4D4D}
@@ -26,7 +26,8 @@
 \renewcommand{\labelitemi}{}
 \renewcommand{\labelitemii}{}
 
-\newcommand{\lbar}[1]{{\color{#1}\ding{118}}\hspace*{2pt}}
+% \newcommand{\lbar}[1]{{\color{#1}\ding{118}}\hspace*{2pt}}
+\newcommand{\lbar}[1]{}
 
 \hypersetup{
   colorlinks=true,
@@ -80,6 +81,13 @@
   \end{tabular*}
 } {}
 
+\newenvironment{workshop}[5]
+{ \item
+  \begin{tabular*}{6.5in}{ll@{\hspace*{1ex}}l@{\extracolsep{\fill}}r}
+    #1 & \href{#3}{\textbf{#2}} & {\small #4} & #5
+  \end{tabular*}
+} {}
+
 \newcommand{\reference}[8]{%
   \begin{tabular}{@{}l@{}}%
     \textbf{#1}\\%
@@ -113,47 +121,24 @@
 \color{darkgrey}
 \begin{document}
 
-\begin{tikzpicture}[remember picture,overlay]
-  \hypersetup{urlcolor=zest}
-  \node [rectangle, fill=grey, anchor=north, minimum width=\paperwidth, minimum height=4cm] (box) at (current page.north){};
-  \node [anchor=center] (name) at (box) {%
-    \color{white}%
-    \begin{tabular*}{6.5in}{@{\extracolsep{\fill}}lr}
-      \\
-      \textbf{\huge{Curriculum Vitae}} & \today\\*[2ex]
-      \textbf{\large{Siddharth Narayanaswamy}} & {\url{http://iffsid.com}}\\[0.5ex]
-      Department of Psychology &  450 Serra Mall\\
-      Stanford University & Stanford, CA 94305, USA\\
-      \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \textbar\
-      \href{mailto:nsid@stanford.edu}{nsid@stanford.edu}
-      & \emph{Tel}: \textrm{+1 765-409-6947}\\
-    \end{tabular*}
-  };
-\end{tikzpicture}
-\vspace{0.9in}
-
-% \begin{tabular*}{6.65in}{@{\extracolsep{\fill}}lr}
-%   \textbf{\huge{Curriculum Vitae}} & \today
-% \end{tabular*}
-% \vspace{0.1in}
-
-% \begin{tabular*}{6.65in}{@{\extracolsep{\fill}}lr}
-%   \textbf{\large{Siddharth Narayanaswamy}} & \url{http://iffsid.com}\\[0.6ex]
-%   Department of Psychology &  450 Serra Mall\\
-%   Stanford University & Stanford, CA 94305, USA\\
-%   \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \textbar\
-%   \href{mailto:nsid@stanford.edu}{nsid@stanford.edu}
-%   & \emph{Tel}: \textrm{+1 765-409-6947}\\
-% \end{tabular*}
-% \vspace{0.15in}
+\begin{tabular*}{6.5in}{@{\extracolsep{\fill}}lr}
+  \\
+  \textbf{\huge{Curriculum Vitae}} & \today\\*[2ex]
+  \textbf{\large{Siddharth Narayanaswamy}} & {\url{http://iffsid.com}}\\[0.5ex]
+  Department of Engineering Science &  Parks Road\\
+  University of Oxford & Oxford OX1 3PJ, UK\\
+  \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \textbar\
+  \href{mailto:nsid@robots.ox.ac.uk}{nsid@robots.ox.ac.uk}
+                                   & \emph{Tel}: \textrm{+44 7874 269 532}\\
+\end{tabular*}
+\vspace{0.1in}
 
 \begin{nonumregion}{\lbar{red}Education}
   \begin{position}{PhD --- Electrical \& Computer Engineering}
     {Aug 2008 -- Mar 2014}
     {}
     {Purdue University, USA}
-    \vspace{-3ex}
-  \item
+  \item\vspace*{-3ex}
     \begin{itemize}
     \item Thesis Title: \textbf{Compositionality in Vision and Language}
       \vspace{-0.5ex}
@@ -166,14 +151,19 @@
     {Anna University, India}
   \end{position}
 \end{nonumregion}
+\vspace{-0.2in}
 
 %% Honours
 %% Current Students
 %% Former Students
-% \vspace*{-1ex}
 \begin{nonumregion} {\lbar{orange}Experience}
+  \begin{position} {Postdoctoral Research Assistant, Engineering Science}
+    {Jan 2015 -- present}
+    {Advisor: Phil Torr}
+    {University of Oxford, UK}
+  \end{position}
   \begin{position} {Postdoctoral Associate, Psychology}
-    {Apr 2014 -- present}
+    {Apr 2014 -- Dec 2015}
     {Advisor: Noah Goodman}
     {Stanford University, USA}
   \end{position}
@@ -203,39 +193,36 @@
 %% http://www.informatik.uni-trier.de/~ley/pers/hn/n/Narayanaswamy:Siddharth.html
 %% needs work: URLs for nips2013b
 
-\begin{region} {\lbar{purple}Refereed Journal Publications}{{J}1}{3}
+\begin{region} {\lbar{purple}Refereed Journal Publications}{{J}1}{4}
+  \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
+    {---}
+    {A. Barbu, N. Siddharth, and J. M. Siskind}
+    {IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)}
+    % {\url{http://papers.iffsid.com/pami2013.pdf}\label{j:3}}
+    {\emph{To Appear}}
+  \end{publication}
   \begin{publication} {A Compositional Framework for Grounding Language Inference, Generation,
       and Acquisition in Video}
     {Mar 2015}
     {H. Yu, N, Siddharth, A. Barbu, and J. M. Siskind}
-    {Journal of Artificial Intelligence Research (JAIR), 52:601--713}
+    {Journal of Artificial Intelligence Research (JAIR) \hfill \emph{52:601--713}}
     {\url{http://papers.iffsid.com/yu2015GroundingLanguage.pdf}\label{j:3}}
   \end{publication}
   \begin{publication} {Seeing Unseeability to See the Unseeable}
     {Dec 2012}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS), 2:77--94}
+    {Advances in Cognitive Systems (ACS) \hfill \emph{2:77--94}}
     {\url{http://papers.iffsid.com/siddharth2012unseeability.pdf}\label{j:2}}
   \end{publication}
   \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
     {Dec 2012}
     {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS), 2:203--20}
+    {Advances in Cognitive Systems (ACS) \hfill \emph{2:203--20}}
     {\url{http://papers.iffsid.com/barbu2012objectsTackingEvents.pdf}\label{j:1}}
   \end{publication}
 \end{region}
 
-\begin{region} {\lbar{purple}Journal Publications in Review}{}{1}
-  \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
-    {In review}
-    {A. Barbu, N. Siddharth, and J. M. Siskind}
-    {IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)}
-    % {\url{http://papers.iffsid.com/pami2013.pdf}\label{j:3}}
-    {}
-  \end{publication}
-\end{region}
-
-\clearpage
+% \clearpage
 
 \begin{region} {\lbar{purple}Refereed Conference Publications}{{C}1}{9}
   \begin{publication} {Seeing is \emph{Worse} than Believing: Reading People’s Minds
@@ -244,64 +231,54 @@
     {A. Barbu, D. P. Barrett, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum,
       C. Hanson, S. J. Hanson, S. H\'elie, E. Malaia, B. A. Pearlmutter,
       J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
-    {European Conference on Computer Vision (ECCV)}
-    {pp.~612--627\\ %\hfill\small{[\poster]}\\
-      \url{http://papers.iffsid.com/barbu2014fmriAction.pdf}}
+    {European Conference on Computer Vision (ECCV) \hfill \emph{pp.~612--627}}
+    {\url{http://papers.iffsid.com/barbu2014fmriAction.pdf}}
   \end{publication}
   \begin{publication} {Seeing What You're Told: Sentence-Guided Activity Recognition in Video}
     {June 2014}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
-    {pp.~tbd\\ %\hfill\small{[\poster]}\\
-      \url{http://papers.iffsid.com/siddharth2014sentence.pdf}}
+    {IEEE Conference on Computer Vision and Pattern Recognition (CVPR) \hfill \emph{pp.~732--739}}
+    {\url{http://papers.iffsid.com/siddharth2014sentence.pdf}}
   \end{publication}
   \begin{publication} {Recognizing Human Activities from Partially Observed Videos}
     {Jun 2013}
     {Y. Cao, D. Barrett, A. Barbu, N. Siddharth, H. Yu, A. Michaux, Y. Lin,
       S. Dickinson, \rule{6ex}{0pt} J. M. Siskind, and S. Wang}
-    {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
-    {pp.~2658--2665\\ % \hfill\small{[\poster]}\\ %412/1798 (22.9\%)
-      \url{http://papers.iffsid.com/cao2013partiallyObserved.pdf}}
+    {IEEE Conference on Computer Vision and Pattern Recognition (CVPR) \hfill \emph{pp.~2658--2665}}
+    {\url{http://papers.iffsid.com/cao2013partiallyObserved.pdf}}
   \end{publication}
   \begin{publication} {Seeing Unseeability to See the Unseeable}
     {Dec 2012}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS)}
-    {2:77--94 \hfill\small{conference presentation associated with
-        [{\color{RoyalBlue}J\ref{j:2}}] }\\ % [\oral]}\\ % 14/38 (37\%)
-      \url{http://papers.iffsid.com/siddharth2012unseeability.pdf}}
+    {Advances in Cognitive Systems (ACS) \hfill \emph{2:77--94} [{\color{RoyalBlue}J\ref{j:2}}]}
+    {\url{http://papers.iffsid.com/siddharth2012unseeability.pdf}}
   \end{publication}
   \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
     {Dec 2012}
     {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS)}
-    {2:203--220 \hfill\small{conference presentation associated with
-        [{\color{RoyalBlue}J\ref{j:1}}] }\\ % [\oral]}\\ % 14/38 (37\%)
-      \url{http://papers.iffsid.com/barbu2012objectsTackingEvents.pdf}}
+    {Advances in Cognitive Systems (ACS) \hfill \emph{2:203--220} [{\color{RoyalBlue}J\ref{j:1}}]}
+    {\url{http://papers.iffsid.com/barbu2012objectsTackingEvents.pdf}}
   \end{publication}
   \begin{publication} {Video In Sentences Out}
     {Aug 2012}
     {A. Barbu, A. Bridge, Z. Burchill, D. Coroian, S. Dickinson, S. Fidler,
       A. Michaux, S. Mussman, N. Siddharth , D. Salvi, L. Schmidt, J. Shangguan,
       J. M. Siskind, J. Waggoner, S. Wang, J. Wei, Y. Yin and Z. Zhang}
-    {Twenty-Eighth Conference on Uncertainity in Artificial Intelligence (UAI)}
-    {pp.~102--112\\ % \hfill\small{[\oral]}\\ % 24/304 (8\%)
-      \url{http://papers.iffsid.com/barbu2012videoSentences.pdf}}
+    {Twenty-Eighth Conference on Uncertainity in Artificial Intelligence (UAI) \hfill\emph{pp.~102--112}}
+    {\url{http://papers.iffsid.com/barbu2012videoSentences.pdf}}
   \end{publication}
   \begin{publication} {A Visual Language Model for Estimating Object
       Pose and Structure in a\rule{10ex}{0pt} Generative Visual Domain}
     {May 2011}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {IEEE International Conference on Robotics and Automation (ICRA)}
-    {pp.~4854--4860\\ % \hfill\small{[\oral]}\\ % 982/2004 (49\%)
-      \url{http://papers.iffsid.com/siddharth2011VisualLanguage.pdf}}
+    {IEEE International Conference on Robotics and Automation (ICRA) \hfill \emph{pp.~4854--4860}}
+    {\url{http://papers.iffsid.com/siddharth2011VisualLanguage.pdf}}
   \end{publication}
   \begin{publication}{Learning Physically-Instantiated Game Play Through Visual Observation}
     {May 2010}
     {A. Barbu, N Siddharth, and J. M. Siskind}
-    {IEEE International Conference on Robotics and Automation (ICRA)}
-    {pp.~1879--1886\\ % \hfill\small{[\oral]}\\ % 856/2062 (42\%)
-      \url{http://papers.iffsid.com/barbu2010RobotGames.pdf}}
+    {IEEE International Conference on Robotics and Automation (ICRA) \hfill \emph{pp.~1879--1886}}
+    {\url{http://papers.iffsid.com/barbu2010RobotGames.pdf}}
   \end{publication}
   \begin{publication} {Design of a Do-It-Yourself VR Based Laparoscopic Simulator}
     {Jan 2009}
@@ -311,19 +288,19 @@
   \end{publication}
 \end{region}
 
-% \clearpage
 \begin{region} {\lbar{purple}Patents}{{P}1}{1}
   \begin{publication} {Correlating Videos and Sentences}
-    {Dec 2014}                  % Jun 2013 (Provisional)
+    {Nov 2015}                  % Jun 2013 (Provisional) % Dec 2014
     {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
-    {US Patent Application 2014/0369596 A1} % 61/835,541 (Provisional)
-    {}
+    {US Patent US9183466B2}
+    % {US Patent Application 2014/0369596 A1} % 61/835,541 (Provisional)
+    {\url{https://patents.google.com/patent/US9183466B2/en}}
   \end{publication}
 \end{region}
 
 %% Book Chapters
 %% Workshop Publications
-\begin{region} {\lbar{purple}Technical Reports}{{T}1}{3}
+\begin{region} {\lbar{purple}Technical Reports}{{T}1}{4}
   % \begin{publication} {The Compositional Nature of Event Representations in the Human Brain}
   %   {May 2015}
   %   {A. Barbu, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum, C. Hanson, S. J. Hanson, S.
@@ -331,32 +308,42 @@
   %   {arXiv:1505.06670}
   %   {\url{http://arxiv.org/pdf/1505.06670v1}}
   % \end{publication}
+  \begin{publication} {Coarse-to-Fine Sequential Monte Carlo for Probabilistic Programs}
+    {Sep 2015}
+    {Andreas Stuhlmüller, Robert X.D. Hawkins, N. Siddharth, Noah D. Goodman}
+    {\href{http://arxiv.org/abs/1509.02962}{arXiv:1509.02962}}
+    {}
+  \end{publication}
   \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
     {Sep 2013}
     {A. Barbu, N. Siddharth, and J. M. Siskind}
-    {arXiv:1309.5174 \hfill\small{[extended version in review at \textsl{IEEE TPAMI}]}}
-    {\url{http://arxiv.org/pdf/1309.5174v1}}
+    {\href{http://arxiv.org/abs/1309.5174}{arXiv:1309.5174}}
+    {}
   \end{publication}
   \begin{publication} {The Compositional Nature of Verb and Argument
       Representations in the \rule{10ex}{0pt} Human Brain}
     {Jun 2013}
     {A. Barbu, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum, C. Hanson, S. J. Hanson, S.
       H\'elie, E. Malaia, B. A. Pearlmutter, J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
-    {arXiv:1306.2293}
-    {\url{http://arxiv.org/pdf/1306.2293v1}}
+    {\href{http://arxiv.org/abs/1306.2293}{arXiv:1306.2293}}
+    {}
   \end{publication}
   \begin{publication} {Large-Scale Automatic Labeling of Video Events with
       Verbs Based on \rule{10ex}{0pt} Event-Participant Interaction}
     {Apr 2012}
     {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
-    {arXiv:1204.3616}
-    {\url{http://arxiv.org/pdf/1204.3616v1}}
+    {\href{http://arxiv.org/abs/1204.3616}{arXiv:1204.3616}}
+    {}
   \end{publication}
 \end{region}
 
 %% Invited Presentations
 
-\begin{nonumregion}{\lbar{blue}Talks}
+\begin{nonumregion}{\lbar{blue}Invited Talks}
+  \begin{talk} {ATI Probabilistic Programming Workshop}
+    {The Alan Turing Institute}
+    {Feb 2016}
+  \end{talk}
   \begin{talk} {Artificial Intelligence and Natural Computation Seminar}
     {University of Birmingham}
     {Sep 2013}
@@ -385,119 +372,140 @@
 \end{nonumregion}
 
 %% Professional Activities
-%% Teaching Experience
-%% Entrepreneurial Experience
 
-\begin{nonumregion} {\lbar{blue}Professional Society Membership}
+\begin{nonumregion}{\lbar{blue}Professional Activities}
+  \begin{workshop} {Program Committee member}
+    {}
+    {}
+    {IJCAI 2016, New York, USA}
+    {9-15 July 2016}
+  \end{workshop}
+  \begin{workshop} {Co-Organizer}
+    {Language and Vision Workshop}
+    {www.languageandvision.com}
+    {CVPR 2015, Boston, USA}
+    {11 Jun 2015}
+  \end{workshop}
 \item
   \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
-    Student Member, IEEE & \textit{Mar 2005 -- present}
+    Member, IEEE & \textit{Mar 2005 -- present}
   \end{tabular*}
 \end{nonumregion}
-\vspace*{-2ex}
+
+%% Teaching Experience
+%% Entrepreneurial Experience
 
 \begin{nonumregion} {\lbar{blue}Referee Activity}
 \item
   \begin{multicols}{8}
     \begin{itemize}
     \item \href{http://www.aaai.org/home.html}{AAAI}
+    \item \href{http://ijcai-16.org/}{IJCAI}
     \item \href{http://nips.cc/}{NIPS}
     \item \href{http://www.pamitc.org/cvpr14/}{CVPR}
     \item \href{http://www.computer.org/portal/web/tpami}{PAMI}
     \item \href{http://www.icra2014.com/}{ICRA}
     \item \href{http://www.icdl-epirob.org/}{ICDL}
-    \item \href{http://www.journals.elsevier.com/pattern-recognition-letters/}{PRL}
+    % \item \href{http://www.journals.elsevier.com/pattern-recognition-letters/}{PRL}
     \end{itemize}
   \end{multicols}
 \end{nonumregion}
-\vspace*{-3ex}
-
-\begin{nonumregion} {\lbar{blue}Personal}
-\item \hspace{1ex}Native English, Tamil, and Hindi
-\end{nonumregion}
-\vspace*{-2ex}
 
 %% Independent Consulting
 %% Other Activities
-
 \begin{nonumregion}{\lbar{blue}Other Activities}
 \item \hspace{1ex}\textbf{Primary Operator} --- 3T MRI Scanner - InnerVision West - Purdue
 \end{nonumregion}
 
-% \clearpage
+\begin{nonumregion} {\lbar{blue}Personal}
+\item \hspace{1ex}Native English, Tamil, and Hindi
+\end{nonumregion}
+\vspace*{2ex}
+
 \begin{nonumregion}{\lbar{green}References}
-  \refrow{
-    \reference{Tony Cohn}
-    {Professor of Automated Reasoning}
-    {School of Computing}
-    {University of Leeds}
-    {Leeds LS2 9JT}
-    {England}
-    {+44 0113-343-5482}
-    {a.g.cohn@leeds.ac.uk}
-  }{
-    \reference{Larry Davis}
-    {Professor}
-    {Department of Computer Science}
-    {University of Maryland}
-    {Room 3301, A.V. Williams Building}
-    {College Park, MD 20742, USA}
-    {+1 301-405-6718}
-    {lsd@cs.umd.edu}
-  }
-  \refrow{
-    \reference{Sven Dickinson}
-    {Professor and Department Head}
-    {Department of Computer Science}
-    {University of Toronto}
-    {Room 283B, Pratt Building, 6 King's College Road}
-    {Toronto, Ontario, Canada M5S 3G4}
-    {+1 416-978-3853}
-    {sven@cs.toronto.edu}
-  }{
-    \reference{Stephen Jos\'e Hanson}
-    {Full Professor}
-    {RUBIC, Psychology Department}
-    {Rutgers University}
-    {Room 324, Smith Hall, 101 Warren Street}
-    {Newark, NJ 07102, USA}
-    {+1 973-353-5440}
-    {jose@psychology.rutgers.edu}
-  }
-  \refrow{
-    \reference{Jeffrey Mark Siskind}
-    {Associate Professor}
-    {School of Electrical \& Computer Engineering}
-    {Purdue University}
-    {465 Northwestern Avenue}
-    {West Lafayette, IN 47907, USA}
-    {+1 765-496-3197}
-    {qobi@purdue.edu}
-  }{
-    \reference{Ronnie Wilbur}
-    {Professor}
-    {Audiology \& Speech Sciences}
-    {Purdue University}
-    {Heavilon Hall, Room B-11, 500 Oval Drive}
-    {West Lafayette, IN 47907, USA}
-    {+1 765-494-3822}
-    {wilbur@purdue.edu}
-  }
-  % \refrow
-% \reference{Ram Nevatia}
-%     {Institute for Robotics and Intelligence Systems}
-%     {University of Southern California}
-%     {PHE 204, MC-0273, 3737 Watt Way}
-%     {Los Angeles, CA 90089, USA}
-%     {213-740-6427}
-%     {nevatia@usc.edu}
-% {\reference{Patrick Winston}
-%   {MIT Computer Science \& Artificial Intelligence Laboratory}
-%   {The Stata Center, Building 32}
-%   {32 Vassar Street}
-%   {Cambridge, MA 02139, USA}
-%   {617-253-6754}
-%   {pwh@csail.mit.edu}}
+  \item[] \textbf{\textsl{Available upon request}}
+%   \refrow{
+%     \reference{Tony Cohn}
+%     {Professor of Automated Reasoning}
+%     {School of Computing}
+%     {University of Leeds}
+%     {Leeds LS2 9JT}
+%     {United Kingdom}
+%     {+44 0113-343-5482}
+%     {a.g.cohn@leeds.ac.uk}
+%   }{
+%     \reference{Larry Davis}
+%     {Professor}
+%     {Department of Computer Science}
+%     {University of Maryland}
+%     {Room 3301, A.V. Williams Building}
+%     {College Park, MD 20742, USA}
+%     {+1 301-405-6718}
+%     {lsd@cs.umd.edu}
+%   }
+%   \refrow{
+%     \reference{Sven Dickinson}
+%     {Professor and Department Head}
+%     {Department of Computer Science}
+%     {University of Toronto}
+%     {Room 283B, Pratt Building, 6 King's College Road}
+%     {Toronto, Ontario, Canada M5S 3G4}
+%     {+1 416-978-3853}
+%     {sven@cs.toronto.edu}
+%   }{
+%     \reference{Noah D. Goodman}
+%     {Assistant Professor}
+%     {Department of Psychology}
+%     {Stanford University}
+%     {Jordan Hall Building 01-420}
+%     {450 Serra Mall, Stanford, CA 94305, USA}
+%     {+1 650-725-2445}
+%     {ngoodman@stanford.edu}
+%   }
+%   \refrow{
+%     \reference{Stephen Jos\'e Hanson}
+%     {Full Professor}
+%     {RUBIC, Psychology Department}
+%     {Rutgers University}
+%     {Room 324, Smith Hall, 101 Warren Street}
+%     {Newark, NJ 07102, USA}
+%     {+1 973-353-5440}
+%     {jose@psychology.rutgers.edu}
+%     }{
+%     \reference{Jeffrey Mark Siskind}
+%     {Associate Professor}
+%     {School of Electrical \& Computer Engineering}
+%     {Purdue University}
+%     {465 Northwestern Avenue}
+%     {West Lafayette, IN 47907, USA}
+%     {+1 765-496-3197}
+%     {qobi@purdue.edu}
+%   }
+%   \refrow{
+%     \reference{Ronnie Wilbur}
+%     {Professor}
+%     {Audiology \& Speech Sciences}
+%     {Purdue University}
+%     {Heavilon Hall, Room B-11, 500 Oval Drive}
+%     {West Lafayette, IN 47907, USA}
+%     {+1 765-494-3822}
+%     {wilbur@purdue.edu}
+%   }{}
+%   % \refrow
+% % \reference{Ram Nevatia}
+% %     {Institute for Robotics and Intelligence Systems}
+% %     {University of Southern California}
+% %     {PHE 204, MC-0273, 3737 Watt Way}
+% %     {Los Angeles, CA 90089, USA}
+% %     {213-740-6427}
+% %     {nevatia@usc.edu}
+% % {\reference{Patrick Winston}
+% %   {MIT Computer Science \& Artificial Intelligence Laboratory}
+% %   {The Stata Center, Building 32}
+% %   {32 Vassar Street}
+% %   {Cambridge, MA 02139, USA}
+% %   {617-253-6754}
+% %   {pwh@csail.mit.edu}}
 \end{nonumregion}
 
 \end{document}
@@ -507,5 +515,6 @@
 %  LocalWords:  Barbu Michaux Compositional JAIR IEEE PAMI Cao CVPR RoyalBlue
 %  LocalWords:  Burchill Coroian Fidler Mussman Salvi Shangguan Waggoner Zhang
 %  LocalWords:  Uncertainity UAI ICRA VR Laparoscopic Devasahayam MMVR Xiong
-%  LocalWords:  Corso Fellbaum elie Malaia Pearlmutter Talavage IPAB JT
+%  LocalWords:  Corso Fellbaum elie Malaia Pearlmutter Talavage IPAB JT grey
 %  LocalWords:  Colloquia AAAI ICDL PRL InnerVision Cohn Jos RUBIC Heavilon
+%  LocalWords:  urlcolor ECCV TPAMI
