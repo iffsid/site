@@ -3,9 +3,9 @@ module Extras.Options (
   , hakyllConf
 ) where
 
-import           Text.Pandoc
+import qualified Data.Set    as S
 import           Hakyll
-import qualified Data.Set as S
+import           Text.Pandoc
 
 dontIgnoreHtaccess :: String -> Bool
 dontIgnoreHtaccess ".htaccess" = False

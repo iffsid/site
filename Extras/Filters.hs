@@ -5,11 +5,8 @@ module Extras.Filters (
   , aplKeywords
 ) where
 
-import            Control.Monad                (void, liftM)
-import            Hakyll.Core.Item
-import            Hakyll.Core.Compiler
-import            Extras.ReadKeywords
-import            Hakyll
+import           Extras.ReadKeywords
+import           Hakyll
 
 applyKeywords :: Compiler (Item String)
 applyKeywords = aplKeywords =<< getResourceBody
@@ -25,15 +22,15 @@ applyKeywords' kws = do
   return $ concatMap itemBody items
     where
       applyKWs (Chunk c) = makeItem c
-      applyKWs (Escaped) = makeItem "§"
-      applyKWs m@(Youtube vid) = youtube vid
+      applyKWs Escaped = makeItem "§"
+      applyKWs (Youtube vid) = youtube vid
       -- applyKWs m@(Vimeo vid) = vimeo vid
       -- applyKWs t@(Tikz _ _) = makeItem $ processTikZs t
       -- applyKWs (SlideShare sid) = slideShare sid
 
 externalResource :: Identifier -> String -> String -> Compiler (Item String)
-externalResource templateId fieldName id =
-    makeItem "" >>= loadAndApplyTemplate templateId (constField fieldName id)
+externalResource templateId fieldName identity =
+    makeItem "" >>= loadAndApplyTemplate templateId (constField fieldName identity)
 
 youtube :: String -> Compiler (Item String)
 youtube = externalResource "templates/youtube.html" "video_id"

@@ -4,11 +4,9 @@ module Extras.ReadKeywords (
   , readKeywords
 ) where
 
-import            Control.Applicative          ((<$), (<$>))
-import            Control.Monad                (void)
-import            Text.Parsec
-import            Text.Parsec.String
-
+import           Control.Monad      (void)
+import           Text.Parsec
+import           Text.Parsec.String
 
 newtype Keywords = Keywords
     { unKeyword :: [KeywordElement]
@@ -18,9 +16,9 @@ data KeywordElement
     = Chunk String
     | Escaped
     | Youtube String
-    | Vimeo String
-    | SlideShare String
-    | Tikz (Maybe String) String
+    -- | Vimeo String
+    -- | SlideShare String
+    -- | Tikz (Maybe String) String
     deriving (Show, Eq)
 
 readKeywords :: String -> Keywords
