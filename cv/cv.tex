@@ -1,139 +1,116 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[a4paper]{article}
 \usepackage{charter}
-% \usepackage{sourcecodepro-type1-autoinst}
-% \usepackage{MinionPro}
-\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[cm,empty]{fullpage}
+\usepackage[usenames,dvipsnames,svgnames,x11names]{xcolor}
 \usepackage{hyperref}
 \usepackage[flushleft,neverdecrease,neveradjust]{paralist}
-\usepackage{multicol}
 \usepackage{tikz}
-\usepackage{pifont}
-\pagestyle{empty}
+\usepackage{calc}               % allows add/sub var lengths
+\usepackage{xparse}             % more optional args
+\usepackage{multicol}
+\usepackage{xhfill}             % nicer horizontal fill-lines
 
-\usepackage[left=1.5cm,top=1.5cm,right=1.5cm,bottom=1.5cm,nohead,nofoot]{geometry}
+% % geometry
+% \usepackage[left=1.7cm,top=2.0cm,right=1.7cm,bottom=2.0cm]{geometry} % showframe,
 
-\definecolor{darkgrey}{HTML}{333333}
-\definecolor{grey}{HTML}{4D4D4D}
-\definecolor{lightgrey}{HTML}{999999}
-\definecolor{green}{HTML}{C2E15F}
-\definecolor{orange}{HTML}{FDA333}
-% \definecolor{purple}{HTML}{D3A4F9}
-\definecolor{purple}{HTML}{9B59B6}
-\definecolor{red}{HTML}{FB4485}
-\definecolor{blue}{HTML}{6CE0F1}
-\definecolor{zest}{HTML}{E67E22}
-\linespread{1}
-\renewcommand{\labelitemi}{}
-\renewcommand{\labelitemii}{}
+% colours
+\input{flatui-colours}
 
-% \newcommand{\lbar}[1]{{\color{#1}\ding{118}}\hspace*{2pt}}
-\newcommand{\lbar}[1]{}
+\newlength{\itemtextwidth}
+\setlength{\itemtextwidth}{\textwidth-6ex}
 
-\hypersetup{
+\newenvironment{position}[4]
+{ \item
+  \begin{tabular*}{\itemtextwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+    \textbf{#1} & \textit{#2} \\ #3 & \small{#4} \\
+  \end{tabular*}
+  \vspace*{-2pt}
+} {}
+
+\newenvironment{publication}[5]
+{ \item
+  \begin{tabular*}{\itemtextwidth}{@{}p{5.6in}@{\extracolsep{\fill}}r@{}}
+    \textbf{#1} & \textit{#2}\\ #3 &\\ \textit{#4}&\\ #5
+  \end{tabular*}
+  \vspace*{-2pt}
+} {}
+
+\newenvironment{talk}[3]
+{ \item
+  \begin{tabular*}{\itemtextwidth}{@{}l@{\hspace*{2ex}}l@{\extracolsep{\fill}}r@{}}
+    \textbf{#1} & \textit{#2} & #3
+  \end{tabular*}
+  \vspace*{-2pt}
+} {}
+
+\newenvironment{workshop}[5]
+{ \item
+  \begin{tabular*}{\itemtextwidth}{@{}ll@{\hspace*{1ex}}l@{\extracolsep{\fill}}r@{}}
+    #1 & \href{#3}{\textbf{#2}} & {\small #4} & #5
+  \end{tabular*}
+  \vspace*{-2pt}
+} {}
+
+% http://tex.stackexchange.com/questions/110236/is-there-a-way-to-get-reverse-numbering-on-the-enumerate-environment
+\DeclareDocumentEnvironment{ordering}{o o o}{%
+  \IfValueTF{#1}
+    {\let\oldItem\item
+      \def\item{\addtocounter{enumi}{-2}\oldItem}
+      \begin{enumerate}[\IfValueT{#3}{\color{#3}}{#2}1]
+        \setcounter{enumi}{#1}
+        \addtocounter{enumi}{1}}
+    {\begin{enumerate}[]}
+  }{%
+  \end{enumerate}
+}
+
+\DeclareDocumentEnvironment{region}{o o m m}{%
+  \noindent{\scalebox{1.4}{\textbf{#3}}}%
+  \hspace*{2ex}\xrfill[0.5ex]{2pt}[#4]\hspace*{2ex}%
+  \begin{ordering}[#2][#1][blueGreen]
+  }{%
+  \end{ordering}
+  \vspace*{1ex}
+}
+
+\renewcommand{\labelitemi}{}    % no bullets for first nesting level
+\renewcommand{\labelitemii}{}   % no bullets for second nesting level
+% \linespread{1.02}               % changes baselineskip w/o affecting font size
+
+%% metadata
+\hypersetup{%
   colorlinks=true,
-  urlcolor=Sepia,
-  linkcolor=RoyalBlue,
+  urlcolor=Chocolate4,
+  linkcolor=blueGreen,
   pdfborder= 0 0 0,
   bookmarks=false,
   pdftitle={Siddharth Narayanaswamy - CV},
   pdfauthor={Siddharth Narayanaswamy},
   pdfsubject={Curriculum Vitae},
-  pdfkeywords={Siddharth Narayanaswamy, resume, cv, mathematics, cs,
-    computer science, phd, computer vision, vision, perception, robots,
-    robotics, fMRI, cognitive neuroscience, image processing, speech
-    processing,  AI, Artificial Intelligence, cognitive science,machine
-    learning, open source, open-source, functional programming, constraint,
-    constraint satisfaction, automatic differentiation, stochastic programming,
-    probabilistic programming, church, stochastic lambda calculus,
-    C++, Scheme, Lisp, C, Prolog, MATLAB, Java, Python, purdue}}
+  pdfkeywords={Siddharth Narayanaswamy, resume, cv, mathematics, cs, computer
+    science, phd, computer vision, vision, perception, robots, robotics, fMRI,
+    cognitive neuroscience, image processing, speech processing, AI, Artificial
+    Intelligence, cognitive science, machine learning, functional programming,
+    constraint, constraint satisfaction, automatic differentiation, stochastic
+    programming, probabilistic programming, stochastic lambda calculus, C++,
+    Scheme, Lisp, Haskell, C, Prolog, MATLAB, Java, Python, purdue}}
 
-% http://tex.stackexchange.com/questions/110236/is-there-a-way-to-get-reverse-numbering-on-the-enumerate-environment
-\newenvironment{benumerate}[2]{
-    \let\oldItem\item
-    \def\item{\addtocounter{enumi}{-2}\oldItem}
-    \begin{enumerate}[#2]
-    \setcounter{enumi}{#1}
-    \addtocounter{enumi}{1}}
-  {\end{enumerate}}
-
-\newenvironment{position}[4]
-{%\filbreak
-\item
-  \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
-    \textbf{#1} & \textit{#2} \\ #3 & \small{#4} \\
-  \end{tabular*}
-  % \begin{itemize} \setlength{\parskip}{-1pt}\item
-  }
-  { % \end{itemize}
-}
-
-\newenvironment{publication}[5]
-{ \item
-  \begin{tabular*}{6.5in}{p{5.3in}@{\extracolsep{\fill}}r}
-    \textbf{#1} & \textit{#2}\\ #3 &\\ \textit{#4}&\\ #5
-  \end{tabular*}
-} {}
-
-\newenvironment{talk}[3]
-{ \item
-  \begin{tabular*}{6.5in}{l@{\hspace*{2ex}}l@{\extracolsep{\fill}}r}
-    \textbf{#1} & \textit{#2} & #3
-  \end{tabular*}
-} {}
-
-\newenvironment{workshop}[5]
-{ \item
-  \begin{tabular*}{6.5in}{ll@{\hspace*{1ex}}l@{\extracolsep{\fill}}r}
-    #1 & \href{#3}{\textbf{#2}} & {\small #4} & #5
-  \end{tabular*}
-} {}
-
-\newcommand{\reference}[8]{%
-  \begin{tabular}{@{}l@{}}%
-    \textbf{#1}\\%
-    #2\\%
-    #3\\%
-    #4\\%
-    #5\\%
-    #6\\%
-    #7\\%
-    \href{mailto:#8}{#8}%
-  \end{tabular}%
-}
-
-\newcommand{\refrow}[2]{%
-\item \begin{tabular*}{0.9\textwidth}{@{}p{3.0in}@{\hspace*{0.3in}}p{3.0in}@{}} #1 & #2 \end{tabular*}
-\vspace*{1ex}}
-
-\newenvironment{region}[3]{%
-  \vspace*{0.5ex}
-  {\scalebox{1.4}{\textbf{#1}}}
-  \begin{benumerate}{#3}{\color{RoyalBlue}#2}}
-  {\end{benumerate}\vspace{1ex}}
-
-\newenvironment{nonumregion}[1]{%
-\begin{region}{#1}{}{1}}
-{\end{region}}
-
-\newcommand{\oral}{{\color{PineGreen}\textsc{oral}}}
-\newcommand{\poster}{{\color{BurntOrange}\textsc{poster}}}
-
-\color{darkgrey}
 \begin{document}
 
-\begin{tabular*}{6.5in}{@{\extracolsep{\fill}}lr}
-  \\
-  \textbf{\huge{Curriculum Vitae}} & \today\\*[2ex]
-  \textbf{\large{Siddharth Narayanaswamy}} & {\url{http://iffsid.com}}\\[0.5ex]
-  Department of Engineering Science &  Parks Road\\
-  University of Oxford & Oxford OX1 3PJ, UK\\
-  \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \textbar\
-  \href{mailto:nsid@robots.ox.ac.uk}{nsid@robots.ox.ac.uk}
-                                   & \emph{Tel}: \textrm{+44 7874 269 532}\\
-\end{tabular*}
-\vspace{0.1in}
+\begin{table}
+  \centering
+  \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+    \textbf{\huge{Curriculum Vitae}} & \today\\*[2ex]
+    \textbf{\large{Siddharth Narayanaswamy}} & {\url{http://iffsid.com}}\\*[0.5ex]
+    Department of Engineering Science &  Parks Road\\
+    University of Oxford & Oxford OX1 3PJ, UK\\
+    \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \textbar\
+    \href{mailto:nsid@robots.ox.ac.uk}{nsid@robots.ox.ac.uk}
+                                     & \emph{Tel}: \textrm{+44 7874 269 532}
+  \end{tabular*}
+\end{table}
 
-\begin{nonumregion}{\lbar{red}Education}
+\begin{region}{Education}{orangeD}
   \begin{position}{PhD --- Electrical \& Computer Engineering}
     {Aug 2008 -- Mar 2014}
     {}
@@ -141,7 +118,7 @@
   \item\vspace*{-3ex}
     \begin{itemize}
     \item Thesis Title: \textbf{Compositionality in Vision and Language}
-      \vspace{-0.5ex}
+      \vspace*{-0.5ex}
     \item Advisor: Jeffrey Mark Siskind
     \end{itemize}
   \end{position}
@@ -150,13 +127,13 @@
     {}
     {Anna University, India}
   \end{position}
-\end{nonumregion}
-\vspace{-0.2in}
+\end{region}
 
 %% Honours
 %% Current Students
 %% Former Students
-\begin{nonumregion} {\lbar{orange}Experience}
+
+\begin{region}{Experience}{orangeD}
   \begin{position} {Postdoctoral Research Assistant, Engineering Science}
     {Jan 2015 -- present}
     {Advisor: Phil Torr}
@@ -187,22 +164,22 @@
     {Doors and Gates Pvt.Ltd.}
     {Chennai, India}
   \end{position}
-\end{nonumregion}
+\end{region}
 
 %% http://tinyurl.com/iffsid-pubs (google scholar)
 %% http://www.informatik.uni-trier.de/~ley/pers/hn/n/Narayanaswamy:Siddharth.html
 %% needs work: URLs for nips2013b
 
-\begin{region} {\lbar{purple}Refereed Journal Publications}{{J}1}{4}
+\begin{region}[J][4]{Refereed Journal Publications}{purpleD}
   \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
-    {---}
+    {To Appear}
     {A. Barbu, N. Siddharth, and J. M. Siskind}
-    {IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)}
+    {IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI) \hfill \emph{}}
     % {\url{http://papers.iffsid.com/pami2013.pdf}\label{j:3}}
-    {\emph{To Appear}}
+    {\emph{Pre-Print}}
   \end{publication}
   \begin{publication} {A Compositional Framework for Grounding Language Inference, Generation,
-      and Acquisition in Video}
+      and\rule{6ex}{0pt} Acquisition in Video}
     {Mar 2015}
     {H. Yu, N, Siddharth, A. Barbu, and J. M. Siskind}
     {Journal of Artificial Intelligence Research (JAIR) \hfill \emph{52:601--713}}
@@ -222,11 +199,9 @@
   \end{publication}
 \end{region}
 
-% \clearpage
-
-\begin{region} {\lbar{purple}Refereed Conference Publications}{{C}1}{9}
+\begin{region}[C][9]{Refereed Conference Publications}{purpleD}
   \begin{publication} {Seeing is \emph{Worse} than Believing: Reading People’s Minds
-      Better than\rule{10ex}{0pt} Computer-Vision Methods Recognize Actions}
+      Better than Computer-Vision Methods Recognize Actions}
     {Sep 2014}
     {A. Barbu, D. P. Barrett, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum,
       C. Hanson, S. J. Hanson, S. H\'elie, E. Malaia, B. A. Pearlmutter,
@@ -243,20 +218,20 @@
   \begin{publication} {Recognizing Human Activities from Partially Observed Videos}
     {Jun 2013}
     {Y. Cao, D. Barrett, A. Barbu, N. Siddharth, H. Yu, A. Michaux, Y. Lin,
-      S. Dickinson, \rule{6ex}{0pt} J. M. Siskind, and S. Wang}
+      S. Dickinson, J. M. Siskind, and S. Wang}
     {IEEE Conference on Computer Vision and Pattern Recognition (CVPR) \hfill \emph{pp.~2658--2665}}
     {\url{http://papers.iffsid.com/cao2013partiallyObserved.pdf}}
   \end{publication}
   \begin{publication} {Seeing Unseeability to See the Unseeable}
     {Dec 2012}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS) \hfill \emph{2:77--94} [{\color{RoyalBlue}J\ref{j:2}}]}
+    {Advances in Cognitive Systems (ACS) \hfill \emph{2:77--94} [{\color{blueGreen}J\ref{j:2}}]}
     {\url{http://papers.iffsid.com/siddharth2012unseeability.pdf}}
   \end{publication}
   \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
     {Dec 2012}
     {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS) \hfill \emph{2:203--220} [{\color{RoyalBlue}J\ref{j:1}}]}
+    {Advances in Cognitive Systems (ACS) \hfill \emph{2:203--220} [{\color{blueGreen}J\ref{j:1}}]}
     {\url{http://papers.iffsid.com/barbu2012objectsTackingEvents.pdf}}
   \end{publication}
   \begin{publication} {Video In Sentences Out}
@@ -268,7 +243,7 @@
     {\url{http://papers.iffsid.com/barbu2012videoSentences.pdf}}
   \end{publication}
   \begin{publication} {A Visual Language Model for Estimating Object
-      Pose and Structure in a\rule{10ex}{0pt} Generative Visual Domain}
+      Pose and Structure in a Generative Visual Domain}
     {May 2011}
     {N. Siddharth, A. Barbu, and J. M. Siskind}
     {IEEE International Conference on Robotics and Automation (ICRA) \hfill \emph{pp.~4854--4860}}
@@ -288,19 +263,10 @@
   \end{publication}
 \end{region}
 
-\begin{region} {\lbar{purple}Patents}{{P}1}{1}
-  \begin{publication} {Correlating Videos and Sentences}
-    {Nov 2015}                  % Jun 2013 (Provisional) % Dec 2014
-    {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
-    {US Patent US9183466B2}
-    % {US Patent Application 2014/0369596 A1} % 61/835,541 (Provisional)
-    {\url{https://patents.google.com/patent/US9183466B2/en}}
-  \end{publication}
-\end{region}
-
 %% Book Chapters
 %% Workshop Publications
-\begin{region} {\lbar{purple}Technical Reports}{{T}1}{4}
+
+\begin{region}[T][4]{Technical Reports}{purpleD}
   % \begin{publication} {The Compositional Nature of Event Representations in the Human Brain}
   %   {May 2015}
   %   {A. Barbu, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum, C. Hanson, S. J. Hanson, S.
@@ -321,7 +287,7 @@
     {}
   \end{publication}
   \begin{publication} {The Compositional Nature of Verb and Argument
-      Representations in the \rule{10ex}{0pt} Human Brain}
+      Representations in the Human Brain}
     {Jun 2013}
     {A. Barbu, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum, C. Hanson, S. J. Hanson, S.
       H\'elie, E. Malaia, B. A. Pearlmutter, J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
@@ -329,7 +295,7 @@
     {}
   \end{publication}
   \begin{publication} {Large-Scale Automatic Labeling of Video Events with
-      Verbs Based on \rule{10ex}{0pt} Event-Participant Interaction}
+      Verbs Based on Event-Participant Interaction}
     {Apr 2012}
     {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
     {\href{http://arxiv.org/abs/1204.3616}{arXiv:1204.3616}}
@@ -337,9 +303,17 @@
   \end{publication}
 \end{region}
 
-%% Invited Presentations
+\begin{region}[P][1]{Patents}{purpleD}
+  \begin{publication} {Correlating Videos and Sentences}
+    {Nov 2015}                  % Jun 2013 (Provisional) % Dec 2014
+    {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
+    {US Patent US9183466B2}
+    % {US Patent Application 2014/0369596 A1} % 61/835,541 (Provisional)
+    {\url{https://patents.google.com/patent/US9183466B2/en}}
+  \end{publication}
+\end{region}
 
-\begin{nonumregion}{\lbar{blue}Invited Talks}
+\begin{region}{Invited Talks}{blueD}
   \begin{talk} {ATI Probabilistic Programming Workshop}
     {The Alan Turing Institute}
     {Feb 2016}
@@ -369,11 +343,9 @@
     {Oxford University}
     {Oct 2013}
   \end{talk}
-\end{nonumregion}
+\end{region}
 
-%% Professional Activities
-
-\begin{nonumregion}{\lbar{blue}Professional Activities}
+\begin{region}{Professional Activities}{blueD}
   \begin{workshop} {Program Committee member}
     {}
     {}
@@ -386,16 +358,12 @@
     {CVPR 2015, Boston, USA}
     {11 Jun 2015}
   \end{workshop}
-\item
-  \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
-    Member, IEEE & \textit{Mar 2005 -- present}
-  \end{tabular*}
-\end{nonumregion}
+\end{region}
 
 %% Teaching Experience
 %% Entrepreneurial Experience
 
-\begin{nonumregion} {\lbar{blue}Referee Activity}
+\begin{region}{Referee Activity}{blueD}
 \item
   \begin{multicols}{8}
     \begin{itemize}
@@ -409,112 +377,30 @@
     % \item \href{http://www.journals.elsevier.com/pattern-recognition-letters/}{PRL}
     \end{itemize}
   \end{multicols}
-\end{nonumregion}
+\end{region}
 
 %% Independent Consulting
-%% Other Activities
-\begin{nonumregion}{\lbar{blue}Other Activities}
-\item \hspace{1ex}\textbf{Primary Operator} --- 3T MRI Scanner - InnerVision West - Purdue
-\end{nonumregion}
 
-\begin{nonumregion} {\lbar{blue}Personal}
-\item \hspace{1ex}Native English, Tamil, and Hindi
-\end{nonumregion}
-\vspace*{2ex}
+\begin{region}{Other Activities}{blueD}
+\item \textbf{Primary Operator} --- 3T MRI Scanner - InnerVision West - Purdue
+\item \textbf{Member, IEEE} % from Mar 2005
+\end{region}
 
-\begin{nonumregion}{\lbar{green}References}
-  \item[] \textbf{\textsl{Available upon request}}
-%   \refrow{
-%     \reference{Tony Cohn}
-%     {Professor of Automated Reasoning}
-%     {School of Computing}
-%     {University of Leeds}
-%     {Leeds LS2 9JT}
-%     {United Kingdom}
-%     {+44 0113-343-5482}
-%     {a.g.cohn@leeds.ac.uk}
-%   }{
-%     \reference{Larry Davis}
-%     {Professor}
-%     {Department of Computer Science}
-%     {University of Maryland}
-%     {Room 3301, A.V. Williams Building}
-%     {College Park, MD 20742, USA}
-%     {+1 301-405-6718}
-%     {lsd@cs.umd.edu}
-%   }
-%   \refrow{
-%     \reference{Sven Dickinson}
-%     {Professor and Department Head}
-%     {Department of Computer Science}
-%     {University of Toronto}
-%     {Room 283B, Pratt Building, 6 King's College Road}
-%     {Toronto, Ontario, Canada M5S 3G4}
-%     {+1 416-978-3853}
-%     {sven@cs.toronto.edu}
-%   }{
-%     \reference{Noah D. Goodman}
-%     {Assistant Professor}
-%     {Department of Psychology}
-%     {Stanford University}
-%     {Jordan Hall Building 01-420}
-%     {450 Serra Mall, Stanford, CA 94305, USA}
-%     {+1 650-725-2445}
-%     {ngoodman@stanford.edu}
-%   }
-%   \refrow{
-%     \reference{Stephen Jos\'e Hanson}
-%     {Full Professor}
-%     {RUBIC, Psychology Department}
-%     {Rutgers University}
-%     {Room 324, Smith Hall, 101 Warren Street}
-%     {Newark, NJ 07102, USA}
-%     {+1 973-353-5440}
-%     {jose@psychology.rutgers.edu}
-%     }{
-%     \reference{Jeffrey Mark Siskind}
-%     {Associate Professor}
-%     {School of Electrical \& Computer Engineering}
-%     {Purdue University}
-%     {465 Northwestern Avenue}
-%     {West Lafayette, IN 47907, USA}
-%     {+1 765-496-3197}
-%     {qobi@purdue.edu}
-%   }
-%   \refrow{
-%     \reference{Ronnie Wilbur}
-%     {Professor}
-%     {Audiology \& Speech Sciences}
-%     {Purdue University}
-%     {Heavilon Hall, Room B-11, 500 Oval Drive}
-%     {West Lafayette, IN 47907, USA}
-%     {+1 765-494-3822}
-%     {wilbur@purdue.edu}
-%   }{}
-%   % \refrow
-% % \reference{Ram Nevatia}
-% %     {Institute for Robotics and Intelligence Systems}
-% %     {University of Southern California}
-% %     {PHE 204, MC-0273, 3737 Watt Way}
-% %     {Los Angeles, CA 90089, USA}
-% %     {213-740-6427}
-% %     {nevatia@usc.edu}
-% % {\reference{Patrick Winston}
-% %   {MIT Computer Science \& Artificial Intelligence Laboratory}
-% %   {The Stata Center, Building 32}
-% %   {32 Vassar Street}
-% %   {Cambridge, MA 02139, USA}
-% %   {617-253-6754}
-% %   {pwh@csail.mit.edu}}
-\end{nonumregion}
+\begin{region}{Personal}{greenD}
+\item Native English, Tamil, and Hindi
+\end{region}
+
+\begin{region}{References}{greenD}
+\item \textsl{Available upon request}
+\end{region}
 
 \end{document}
 
-%  LocalWords:  lr Siddharth Narayanaswamy Compositionality Advisor Siskind Yu
-%  LocalWords:  Muniyandi Manivannan IIT Manya Sep Unseeability Unseeable ACS
-%  LocalWords:  Barbu Michaux Compositional JAIR IEEE PAMI Cao CVPR RoyalBlue
-%  LocalWords:  Burchill Coroian Fidler Mussman Salvi Shangguan Waggoner Zhang
-%  LocalWords:  Uncertainity UAI ICRA VR Laparoscopic Devasahayam MMVR Xiong
-%  LocalWords:  Corso Fellbaum elie Malaia Pearlmutter Talavage IPAB JT grey
-%  LocalWords:  Colloquia AAAI ICDL PRL InnerVision Cohn Jos RUBIC Heavilon
-%  LocalWords:  urlcolor ECCV TPAMI
+%  LocalWords:  Siddharth Narayanaswamy PJ orangeD Compositionality Advisor Yu
+%  LocalWords:  Siskind Torr Muniyandi Manivannan IIT Manya Sep purpleD Barbu
+%  LocalWords:  IEEE PAMI Pre Compositional JAIR Unseeability Unseeable ACS VR
+%  LocalWords:  Michaux Xiong Corso Fellbaum elie Malaia Pearlmutter Talavage
+%  LocalWords:  ECCV CVPR Cao blueGreen Burchill Coroian Fidler Mussman Salvi
+%  LocalWords:  Shangguan Waggoner Zhang UAI ICRA Laparoscopic Devasahayam ATI
+%  LocalWords:  MMVR Andreas Stuhlmüller blueD Colloquia IPAB IJCAI AAAI ICDL
+%  LocalWords:  InnerVision greenD
