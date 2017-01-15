@@ -9,18 +9,17 @@ import           Prelude         hiding (all, div, span)
 -- nil :: Size Abs
 -- nil = px 0
 
-nil, u1, u2, u3, u4 :: Size Abs
+nil, u1, u2, u3, u4 :: Size LengthUnit
 nil = unit 0
 u1 = unit 1
 u2 = unit 2
 u3 = unit 3
 u4 = unit 4
 
-unit :: Integer -> Size Abs
+unit :: Double -> Size LengthUnit
 unit = px . (* 24)
--- half = px . (* 12)
 
-pageWidth :: Size Abs
+pageWidth :: Size LengthUnit
 pageWidth = unit 43
 
 whenNarrow :: Css -> Css
@@ -31,9 +30,6 @@ whenWide = query (MediaType "all") [Media.minWidth pageWidth]
 
 box :: Css
 box = boxSizing borderBox
-
-borderSpacing :: Text -> Css
-borderSpacing spacing = "border-spacing" -: spacing
 
 alignCenter :: Css
 alignCenter = textAlign (alignSide sideCenter)
@@ -80,8 +76,8 @@ header2 = h2 ?
              margin (em 0.4) 0 (em 0.4) 0
              color "#8e5f1c"
 
-column :: Css
-column = body |> "div" ?
+divColumn :: Css
+divColumn = body |> "div" ?
   do centered
      marginBottom (unit 5)
 
@@ -90,8 +86,10 @@ centered =
   do box
      whenWide $
        do width       pageWidth
-          marginLeft  auto
-          marginRight auto
+          "margin-left" -: "auto"
+          "margin-right" -: "auto"
+          -- marginLeft  auto
+          -- marginRight auto
      whenNarrow $ width (pct 95)
 
 contents :: Css
@@ -157,8 +155,10 @@ articleBlock = article ? do
     -- sym margin 0
     -- margin 0 (em 4) 0 (em 6)
     Main.meta
-    marginLeft auto
-    marginRight auto
+    "margin-left" -: "auto"
+    "margin-right" -: "auto"
+    -- marginLeft auto
+    -- marginRight auto
     marginTop (px 5)
     marginBottom (px 5)
     width (pct 100)
@@ -200,13 +200,14 @@ footerBlock = footer ? do
     float floatLeft
     width (pct 100)
     color "#909090"
-    margin (px 30) auto auto auto
+    "margin" -: "30px auto auto auto"
+    -- margin (px 30) auto auto auto
     fontSize (em 1)
     alignCenter
 
 contactTable :: Css
 contactTable = table # ".contact" ? do
-    borderSpacing "0px"
+    borderSpacing (px 0)
     sym padding (px 0)
     fontSize (em 1)
 
@@ -239,7 +240,7 @@ myCode = ".code" ? do
 
 iBlock :: Css
 iBlock = i # ".venue" ? do
-    borderSpacing "0px"
+    borderSpacing (px 0)
     sym padding (px 0)
     color "#9aa6ab"
 
@@ -251,16 +252,18 @@ bBlock = b # ".title" ? do
 imgBlock :: Css
 imgBlock = img ? do
     maxWidth (pct 90)
-    height auto
-    "width" -: "auto\9"
+    "height" -: "auto"
+    "width" -: "auto"
     -- whenNarrow $ do
     --   display none
 
 imgDisp :: Css
 imgDisp = img # ".displayed" ? do
     display block
-    marginLeft auto
-    marginRight auto
+    "margin-left" -: "auto"
+    "margin-right" -: "auto"
+    -- marginLeft auto
+    -- marginRight auto
     sym borderRadius (px 4)
     boxShadow (px 0) (px 0) (px 12) (rgba 30 30 30 190)
 
@@ -290,7 +293,7 @@ videoContainer = ".videoContainer" ? do
 main :: IO ()
 main = putCss $
   do site
-     column
+     divColumn
      contents
      header1
      header2
