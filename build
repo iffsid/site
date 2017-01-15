@@ -3,29 +3,30 @@
 if [ "$1" = "clean" ]
 then
 
-  ./_dist/site clean
-  rm -r _dist
+    ./_dist/site clean
+    rm -r _dist
 
 elif [ "$1" = "site" ]
 then
 
-  ./_dist/site build
+    ./_dist/site build
 
 elif [ "$1" = "deploy" ]
 then
 
-   ./_dist/site deploy
+    ./_dist/site deploy
 
 elif [ "$1" = "preview" ]
 then
 
-  ./_dist/site preview -p 9000
+    ./_dist/site watch
+    # -p 9000
 
 else
 
-  mkdir -p _dist
-  ghc -odir _dist -hidir _dist -O2 --make site.hs -o _dist/site
-  ./_dist/site rebuild
+    mkdir -p _dist
+    ghc -odir _dist -hidir _dist -O2 --make site.hs -o _dist/site
+    ./_dist/site rebuild
 
 fi
 
