@@ -1,11 +1,6 @@
 ---
-title:   Seeing is Worse than Believing: Reading People’s Minds Better than
-	     Computer-Vision Methods Recognize Actions
-authors: Andrei Barbu, Daniel P. Barrett, Wei Chen, N. Siddharth, Caiming
-	     Xiong, Jason J. Corso, Christiane D. Fellbaum, Catherine Hanson,
-	     Stephen Jose Hanson, Sebastien Helie, Evguenia Malaia, Barak
-	     A. Pearlmutter, Jeffrey Mark Siskind, Thomas Michael Talavage, and
-	     Ronnie B. Wilbur
+title: Seeing is Worse than Believing&#58; Reading People’s Minds Better than Computer-Vision Methods Recognize Actions
+authors: Andrei Barbu, Daniel P. Barrett, Wei Chen, N. Siddharth, Caiming Xiong, Jason J. Corso, Christiane D. Fellbaum, Catherine Hanson, Stephen Jose Hanson, Sebastien Helie, Evguenia Malaia, Barak A. Pearlmutter, Jeffrey Mark Siskind, Thomas Michael Talavage, and Ronnie B. Wilbur
 venue: Proceedings of the European Conference on Computer Vision (ECCV)
 type: inproceedings
 month: Sep

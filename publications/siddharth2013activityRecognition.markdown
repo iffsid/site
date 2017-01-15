@@ -1,5 +1,5 @@
 ---
-title: Seeing What You're Told: Sentence-Guided Activity Recognition In Video
+title: Seeing What You're Told&#58; Sentence-Guided Activity Recognition In Video
 authors: Andrei Barbu, N. Siddharth, Jeffrey Mark Siskind
 venue: CoRR (arXiv:1308.4189)
 type: technical report

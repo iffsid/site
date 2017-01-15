@@ -1,5 +1,5 @@
 ---
-title: Saying What You're Looking For: Linguistics Meets Video Search
+title: Saying What You're Looking For&#58; Linguistics Meets Video Search
 authors: Andrei Barbu, N. Siddharth, Jeffrey Mark Siskind
 venue: CoRR (arXiv:1309.5174)
 type: technical report

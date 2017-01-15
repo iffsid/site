@@ -1,5 +1,5 @@
 ---
-title: Seeing What You're Told: Sentence-Guided Activity Recognition in Video
+title: Seeing What You're Told&#58; Sentence-Guided Activity Recognition in Video
 authors: N. Siddharth, Andrei Barbu, and Jeffrey Mark Siskind
 venue: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)
 type: inproceedings
