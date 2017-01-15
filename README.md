@@ -6,3 +6,8 @@ This is a newer, and cleaner version of my webpage written using
 
 
 At this point, this isn't complete. The research section needs more filling in.
+
+=== Todo
+
+ - Fixup the `auto` keyword for clay
+   https://github.com/sebastiaanvisser/clay/issues/135
