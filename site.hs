@@ -13,7 +13,8 @@ import           Extras.Options
 main :: IO ()
 main = hakyllWith hakyllConf $ do
   -- site control
-  match "static/**" $ route (gsubRoute "static/" (const "")) >> compile copyFileCompiler
+  match "static/**" $
+    route (gsubRoute "static/" (const "")) >> compile copyFileCompiler
 
   -- copy as is
   match ("images/*" .||. "publications/*.pdf") $
@@ -29,7 +30,9 @@ main = hakyllWith hakyllConf $ do
   -- clay for css
   match "css/*.hs" $ do
     route $ setExtension "css"
-    compile $ liftM (fmap compressCss) $ getResourceString >>= withItemBody (unixFilter "runghc" [])
+    compile $
+      liftM (fmap compressCss) $
+      getResourceString >>= withItemBody (unixFilter "runghc" [])
 
   -- compile latex with rubber
   match "cv/*.tex" $ do
@@ -42,34 +45,42 @@ main = hakyllWith hakyllConf $ do
 
   create ["publications.html"] $ do
     route idRoute
-    compile $ makeItem "" >>= loadAndApplyTemplate (mkT "elements") pubCtx >>= defaultCompiler
+    compile $ makeItem ""
+      >>= loadAndApplyTemplate (mkT "elements") pubCtx
+      >>= defaultCompiler
 
   create ["bibtex.html"] $ do
     route idRoute
-    compile $ makeItem "" >>= loadAndApplyTemplate (mkT "elements") bibCtx >>= defaultCompiler
+    compile $ makeItem ""
+      >>= loadAndApplyTemplate (mkT "elements") bibCtx
+      >>= defaultCompiler
 
   -- research page
   match "pages/research/short-*.markdown" $
-    compile $ pandocHtml5Compiler >>= saveSnapshot "sdesc" >>= defaultCompiler
+    compile $ pandocHtml5Compiler
+      >>= saveSnapshot "sdesc"
+      >>= defaultCompiler
 
   match ("pages/research/index.markdown" .||. "pages/research/*/index.markdown") $ do
     route $ delDir "pages/" `composeRoutes` setExtension "html"
     compile $ pandocHtml5Compiler
-              >>= aplKeywords
-              >>= applyAsTemplate descCtx
-              >>= defaultCompiler
+      >>= aplKeywords
+      >>= applyAsTemplate descCtx
+      >>= defaultCompiler
 
   match "pages/research/index.markdown" $ do
     route $ delDir "pages/" `composeRoutes` setExtension "html"
-    compile $ pandocHtml5Compiler >>= applyAsTemplate descCtx >>= defaultCompiler
+    compile $ pandocHtml5Compiler
+      >>= applyAsTemplate descCtx
+      >>= defaultCompiler
 
   match "pages/research/*/*.markdown" $ do
     route $ delDir "pages/" `composeRoutes` setExtension "html"
     compile $ pandocHtml5Compiler
-              >>= aplKeywords
-              >>= applyAsTemplate descCtx
-              >>= saveSnapshot "res"
-              >>= defaultCompiler
+      >>= aplKeywords
+      >>= applyAsTemplate descCtx
+      >>= saveSnapshot "res"
+      >>= defaultCompiler
 
   match ("pages/research/*/*.png" .||. "pages/research/*/*.jpg") $
     route (delDir "pages/") >> compile copyFileCompiler
@@ -83,7 +94,7 @@ main = hakyllWith hakyllConf $ do
     route $ delDir "pages/"
     compile $ getResourceBody
               >>= (loadAndApplyTemplate "templates/default.html" defaultContext
-                   >=> globalizeUrls "https://web.stanford.edu/~nsid")
+                   >=> globalizeUrls "https://www.robots.ox.ac.uk/~nsid")
               -- http://www.iffsid.com
 
   match "templates/*" $ compile templateCompiler
