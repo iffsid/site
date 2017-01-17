@@ -53,28 +53,28 @@ headerFont = quando
 -- actual css blocks
 site :: Css
 site = body ?
-       do background  (rgb 20 20 20, url "../images/bkg.png")      -- black
-          baseFont
-          fontSize    (pt 10)
-          sym margin  (pt 0)
-          lineHeight  (pct 115)
-          overflowY   scroll
+  do background  (rgb 20 20 20, url "../images/bkg.png")      -- black
+     baseFont
+     fontSize    (pt 10)
+     sym margin  (pt 0)
+     lineHeight  (pct 115)
+     overflowY   scroll
 
 header1 :: Css
 header1 = h1 ?
-          do headerFont
-             -- fontWeight normal
-             margin (em 0.2) 0 (em 0.2) 0
+  do headerFont
+     -- fontWeight normal
+     margin (em 0.2) 0 (em 0.2) 0
 
 header2 :: Css
 header2 = h2 ?
-          do headerFont
-             -- color "#666"
-             -- fontSize (em 1.4)
-             -- fontWeight bold
-             fontVariant smallCaps
-             margin (em 0.4) 0 (em 0.4) 0
-             color "#8e5f1c"
+  do headerFont
+     -- color "#666"
+     -- fontSize (em 1.4)
+     -- fontWeight bold
+     fontVariant smallCaps
+     margin (em 0.4) 0 (em 0.4) 0
+     color "#8e5f1c"
 
 divColumn :: Css
 divColumn = body |> "div" ?
@@ -285,9 +285,6 @@ videoContainer = ".videoContainer" ? do
         left (px 0)
         width (pct 100)
         height (pct 100)
-
--- absolute centering
--- http://codepen.io/shshaw/full/gEiDt
 
 -- main - required for hakyll
 main :: IO ()
