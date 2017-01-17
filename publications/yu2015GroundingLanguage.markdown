@@ -3,7 +3,7 @@ title: A Compositional Framework for Grounding Language Inference, Generation, a
 authors: Haonan Yu, Siddharth N., Andrei Barbu, and Jeffrey Mark Siskind
 venue: Journal of Artificial Intelligence Research (JAIR)
 type: article
-month: Mar
+month: March
 year: 2015
 other: 52:601-713
 date: 2015-03-31
