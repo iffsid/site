@@ -86,7 +86,8 @@ main = hakyllWith hakyllConf $ do
     route (delDir "pages/") >> compile copyFileCompiler
 
   -- main stuff
-  match (fromList ["pages/index.html", "pages/reading.html", "pages/code.html"]) $ do
+  match (fromList ["pages/index.html", "pages/code.html"]) $ do
+    -- "pages/reading.html",
     route $ delDir "pages/"
     compile $ getResourceBody >>= defaultCompiler
 
