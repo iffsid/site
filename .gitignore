@@ -7,3 +7,4 @@ _dist/*
 rubtmp*
 /cv/auto/
 /TAGS
+*-extra.hs
