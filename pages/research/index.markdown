@@ -22,11 +22,11 @@ title: Research
 > I endeavour to build systems that explore and exploit such features, enabling
 > cross-modal integration, and in the process, gain further insight into the
 > coupled processes of perception and inference.
+
+<!-- ### [CV](../cv/cv.pdf) -->
+
+<!-- ### [Research Statement](../cv/research-statement.pdf) -->
 \
 \
-
-### [CV](../cv/cv.pdf)
-
-### [Research Statement](../cv/research-statement.pdf)
 
 \$elements\$

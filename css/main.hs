@@ -195,6 +195,17 @@ pBlock = p ? do
     textAlign justify
     "text-justify" -: "inter-word"
 
+blockQuote :: Css
+blockQuote = blockquote ? do
+    fontSize (Clay.rem 1.05)
+    fontWeight bold
+    lineHeight  (pct 120)
+    borderLeft solid (px 10) "#625252"
+    marginLeft (em 1.5)
+    marginRight (em 3)
+    paddingLeft (em 0.5)
+    p ? display inline
+
 footerBlock :: Css
 footerBlock = footer ? do
     float floatLeft
@@ -299,6 +310,7 @@ main = putCss $
      sectionBlock
      asideBlock
      pBlock
+     blockQuote
      footerBlock
      menu
      contactTable
