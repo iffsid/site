@@ -1,7 +1,7 @@
 ---
 title: Saying What You're Looking For&#58; Linguistics Meets Video Search
 authors: Daniel Paul Barrett, Andrei Barbu, Siddharth N., and Jeffrey Mark Siskind
-venue: Journal of Artificial Intelligence Research (JAIR)
+venue: IEEE Transactions on Pattern Analysis & Machine Intelligence (TPAMI)
 type: article
 month: October
 year: 2016
