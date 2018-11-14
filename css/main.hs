@@ -53,7 +53,7 @@ headerFont = quando
 -- actual css blocks
 site :: Css
 site = body ?
-  do background  (rgb 20 20 20, url "../images/bkg.png")      -- black
+  do background  (rgb 20 20 20, url "./images/bkg.png")      -- black
      baseFont
      fontSize    (pt 10)
      sym margin  (pt 0)
@@ -99,7 +99,7 @@ contents = ".content" ? do
      padding         u1 u1 u2 u1
      a ? do
        link & do
-           color "#606060"
+           color "#707070"
            textDecoration none
            fontWeight bold
            transitions [("color", sec 0.2, ease, sec 0.04)]
@@ -142,7 +142,7 @@ navFont =
      textTransform lowercase
      a ? do
        link & do
-           color "#606060"
+           color "#707070"
            alignCenter
            textDecoration none
            fontWeight bold
