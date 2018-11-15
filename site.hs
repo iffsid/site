@@ -38,7 +38,7 @@ main = hakyllWith hakyllConf $ do
     -- compile latex with rubber
     version "pdf" $ do
       route $ setExtension "pdf"
-      compile $ getResourceLBS >>= withItemBody (unixFilterLBS "rubber-pipe" ["-d"])
+      compile $ getResourceLBS >>= withItemBody (unixFilterLBS "rubber-pipe" ["-m xelatex"])
     -- copy tex as is
     version "tex" $ route idRoute >> compile copyFileCompiler
 

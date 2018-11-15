@@ -1,87 +1,44 @@
+%% https://tex.stackexchange.com/questions/13509/biblatex-in-a-nutshell-for-beginners
 \documentclass[a4paper]{article}
-\usepackage{charter}
-\usepackage[cm,empty]{fullpage}
-\usepackage[usenames,dvipsnames,svgnames,x11names]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fontawesome}
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{hyperref}
-\usepackage[flushleft,neverdecrease,neveradjust]{paralist}
-\usepackage{tikz}
-\usepackage{calc}               % allows add/sub var lengths
-\usepackage{xparse}             % more optional args
-\usepackage{multicol}
-\usepackage{xhfill}             % nicer horizontal fill-lines
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{xstring}            % substring matching
+\usepackage{xhfill}             % coloured lines
+\usepackage{array}
+\usepackage[%
+   backend=biber,               % bibtex8
+   style=numeric,               % authortitle
+   giveninits=true,
+   maxbibnames=99,
+   sorting=ymdnt,               % ydnt tweaked
+   sortsets=true,
+   defernumbers=true,
+   doi=false,
+   isbn=false,
+   url=false
+]{biblatex}
 
-% % geometry
-% \usepackage[left=1.7cm,top=2.0cm,right=1.7cm,bottom=2.0cm]{geometry} % showframe,
-
-% colours
 \input{flatui-colours}
 
-\newlength{\itemtextwidth}
-\setlength{\itemtextwidth}{\textwidth-6ex}
+\ifxetex
+\usepackage{fontspec}
+\setmainfont{Source Sans Pro}
+\newfontfamily{\sspsb}[UprightFont={* Semibold}]{Source Sans Pro}
+% \newfontfamily{\srp}{Source Serif Pro}
+\setmonofont[Scale=1]{Fira Code}
+\else
+\usepackage{charter}
+\fi
 
-\newenvironment{position}[4]
-{ \item
-  \begin{tabular*}{\itemtextwidth}{@{}l@{\extracolsep{\fill}}r@{}}
-    \textbf{#1} & \textit{#2} \\ #3 & \small{#4} \\
-  \end{tabular*}
-  \vspace*{-2pt}
-} {}
-
-\newenvironment{publication}[5]
-{ \item
-  \begin{tabular*}{\itemtextwidth}{@{}p{5.6in}@{\extracolsep{\fill}}r@{}}
-    \textbf{#1} & \textit{#2}\\ #3 &\\ \textit{#4}&\\ #5
-  \end{tabular*}
-  \vspace*{-2pt}
-} {}
-
-\newenvironment{talk}[3]
-{ \item
-  \begin{tabular*}{\itemtextwidth}{@{}l@{\hspace*{2ex}}l@{\extracolsep{\fill}}r@{}}
-    \textbf{#1} & \textit{#2} & #3
-  \end{tabular*}
-  \vspace*{-2pt}
-} {}
-
-\newenvironment{workshop}[5]
-{ \item
-  \begin{tabular*}{\itemtextwidth}{@{}ll@{\hspace*{1ex}}l@{\extracolsep{\fill}}r@{}}
-    #1 & \href{#3}{\textbf{#2}} & {\small #4} & #5
-  \end{tabular*}
-  \vspace*{-2pt}
-} {}
-
-% http://tex.stackexchange.com/questions/110236/is-there-a-way-to-get-reverse-numbering-on-the-enumerate-environment
-\DeclareDocumentEnvironment{ordering}{o o o}{%
-  \IfValueTF{#1}
-    {\let\oldItem\item
-      \def\item{\addtocounter{enumi}{-2}\oldItem}
-      \begin{enumerate}[\IfValueT{#3}{\color{#3}}{#2}1]
-        \setcounter{enumi}{#1}
-        \addtocounter{enumi}{1}}
-    {\begin{enumerate}[]}
-  }{%
-  \end{enumerate}
-}
-
-\DeclareDocumentEnvironment{region}{o o m m}{%
-  \noindent{\scalebox{1.4}{\textbf{#3}}}%
-  \hspace*{2ex}\xrfill[0.5ex]{2pt}[#4]\hspace*{2ex}%
-  \begin{ordering}[#2][#1][blueGreen]
-  }{%
-  \end{ordering}
-  \vspace*{1ex}
-}
-
-\renewcommand{\labelitemi}{}    % no bullets for first nesting level
-\renewcommand{\labelitemii}{}   % no bullets for second nesting level
-% \linespread{1.02}               % changes baselineskip w/o affecting font size
-
-%% metadata
 \hypersetup{%
   colorlinks=true,
-  urlcolor=Chocolate4,
-  linkcolor=blueGreen,
+  linkcolor={violet!70!black},
+  citecolor={YellowOrange!70!black},
+  urlcolor=blueGreenD,  % {Aquamarine!70!black},
   pdfborder= 0 0 0,
   bookmarks=false,
   pdftitle={Siddharth Narayanaswamy - CV},
@@ -95,353 +52,272 @@
     programming, probabilistic programming, stochastic lambda calculus, C++,
     Scheme, Lisp, Haskell, C, Prolog, MATLAB, Java, Python, purdue}}
 
+\let\oldhref\href
+\renewcommand{\href}[3][]{\oldhref[#1]{#2}{\texttt{\footnotesize #3}}}
+
+\usepackage{titlesec}
+\titlespacing\subsection{0pt}{5pt plus 3pt minus 2pt}{5pt plus 3pt minus 2pt}
+\titlespacing\subsubsection{0pt}{5pt plus 3pt minus 2pt}{5pt plus 3pt minus 2pt}
+
+%%% Biblatex stuff %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% sort descending by year _and_ month
+% https://tex.stackexchange.com/questions/140561/anti-chronological-bibliography-with-sorting-ydnt-and-usage-of-sortyear
+\DeclareSortingTemplate{ymdnt}{%
+  \sort{\field{presort}}
+  \sort[final]{\field{sortkey}}
+  \sort[direction=descending]{
+    \field[strside=left,strwidth=4]{sortyear}
+    \field[strside=left,strwidth=4]{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field{month}
+    \literal{9999}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
+  }
+}
+
+% Authors and Title on separate lines --- block=par makes everything on separate lines
+\renewcommand*{\labelnamepunct}{\newunitpunct\par}
+\renewbibmacro{in:}{%
+  \setunit{\space}\newline\ifentrytype{article}{}{\printtext{In\space}}}
+% \renewbibmacro{in:}{\par In:}
+
+% Make publication title bold
+\DeclareFieldFormat
+  [article,inbook,incollection,inproceedings,patent,thesis,unpublished]
+  % {title}{\bfseries{#1\isdot}}
+  {title}{\ifxetex \sspsb \else \bfseries \fi {#1\isdot}}
+
+% Drop some unnecessary fields
+\AtEveryBibitem{\clearlist{location}}
+
+% Stylise the labelling
+\DeclareFieldFormat{labelnumberwidth}{{\ifxetex \ttfamily \fi\color{purple}#1}}
+
+\DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}
+\newrobustcmd{\mkbibdesc}[1]{%
+  \number\numexpr\csuse{bbx@itemtotal}+1-#1\relax}
+
+\newrobustcmd{\safeaddcat}[1]{%
+  \iffieldundef{labelprefix}{%
+    \ifcsdef{bbx@count@#1}
+    {\csnumgdef{bbx@count@#1}{\csuse{bbx@count@#1}+1} \listbreak}
+    {\csnumgdef{bbx@count@#1}{0}}
+  }{}
+  \addtocategory{#1}{\thefield{entrykey}}
+}
+
+\makeatletter
+\def\bbx@populatecategory#1{%
+  \iftoggle{blx@skipbib}{\listbreak}{}%
+  \ifentrytype{article}
+  {\IfSubStr{\strfield{journaltitle}}{\detokenize{ArXiv}}
+    {\safeaddcat{techreport}}
+    {\safeaddcat{journal}}}
+  {\ifentrytype{inproceedings}
+    {\IfSubStr{\strfield{booktitle}}{\detokenize{Workshop}} % TODO: compare converting lowercase
+      {\safeaddcat{workshop}}
+      {\safeaddcat{conference}}}
+    {\ifentrytype{patent}{\safeaddcat{patent}}{}}}
+}
+\AtDataInput{\forlistloop{\bbx@populatecategory}{\blx@categories}}
+\makeatother
+
+\newcommand{\bibcat}[2]{%
+  \ifcsdef{bbx@count@#1}{\csnumgdef{bbx@itemtotal}{\csuse{bbx@count@#1}}}{}
+  \uppercase{\def\upcat{#1}}
+  \StrChar{\upcat}{1}[\firstc]
+  \newrefcontext[labelprefix=\firstc]
+  \printbibliography[heading=subbibliography, title=#2 \rline{purple}, category=#1]
+}
+
+\DeclareBibliographyCategory{journal}
+\DeclareBibliographyCategory{conference}
+\DeclareBibliographyCategory{workshop}
+\DeclareBibliographyCategory{techreport}
+\DeclareBibliographyCategory{patent}
+
+\addbibresource{cv/references.bib}  % needs the cv/ path because of hakyll relative-paths stuff
+\defbibheading{subbibliography}[\refname]{\subsubsection*{#1}}
+\renewcommand*{\bibfont}{\small}
+\setlength\bibitemsep{0.55\itemsep}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\rline}[1]{\hspace*{2ex}\xrfill[0.5ex]{2pt}[#1]\hspace*{0ex}}
+
 \begin{document}
 
-\begin{table}
-  \centering
-  \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
-    \textbf{\huge{Curriculum Vitae}} & \today\\*[2ex]
-    \textbf{\large{Siddharth Narayanaswamy}} & {\url{http://iffsid.com}}\\*[0.5ex]
-    Department of Engineering Science &  Parks Road\\
-    University of Oxford & Oxford OX1 3PJ, UK\\
-    \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \textbar\
-    \href{mailto:nsid@robots.ox.ac.uk}{nsid@robots.ox.ac.uk}
-                                     & \emph{Tel}: \textrm{+44 7874 269 532}
+\begin{center}
+  \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}l@{\,}}
+    \textbf{\LARGE{Curriculum Vitae}}
+    & \today                                                                        \\*[1.2ex]
+    \textbf{\large{Siddharth Narayanaswamy}}
+    & \faLink \, \href{http://www.iffsid.com}{www.iffsid.com}                       \\*[0.2ex]
+    Department of Engineering Science
+    & \faEnvelopeSquare \, \href{mailto:siddharth@iffsid.com}{siddharth@iffsid.com} \\
+    University of Oxford
+    & \faEnvelopeSquare \, \href{mailto:nsid@robots.ox.ac.uk}{nsid@robots.ox.ac.uk} \\
+    Parks Road, Oxford OX1 3PJ, UK
+    & \faPhoneSquare \, \textrm{+44 7874 269532}
   \end{tabular*}
-\end{table}
+\end{center}
 
-\begin{region}{Education}{orangeD}
-  \begin{position}{PhD --- Electrical \& Computer Engineering}
-    {Aug 2008 -- Mar 2014}
-    {}
-    {Purdue University, USA}
-  \item\vspace*{-3ex}
-    \begin{itemize}
-    \item Thesis Title: \textbf{Compositionality in Vision and Language}
-      \vspace*{-0.5ex}
-    \item Advisor: Jeffrey Mark Siskind
-    \end{itemize}
-  \end{position}
-  \begin{position} {Bachelor of Engineering --- Electronics and Communication}
-    {Aug 2004 -- Aug 2008}
-    {}
-    {Anna University, India}
-  \end{position}
-\end{region}
+% Professional Experience
+\subsubsection*{Professional Experience \rline{orange}}
 
-%% Honours
-%% Current Students
-%% Former Students
+\begin{center}
+  \small
+  \begin{tabular*}{\textwidth}{@{}r@{,\,\,}l@{\extracolsep{\fill}}>{\itshape}l@{\,}}
+    Postdoctoral Research Assistant
+    & Department of Engineering Science, University of Oxford
+    & Jan 2016 --- present \\
+    %
+    Postdoctoral Scholar
+    & Department of Psychology, Stanford University
+    & \,Apr 2014 --- Dec 2015 \\
+    %
+    Graduate Research Assistant
+    & School of Electrical \& Computer Engineering, Purdue University
+    & Aug 2008 --- Mar 2014
+  \end{tabular*}
+\end{center}
 
-\begin{region}{Experience}{orangeD}
-  \begin{position} {Postdoctoral Research Assistant, Engineering Science}
-    {Jan 2015 -- present}
-    {PI: Phil Torr}
-    {University of Oxford, UK}
-  \end{position}
-  \begin{position} {Postdoctoral Associate, Psychology}
-    {Apr 2014 -- Dec 2015}
-    {PI: Noah Goodman}
-    {Stanford University, USA}
-  \end{position}
-  \begin{position} {PhD Student, Electrical \& Computer Engineering}
-    {Aug 2008 -- Mar 2014}
-    {Advisor: Jeffrey Mark Siskind}
-    {Purdue University, USA}
-  \end{position}
-  \begin{position} {Undergraduate Research Project}
-    {May 2007 -- Aug 2008}
-    {Supervisor: Muniyandi Manivannan}
-    {IIT-Madras, India}
-  \end{position}
-  \begin{position} {Part-Time Instructor}
-    {Oct 2007 -- Aug 2008}
-    {The Princeton Review (Manya Education Pvt. Ltd.)}
-    {Chennai, India}
-  \end{position}
-  \begin{position} {Undergraduate Research Intern}
-    {May 2007 -- Sep 2007}
-    {Doors and Gates Pvt.Ltd.}
-    {Chennai, India}
-  \end{position}
-\end{region}
+% Education
+\subsubsection*{Education \rline{orange}}
 
-%% http://tinyurl.com/iffsid-pubs (google scholar)
-%% http://www.informatik.uni-trier.de/~ley/pers/hn/n/Narayanaswamy:Siddharth.html
-%% needs work: URLs for nips2013b
+\begin{center}
+  \small
+  \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}>{\itshape}l@{\,}}
+    Doctor of Philosophy (PhD), School of Electrical \& Computer Engineering, Purdue University
+    & Aug 2008 --- Mar 2014 \\
+    {\ifxetex \sspsb \else \bfseries \fi \quad Thesis: Compositionality in Vision and Language} & \\ [2pt]
+    %
+    Bachelor of Engineering (BE), Electronics \& Communication, Anna University, India
+    & Aug 2004 --- Aug 2018
+  \end{tabular*}
+\end{center}
 
-\begin{region}[J][4]{Refereed Journal Publications}{purpleD}
-  \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
-    {Oct 2016}
-    {D.P. Barrett, A. Barbu, N. Siddharth, and J.M. Siskind}
-    {IEEE Transactions on Pattern Analysis \& Machine Intelligence (TPAMI)
-      \hfill \emph{38(10):2069--2081}}
-    {\url{http://papers.iffsid.com/barrett2016video.pdf}}
-  \end{publication}
-  \begin{publication} {A Compositional Framework for Grounding Language Inference, Generation,
-      and\rule{6ex}{0pt} Acquisition in Video}
-    {Mar 2015}
-    {H. Yu, N, Siddharth, A. Barbu, and J. M. Siskind}
-    {Journal of Artificial Intelligence Research (JAIR) \hfill \emph{52:601--713}}
-    {\url{http://papers.iffsid.com/yu2015GroundingLanguage.pdf}}
-  \end{publication}
-  \begin{publication} {Seeing Unseeability to See the Unseeable}
-    {Dec 2012}
-    {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS) \hfill \emph{2:77--94}}
-    {\url{http://papers.iffsid.com/siddharth2012unseeability.pdf}\label{j:2}}
-  \end{publication}
-  \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
-    {Dec 2012}
-    {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS) \hfill \emph{2:203--20}}
-    {\url{http://papers.iffsid.com/barbu2012objectsTackingEvents.pdf}\label{j:1}}
-  \end{publication}
-\end{region}
+% Honours
 
-\begin{region}[C][11]{Refereed Conference Publications}{purpleD}
-  \begin{publication} {Playing Doom with SLAM-Augmented Deep Reinforcement Learning}
-    {Nov 2017}
-    {S. Bhatti, A. Desmaison, O. Miksik, N. Nardelli, N. Siddharth, and P. H. S. Torr}
-    {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
-    {\emph{In submission}}
-  \end{publication}
-  \begin{publication} {Learning Disentangled Representations in Deep Generative Models}
-    {Apr 2017}
-    {N. Siddharth, B. Paige, A. Desmaison, J. W. van de Meent, F. Wood, N. D.
-      Goodman, P. Kohli, and P. H. S. Torr}
-    {International Conference on Machine Learning (ICML)}
-    {\emph{In submission}}
-  \end{publication}
-  \begin{publication} {Seeing is \emph{Worse} than Believing: Reading People’s Minds
-      Better than Computer-Vision Methods Recognize Actions}
-    {Sep 2014}
-    {A. Barbu, D. P. Barrett, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum,
-      C. Hanson, S. J. Hanson, S. H\'elie, E. Malaia, B. A. Pearlmutter,
-      J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
-    {European Conference on Computer Vision (ECCV) \hfill \emph{pp.~612--627}}
-    {\url{http://papers.iffsid.com/barbu2014fmriAction.pdf}}
-  \end{publication}
-  \begin{publication} {Seeing What You're Told: Sentence-Guided Activity Recognition in Video}
-    {June 2014}
-    {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {IEEE Conference on Computer Vision and Pattern Recognition (CVPR) \hfill \emph{pp.~732--739}}
-    {\url{http://papers.iffsid.com/siddharth2014sentence.pdf}}
-  \end{publication}
-  \begin{publication} {Recognizing Human Activities from Partially Observed Videos}
-    {Jun 2013}
-    {Y. Cao, D. Barrett, A. Barbu, N. Siddharth, H. Yu, A. Michaux, Y. Lin,
-      S. Dickinson, J. M. Siskind, and S. Wang}
-    {IEEE Conference on Computer Vision and Pattern Recognition (CVPR) \hfill \emph{pp.~2658--2665}}
-    {\url{http://papers.iffsid.com/cao2013partiallyObserved.pdf}}
-  \end{publication}
-  \begin{publication} {Seeing Unseeability to See the Unseeable}
-    {Dec 2012}
-    {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS) \hfill \emph{2:77--94} [{\color{blueGreen}J\ref{j:2}}]}
-    {\url{http://papers.iffsid.com/siddharth2012unseeability.pdf}}
-  \end{publication}
-  \begin{publication} {Simultaneous Object Detection, Tracking, and Event Recognition}
-    {Dec 2012}
-    {A. Barbu, N. Siddharth, A. Michaux, and J. M. Siskind}
-    {Advances in Cognitive Systems (ACS) \hfill \emph{2:203--220} [{\color{blueGreen}J\ref{j:1}}]}
-    {\url{http://papers.iffsid.com/barbu2012objectsTackingEvents.pdf}}
-  \end{publication}
-  \begin{publication} {Video In Sentences Out}
-    {Aug 2012}
-    {A. Barbu, A. Bridge, Z. Burchill, D. Coroian, S. Dickinson, S. Fidler,
-      A. Michaux, S. Mussman, N. Siddharth , D. Salvi, L. Schmidt, J. Shangguan,
-      J. M. Siskind, J. Waggoner, S. Wang, J. Wei, Y. Yin and Z. Zhang}
-    {Twenty-Eighth Conference on Uncertainity in Artificial Intelligence (UAI) \hfill\emph{pp.~102--112}}
-    {\url{http://papers.iffsid.com/barbu2012videoSentences.pdf}}
-  \end{publication}
-  \begin{publication} {A Visual Language Model for Estimating Object
-      Pose and Structure in a Generative Visual Domain}
-    {May 2011}
-    {N. Siddharth, A. Barbu, and J. M. Siskind}
-    {IEEE International Conference on Robotics and Automation (ICRA) \hfill \emph{pp.~4854--4860}}
-    {\url{http://papers.iffsid.com/siddharth2011VisualLanguage.pdf}}
-  \end{publication}
-  \begin{publication}{Learning Physically-Instantiated Game Play Through Visual Observation}
-    {May 2010}
-    {A. Barbu, N Siddharth, and J. M. Siskind}
-    {IEEE International Conference on Robotics and Automation (ICRA) \hfill \emph{pp.~1879--1886}}
-    {\url{http://papers.iffsid.com/barbu2010RobotGames.pdf}}
-  \end{publication}
-  \begin{publication} {Design of a Do-It-Yourself VR Based Laparoscopic Simulator}
-    {Jan 2009}
-    {N. Siddharth, M. Manivannan, S. Devasahayam, and G. Mathew}
-    {Medicine Meets Virtual Reality (MMVR17)}
-    {} %{{}\hfill[\poster]}
-  \end{publication}
-\end{region}
+% % Grants
+% \subsubsection*{Grants \rline{purple}}
+% Facebook ParlAI
 
-%% Book Chapters
-%% Workshop Publications
-\begin{region}[W][3]{Workshop Publications}{purpleD}
-  \begin{publication} {Inducing Interpretable Representations with Variational Autoencoders}
-    {Dec 2016}
-    {N. Siddharth, B. Paige, A. Desmaison, J. W. van de Meent, F. Wood, N. D.
-      Goodman, P. Kohli, and P. H. S. Torr}
-    {NIPS Workshop on Interpretable Machine Learning in Complex Systems}
-    {\href{http://arxiv.org/abs/1611.07492}{arXiv:1611.07492}}
-  \end{publication}
-  \begin{publication}{Language-Driven Video Retrieval}
-    {Jun 2014}
-    {A. Barbu, N. Siddharth, and J.M. Siskind}
-    {CVPR Workshop on Vision Meets Cognition}
-    {\url{http://papers.iffsid.com/fpic2014.pdf}}
-  \end{publication}
-\end{region}
+% Publications
+\nocite{*}
+\bibcat{journal}{Peer-Reviewed Journal Articles}
+\bibcat{conference}{Peer-Reviewed Conference Proceedings}
+% Chapters
+% Books
+\bibcat{techreport}{Technical Reports}
+\bibcat{workshop}{Workshop Publications}
+\bibcat{patent}{Patents}
+% Software
 
-\begin{region}[T][4]{Technical Reports}{purpleD}
-  % \begin{publication} {The Compositional Nature of Event Representations in the Human Brain}
-  %   {May 2015}
-  %   {A. Barbu, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum, C. Hanson, S. J. Hanson, S.
-  %     H\'elie, E. Malaia, B. A. Pearlmutter, J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
-  %   {arXiv:1505.06670}
-  %   {\url{http://arxiv.org/pdf/1505.06670v1}}
-  % \end{publication}
-  \begin{publication} {Coarse-to-Fine Sequential Monte Carlo for Probabilistic Programs}
-    {Sep 2015}
-    {Andreas Stuhlmüller, Robert X.D. Hawkins, N. Siddharth, Noah D. Goodman}
-    {\href{http://arxiv.org/abs/1509.02962}{arXiv:1509.02962}}
-    {}
-  \end{publication}
-  \begin{publication} {Saying What You're Looking For: Linguistics Meets Video Search}
-    {Sep 2013}
-    {A. Barbu, N. Siddharth, and J. M. Siskind}
-    {\href{http://arxiv.org/abs/1309.5174}{arXiv:1309.5174}}
-    {}
-  \end{publication}
-  \begin{publication} {The Compositional Nature of Verb and Argument
-      Representations in the Human Brain}
-    {Jun 2013}
-    {A. Barbu, N. Siddharth, C. Xiong, J. J. Corso, C. D. Fellbaum, C. Hanson, S. J. Hanson, S.
-      H\'elie, E. Malaia, B. A. Pearlmutter, J. M. Siskind, T. M. Talavage, and R. B. Wilbur}
-    {\href{http://arxiv.org/abs/1306.2293}{arXiv:1306.2293}}
-    {}
-  \end{publication}
-  \begin{publication} {Large-Scale Automatic Labeling of Video Events with
-      Verbs Based on Event-Participant Interaction}
-    {Apr 2012}
-    {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
-    {\href{http://arxiv.org/abs/1204.3616}{arXiv:1204.3616}}
-    {}
-  \end{publication}
-\end{region}
+% Popular Press
 
-\begin{region}[P][1]{Patents}{purpleD}
-  \begin{publication} {Correlating Videos and Sentences}
-    {Nov 2015}                  % Jun 2013 (Provisional) % Dec 2014
-    {A. Barbu, N. Siddharth, H. Yu, and J. M. Siskind}
-    {US Patent US9183466B2}
-    % {US Patent Application 2014/0369596 A1} % 61/835,541 (Provisional)
-    {\url{https://patents.google.com/patent/US9183466B2/en}}
-  \end{publication}
-\end{region}
+% Invited Presentations
+\subsubsection*{Invited Presentations \rline{blue}}
+\begin{center}
+  \small
+  \begin{tabular*}{\textwidth}{@{}ll@{\extracolsep{\fill}}>{\itshape}l@{\,}}
+    \href{https://sites.google.com/site/sitcomfoundations/program}{Foundations of Situated and Multimodal Communication}
+    & IWCS, Montepellier
+    & Sept 2017 \\
+    %
+    \href{http://talks.bham.ac.uk/talk/index/2667}{Artificial Intelligence and Natural Computation Seminar}
+    & University of Birmingham
+    & May 2017 \\
+    %
+    \href{https://www.turing.ac.uk/events}{ATI Probabilistic Programming Workshop}
+    & Alan Turing Institute
+    & Feb 2016 \\
+    %
+    \href{http://talks.bham.ac.uk/talk/index/1183}{Artificial Intelligence and Natural Computation Seminar}
+    & University of Birmingham
+    & Sept 2013 \\
+    %
+    \href{http://www.sussex.ac.uk/cogs/seminars/previous/autumn2013}{COGS Research Seminar}
+    & University of Sussex
+    & Oct 2013 \\
+    %
+    \href{http://talks.cam.ac.uk/talk/index/47407}{Machine Learning and Perception Seminar}
+    & Microsoft Research (Cambridge)
+    & Oct 2013
+  \end{tabular*}
+\end{center}
 
-\begin{region}{Invited Talks}{blueD}
-  \begin{talk} {ATI Probabilistic Programming Workshop}
-    {The Alan Turing Institute}
-    {Feb 2016}
-  \end{talk}
-  \begin{talk} {Artificial Intelligence and Natural Computation Seminar}
-    {University of Birmingham}
-    {Sep 2013}
-  \end{talk}
-  \begin{talk}{COGS Research Seminar}
-    {University of Sussex}
-    {Oct 2013}
-  \end{talk}
-  % needs work: check with Tony for the actual title
-  \begin{talk} {Computing Research Colloquia}
-    {University of Leeds}
-    {Oct 2013}
-  \end{talk}
-  \begin{talk} {IPAB Workshop}
-    {University of Edinburgh}
-    {Oct 2013}
-  \end{talk}
-  \begin{talk} {Machine Learning and Perception Seminar}
-    {Microsoft Research -- Cambridge}
-    {Oct 2013}
-  \end{talk}
-  \begin{talk} {Robotics Research Group Seminar}
-    {Oxford University}
-    {Oct 2013}
-  \end{talk}
-\end{region}
+% Professional Services
+\subsubsection*{Professional Services \rline{blue}}
+\begin{center}
+  \small
+  \begin{tabular*}{\textwidth}{@{}ll@{\extracolsep{\fill}\,}}
+    Journal Reviewer
+    &
+      \href{http://www.computer.org/portal/web/tpami}{PAMI},
+      \href{http://link.springer.com/journal/11263}{IJCV},
+      \href{http://www.journals.elsevier.com/pattern-recognition-letters/}{PRL}
+    \\
+    Conference Reviewer
+    &
+      \href{http://www.aaai.org/home.html}{AAAI},
+      \href{http://www.pamitc.org/cvpr14/}{CVPR},
+      \href{http://www.icra2014.com/}{ICRA},
+      \href{http://www.icdl-epirob.org/}{ICDL},
+      \href{http://www.iclr.cc/}{ICLR},
+      \href{http://www.icml.cc/}{ICML},
+      \href{http://ijcai-16.org/}{IJCAI}
+    \\
+    Co-Organiser
+    & \href{http://languageandvision.com/}{Language and Vision Workshop} --- CVPR 2015, 2017, 2018 \\
+    Co-Organiser
+    & \href{https://sites.google.com/view/disentanglenips2017}{Learning Disentangled Representations} --- NIPS 2017 \\
+    PC Member
+    & \href{http://ijcai-16.org/index.php/welcome/view/program_committee}{IJCAI 2016}
+  \end{tabular*}
+\end{center}
 
-\begin{region}{Professional Activities}{blueD}
-  \begin{workshop} {Program Committee member}
-    {}
-    {}
-    {IJCAI 2016, New York, USA}
-    {9-15 July 2016}
-  \end{workshop}
-  \begin{workshop} {Co-Organizer}
-    {Language and Vision Workshop}
-    {www.languageandvision.com}
-    {CVPR 2015, Boston, USA}
-    {11 Jun 2015}
-  \end{workshop}
-  \begin{workshop} {Co-Organizer}
-    {Language and Vision Workshop}
-    {www.languageandvision.com}
-    {CVPR 2017, Hawaii, USA}
-    {21 Jul 2017}
-  \end{workshop}
-\end{region}
+% Outreach
 
-%% Teaching Experience
-%% Entrepreneurial Experience
+% Teaching
+\subsubsection*{Teaching \rline{blue}}
+\begin{center}
+  \small
+  \begin{tabular*}{\textwidth}{@{}ll@{\extracolsep{\fill}}>{\itshape}l@{\,}}
+    \href{https://engineering.purdue.edu/~ee570}{EE570} Artificial Intelligence
+    & TA (Unofficial), Jeffrey Mark Siskind, Purdue University
+    & 2008 --- 2012 \\
+    \href{https://engineering.purdue.edu/~ee473}{EE473} Introduction to Artificial Intelligence
+    & TA (Unofficial), Jeffrey Mark Siskind, Purdue University
+    & 2008 --- 2012
+  \end{tabular*}
+\end{center}
 
-\begin{region}{Referee Activity}{blueD}
-\item
-  \vspace*{-3ex}
-  \begin{multicols}{10}
-    \begin{compactitem}
-    \item \href{http://www.aaai.org/home.html}{AAAI}
-    \item \href{http://www.pamitc.org/cvpr14/}{CVPR}
-    \item \href{http://www.icra2014.com/}{ICRA}
-    \item \href{http://www.icdl-epirob.org/}{ICDL}
-    \item \href{http://www.icml.cc/}{ICML}
-    \item \href{http://ijcai-16.org/}{IJCAI}
-    \item \href{http://link.springer.com/journal/11263}{IJCV}
-    \item \href{http://nips.cc/}{NIPS}
-    \item \href{http://www.computer.org/portal/web/tpami}{PAMI}
-    % \item \href{http://www.journals.elsevier.com/pattern-recognition-letters/}{PRL}
-    \end{compactitem}
-  \end{multicols}
-  \vspace*{-3ex}
-\end{region}
+% Supervision
 
-%% Independent Consulting
-
-\begin{region}{Other Activities}{blueD}
-\item \textbf{Primary Operator} --- 3T MRI Scanner - InnerVision West - Purdue
-\item \textbf{Member, IEEE} % from Mar 2005
-\end{region}
-
-\begin{region}{Personal}{greenD}
-\item Native English, Tamil, and Hindi
-\end{region}
-
-\begin{region}{References}{greenD}
-\item \textsl{Available upon request}
-\end{region}
+% % Other
+% \subsubsection*{Other \rline{green}}
+% \begin{compactitem}
+% \item[] Consulting?
+% \item[] \textbf{Primary Operator} --- 3T MRI Scanner - InnerVision West - Purdue University
+% \item[] \textbf{Member, IEEE}
+% \end{compactitem}
 
 \end{document}
-
-%  LocalWords:  Siddharth Narayanaswamy PJ orangeD Compositionality Advisor Yu
-%  LocalWords:  Siskind Torr Muniyandi Manivannan IIT Manya Sep purpleD Barbu
-%  LocalWords:  IEEE PAMI Pre Compositional JAIR Unseeability Unseeable ACS VR
-%  LocalWords:  Michaux Xiong Corso Fellbaum elie Malaia Pearlmutter Talavage
-%  LocalWords:  ECCV CVPR Cao blueGreen Burchill Coroian Fidler Mussman Salvi
-%  LocalWords:  Shangguan Waggoner Zhang UAI ICRA Laparoscopic Devasahayam ATI
-%  LocalWords:  MMVR Andreas Stuhlmüller blueD Colloquia IPAB IJCAI AAAI ICDL
-%  LocalWords:  InnerVision greenD
 
 %%% Local Variables:
 %%% mode: latex
