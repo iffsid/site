@@ -276,7 +276,7 @@ imgDisp = img # ".displayed" ? do
     -- marginLeft auto
     -- marginRight auto
     sym borderRadius (px 4)
-    boxShadow (px 0) (px 0) (px 12) (rgba 30 30 30 190)
+    -- boxShadow (px 0) (px 0) (px 12) (rgba 30 30 30 190)
 
 imgAside :: Css
 imgAside = aside |> img ? do
