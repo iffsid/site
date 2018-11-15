@@ -1,10 +1,13 @@
 _cache/*
 _site/*
 _dist/*
-*.aux
-*.log
-*.out
+**/*.aux
+**/*.log
+**/*.out
+**/auto/
+cv/*.pdf
+cv/makefile
+cv/oldcv
 rubtmp*
-/cv/auto/
 /TAGS
 *-extra.hs
