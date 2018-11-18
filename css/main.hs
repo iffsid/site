@@ -55,10 +55,12 @@ site :: Css
 site = body ?
   do background  (rgb 20 20 20, url "./images/bkg.png")      -- black
      baseFont
-     fontSize    (pt 10)
+     -- fontSize    (pt 10)
+     fontSize    (vw 1.1)
      sym margin  (pt 0)
-     lineHeight  (pct 115)
+     lineHeight  (pct 120)
      overflowY   scroll
+     whenNarrow $ fontSize (pt 10)
 
 header1 :: Css
 header1 = h1 ?
@@ -69,10 +71,9 @@ header1 = h1 ?
 header2 :: Css
 header2 = h2 ?
   do headerFont
-     -- color "#666"
-     -- fontSize (em 1.4)
-     -- fontWeight bold
-     fontVariant smallCaps
+     fontSize (em 1.1)
+     fontWeight bold
+     -- fontVariant smallCaps
      margin (em 0.4) 0 (em 0.4) 0
      color "#8e5f1c"
 
@@ -101,7 +102,9 @@ contents = ".content" ? do
        link & do
            color "#707070"
            textDecoration none
-           fontWeight bold
+           -- fontWeight bolder
+           -- fontStyle oblique
+           -- fontSize (pct 95)
            transitions [("color", sec 0.2, ease, sec 0.04)]
        visited & do
            color "#c0c0c0"
@@ -109,15 +112,26 @@ contents = ".content" ? do
            fontWeight bold
        hover & do
            color "#fff"
+       -- after & do
+       --     position relative
+       --     "content" -: "°"
+       --     "margin-left" -: "0.10em"
+       --     fontSize (pct 90)
+       --     "top" -: "0.10em"
+       --     color "#933"
+       --     "font-feature-settings" -: "'caps' 1"
 
 menu :: Css
 menu = nav ? do
     navFont
     navHR
     alignCenter
-    marginTop   u1
+    marginTop   u2
     paddingLeft u1
     lineHeight  u2
+    whenNarrow $ display none
+    -- whenNarrow $ do
+    --   display none
 
 -- http://matthewlein.com/ceaser/
 navHR :: Css
@@ -177,18 +191,28 @@ meta = ".meta" ?
           color "#947662"
 
 articlePubs :: Css
-articlePubs = article # ".pubs" ? width (pct 85)
+articlePubs = article # ".pubs" ? do
+     width (pct 85)
+     whenNarrow $ do
+       width (pct 120)
+       fontSize (Clay.rem 0.9)
 
 sectionBlock :: Css
 sectionBlock = section ? do
     Main.meta
     float floatLeft
-    width (pct 74)
+    whenWide $ width (pct 74)
+    whenNarrow $ width (pct 100)
 
 asideBlock :: Css
 asideBlock = aside ? do
-    float floatRight
-    width (pct 25)
+    whenWide $ do
+      float floatRight
+      width (pct 25)
+    whenNarrow $ do
+      float Clay.none
+      width (pct 100)
+      table # ".contact" ? display none
 
 pBlock :: Css
 pBlock = p ? do
@@ -197,9 +221,9 @@ pBlock = p ? do
 
 blockQuote :: Css
 blockQuote = blockquote ? do
-    fontSize (Clay.rem 1.05)
-    fontWeight bold
-    lineHeight  (pct 120)
+    -- fontSize (Clay.rem 1.15)
+    -- fontWeight bold
+    -- lineHeight  (pct 110)
     borderLeft solid (px 10) "#625252"
     marginLeft (em 1.5)
     marginRight (em 3)
@@ -220,7 +244,8 @@ contactTable :: Css
 contactTable = table # ".contact" ? do
     borderSpacing (px 0)
     sym padding (px 0)
-    fontSize (em 1)
+    fontSize (pct 87)
+    lineHeight (pct 96)
 
 preBlock :: Css
 preBlock = pre ? do
@@ -257,8 +282,7 @@ iBlock = i # ".venue" ? do
 
 bBlock :: Css
 bBlock = b # ".title" ? do
-    fontSize (em 1.2)
-    lineHeight (pct 130)
+    fontSize (em 1.1)
 
 imgBlock :: Css
 imgBlock = img ? do
