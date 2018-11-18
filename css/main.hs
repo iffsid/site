@@ -250,29 +250,12 @@ contactTable = table # ".contact" ? do
 preBlock :: Css
 preBlock = pre ? do
     monoSpace
-    sym margin (px 0)
-    fontSize (em 0.75)
-    -- transform (scale 0.95 0.95)
-    -- display inlineBlock
-    box
-    sym padding (em 0.5)
-    sym borderRadius (px 5)
-    -- lineHeight (pct 100)
-    "white-space" -: "-moz-pre-wrap"
-    "white-space" -: "-pre-wrap"
-    "white-space" -: "-o-pre-wrap"
-    "white-space" -: "pre-wrap"
-    "word-wrap"   -: "break-word"
+    fontSize (pct 80)
+    lineHeight (pct 85)
 
 myCode :: Css
 myCode = ".code" ? do
     sym margin (em 1)
-    -- whenWide $ do
-    --   marginLeft (em 18)
-    --   marginRight (em 17)
-    -- whenNarrow $ do
-    --   marginLeft (em 1)
-    --   marginRight (em 1)
 
 iBlock :: Css
 iBlock = i # ".venue" ? do
