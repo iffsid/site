@@ -200,8 +200,9 @@ articlePubs = article # ".pubs" ? do
 -- for pandtoc-citeproc references
 refsPubs :: Css
 refsPubs = div # ".references" ? do
-  fontSize (pct 95)
-  lineHeight (pct 128)
+  navbarFont
+  whenWide $ fontSize (pct 105)
+  lineHeight (pct 110)
 
 sectionBlock :: Css
 sectionBlock = section ? do
