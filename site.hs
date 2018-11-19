@@ -125,11 +125,11 @@ eList :: (Typeable a, Binary a) =>
       -> Pattern
       -> Snapshot
       -> Compiler String
-eList template sorter pattern name =
+eList template sorter pat name =
   join $ applyTemplateList
   <$> loadBody (mkT template)
   <*> return defaultContext
-  <*> (sorter =<< loadAllSnapshots pattern name)
+  <*> (sorter =<< loadAllSnapshots pat name)
 
 globalizeUrls :: String -> Item String -> Compiler (Item String)
 globalizeUrls g item = do
