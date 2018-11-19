@@ -197,6 +197,12 @@ articlePubs = article # ".pubs" ? do
        width (pct 120)
        fontSize (Clay.rem 0.9)
 
+-- for pandtoc-citeproc references
+refsPubs :: Css
+refsPubs = div # ".references" ? do
+  fontSize (pct 95)
+  lineHeight (pct 128)
+
 sectionBlock :: Css
 sectionBlock = section ? do
     Main.meta
@@ -251,7 +257,11 @@ preBlock :: Css
 preBlock = pre ? do
     monoSpace
     fontSize (pct 80)
-    lineHeight (pct 85)
+    "white-space" -: "pre-wrap"       -- /* css-3 */
+    "white-space" -: "-moz-pre-wrap"  -- /* Mozilla, since 1999 */
+    "white-space" -: "-pre-wrap"      -- /* Opera 4-6 */
+    "white-space" -: "-o-pre-wrap"    -- /* Opera 7 */
+    "word-wrap"   -: "break-word"     -- /* Internet Explorer 5.5+ */
 
 myCode :: Css
 myCode = ".code" ? do
@@ -314,6 +324,7 @@ main = putCss $
      header2
      articleBlock
      articlePubs
+     refsPubs
      sectionBlock
      asideBlock
      pBlock

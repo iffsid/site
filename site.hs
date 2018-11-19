@@ -6,6 +6,7 @@ import           Data.Monoid    ((<>))
 import           Data.Typeable
 -- import           Debug.Trace
 import           Hakyll
+import           Hakyll.Web.Pandoc.Biblio
 -- local imports
 import           Extras.Filters
 import           Extras.Options
@@ -43,19 +44,20 @@ main = hakyllWith hakyllConf $ do
     version "tex" $ route idRoute >> compile copyFileCompiler
 
   -- publications
-  match "publications/*.markdown" $
-    compile $ pandocHtml5Compiler >>= saveSnapshot "pubs" >>= defaultCompiler
+  match "cv/association-for-computational-linguistics.csl" $ compile cslCompiler
+  match "cv/references.bib" $ compile biblioCompiler
 
-  create ["publications.html"] $ do
-    route idRoute
-    compile $ makeItem ""
-      >>= loadAndApplyTemplate (mkT "elements") pubCtx
+  match "cv/references.bib" $ version "html" $ do
+    route $ delDir "cv/" `composeRoutes` setExtension "html"
+    compile $ getResourceBody
+      >>= return . fmap (\w -> "<pre>" ++ w ++ "</pre>")
       >>= defaultCompiler
 
-  create ["bibtex.html"] $ do
-    route idRoute
-    compile $ makeItem ""
-      >>= loadAndApplyTemplate (mkT "elements") bibCtx
+  match "pages/publications.md" $ do
+    route $ delDir "pages/" `composeRoutes` setExtension "html"
+    compile $ pandocBiblioCompiler
+                "cv/association-for-computational-linguistics.csl"
+                "cv/references.bib"
       >>= defaultCompiler
 
   -- research page
@@ -114,9 +116,7 @@ defaultCompiler = loadAndApplyTemplate "templates/default.html" defaultContext >
 eCtx :: Compiler String -> Context String
 eCtx expr = field "elements" (const expr) <> defaultContext
 
-bibCtx, pubCtx, descCtx :: Context String
-bibCtx  = eCtx $ eList "bibtex" recentFirst "publications/*.markdown" "pubs"
-pubCtx  = eCtx $ eList "publication" recentFirst "publications/*.markdown" "pubs"
+descCtx :: Context String
 descCtx = eCtx $ eList "short-description" recentFirst "pages/research/short-*.markdown" "sdesc"
 
 eList :: (Typeable a, Binary a) =>
