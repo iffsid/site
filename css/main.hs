@@ -201,8 +201,8 @@ articlePubs = article # ".pubs" ? do
 refsPubs :: Css
 refsPubs = div # ".references" ? do
   navbarFont
-  whenWide $ fontSize (pct 105)
-  lineHeight (pct 110)
+  lineHeight (pct 125)
+  p ? textAlign (alignSide sideLeft)
 
 sectionBlock :: Css
 sectionBlock = section ? do
