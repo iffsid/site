@@ -35,18 +35,16 @@ alignCenter :: Css
 alignCenter = textAlign (alignSide sideCenter)
 
 -- http://www.bestwebfonts.com/
-sourceCodePro, montserrat, amaranth, quando :: Css
--- dejaVu = fontFamily ["DejaVu"] [sansSerif]
--- anonymousPro = fontFamily ["Anonymous Pro"] [monospace]
--- kreon = fontFamily ["Kreon"] [sansSerif]
+sourceCodePro, sourceSansPro, montserrat, amaranth, quando :: Css
 sourceCodePro = fontFamily ["Source Code Pro"] [monospace]
+sourceSansPro = fontFamily ["Source Sans Pro"] [sansSerif]
 montserrat = fontFamily ["Montserrat"] [sansSerif]
 amaranth = fontFamily ["Amaranth"] [serif]
 quando = fontFamily ["Quando"] [serif]
 
 baseFont, monoSpace, navbarFont, headerFont :: Css
 monoSpace = sourceCodePro
-baseFont = montserrat
+baseFont = sourceSansPro -- montserrat
 navbarFont = amaranth
 headerFont = quando
 
@@ -200,8 +198,8 @@ articlePubs = article # ".pubs" ? do
 -- for pandtoc-citeproc references
 refsPubs :: Css
 refsPubs = div # ".references" ? do
-  navbarFont
-  lineHeight (pct 125)
+  fontSize (pct 110)
+  lineHeight (pct 120)
   p ? textAlign (alignSide sideLeft)
 
 sectionBlock :: Css
