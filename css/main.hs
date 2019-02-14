@@ -54,7 +54,7 @@ site = body ?
   do background  (rgb 20 20 20, url "./images/bkg.png")      -- black
      baseFont
      -- fontSize    (pt 10)
-     whenWide $ fontSize (vw 0.7)
+     whenWide $ fontSize (vw 1.0)
      whenNarrow $ fontSize (vw 1.1)
      sym margin  (pt 0)
      lineHeight  (pct 120)
@@ -199,8 +199,8 @@ articlePubs = article # ".pubs" ? do
 -- for pandtoc-citeproc references
 refsPubs :: Css
 refsPubs = div # ".references" ? do
-  -- fontSize (pct 110)
-  lineHeight (pct 110)
+  fontSize (pct 110)
+  lineHeight (pct 120)
   p ? textAlign (alignSide sideLeft)
 
 sectionBlock :: Css
