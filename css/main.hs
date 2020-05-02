@@ -20,7 +20,7 @@ unit :: Double -> Size LengthUnit
 unit = px . (* 24)
 
 pageWidth :: Size LengthUnit
-pageWidth = unit 43
+pageWidth = unit 45
 
 whenNarrow :: Css -> Css
 whenNarrow = query (MediaType "all") [Media.maxWidth pageWidth]
@@ -51,15 +51,13 @@ headerFont = quando
 -- actual css blocks
 site :: Css
 site = body ?
-  do background  (rgb 20 20 20, url "./images/bkg.png")      -- black
+  do background  (rgb 20 20 20, url "../images/bkg.png")      -- black
      baseFont
-     -- fontSize    (pt 10)
-     whenWide $ fontSize (vw 1.0)
-     whenNarrow $ fontSize (vw 1.1)
-     sym margin  (pt 0)
-     lineHeight  (pct 120)
-     overflowY   scroll
+     whenWide $ fontSize (vw 0.95)
      whenNarrow $ fontSize (pt 10)
+     sym margin  (pt 0)
+     lineHeight  (pct 145)
+     overflowY   scroll
 
 header1 :: Css
 header1 = h1 ?
@@ -199,8 +197,8 @@ articlePubs = article # ".pubs" ? do
 -- for pandtoc-citeproc references
 refsPubs :: Css
 refsPubs = div # ".references" ? do
-  fontSize (pct 110)
-  lineHeight (pct 120)
+  fontSize (pct 100)
+  lineHeight (pct 130)
   p ? textAlign (alignSide sideLeft)
 
 sectionBlock :: Css
@@ -251,12 +249,13 @@ contactTable = table # ".contact" ? do
     borderSpacing (px 0)
     sym padding (px 0)
     fontSize (pct 87)
-    lineHeight (pct 96)
+    lineHeight (pct 120)
 
 preBlock :: Css
 preBlock = pre ? do
     monoSpace
-    fontSize (pct 80)
+    fontSize (vw 0.7)
+    lineHeight (pct 140)
     "white-space" -: "pre-wrap"       -- /* css-3 */
     "white-space" -: "-moz-pre-wrap"  -- /* Mozilla, since 1999 */
     "white-space" -: "-pre-wrap"      -- /* Opera 4-6 */
