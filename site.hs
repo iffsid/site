@@ -35,11 +35,12 @@ main = hakyllWith hakyllConf $ do
       liftM (fmap compressCss) $
       getResourceString >>= withItemBody (unixFilter "runghc" [])
 
-  match "cv/*.tex" $ do
+  match "cv/cv.tex" $ do
     -- compile latex with rubber
     version "pdf" $ do
       route $ setExtension "pdf"
-      compile $ getResourceLBS >>= withItemBody (unixFilterLBS "rubber-pipe" ["-m xelatex"])
+      compile $ getResourceLBS
+        >>= withItemBody (unixFilterLBS "rubber-pipe" ["-m xelatex", "--into", "cv"])
     -- copy tex as is
     version "tex" $ route idRoute >> compile copyFileCompiler
 
