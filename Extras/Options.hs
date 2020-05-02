@@ -6,6 +6,7 @@ module Extras.Options (
 import qualified Data.Set    as S
 import           Hakyll
 import           Text.Pandoc
+import qualified Text.Pandoc.Extensions as E
 
 dontIgnoreHtaccess :: String -> Bool
 dontIgnoreHtaccess ".htaccess" = False
@@ -23,8 +24,7 @@ pandocHtml5Compiler =
 
 pandocWriterOptions :: WriterOptions
 pandocWriterOptions = defaultHakyllWriterOptions
-  { writerHTMLMathMethod = MathML Nothing -- MathJax ""
-  , writerHtml5 = True
+  { writerHTMLMathMethod = MathML -- MathJax ""
   , writerSectionDivs = False
   , writerReferenceLinks = True
   }
@@ -34,8 +34,8 @@ pandocReaderOptions = defaultHakyllReaderOptions
   { readerExtensions = myPandocExtensions }
 
 -- http://hackage.haskell.org/packages/archive/pandoc/1.11.1/doc/html/Text-Pandoc-Options.html
-myPandocExtensions :: S.Set Extension
-myPandocExtensions = S.fromList
+myPandocExtensions :: Extensions
+myPandocExtensions = E.extensionsFromList
                      [ Ext_footnotes
                      , Ext_inline_notes
                      , Ext_pandoc_title_block
