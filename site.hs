@@ -21,10 +21,6 @@ main = hakyllWith hakyllConf $ do
   match ("images/*" .||. "publications/*.pdf") $
     route idRoute >> compile copyFileCompiler
 
-  -- copy as is
-  match "js/jquery-proudify.min.js" $
-    route idRoute >> compile copyFileCompiler
-
   match  "css/*.css" $
     route idRoute >> compile compressCssCompiler
 
@@ -92,8 +88,7 @@ main = hakyllWith hakyllConf $ do
     route (delDir "pages/") >> compile copyFileCompiler
 
   -- main stuff
-  match (fromList ["pages/index.html", "pages/code.html"]) $ do
-    -- "pages/reading.html",
+  match (fromList ["pages/index.html"]) $ do
     route $ delDir "pages/"
     compile $ getResourceBody >>= defaultCompiler
 
