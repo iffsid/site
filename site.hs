@@ -37,8 +37,6 @@ main = hakyllWith hakyllConf $ do
       route $ setExtension "pdf"
       compile $ getResourceLBS
         >>= withItemBody (unixFilterLBS "rubber-pipe" ["-m xelatex", "--into", "cv"])
-    -- copy tex as is
-    version "tex" $ route idRoute >> compile copyFileCompiler
 
   -- publications
   match "cv/association-for-computational-linguistics.csl" $ compile cslCompiler
@@ -88,7 +86,7 @@ main = hakyllWith hakyllConf $ do
     route (delDir "pages/") >> compile copyFileCompiler
 
   -- main stuff
-  match (fromList ["pages/index.html"]) $ do
+  match (fromList ["pages/index.html", "pages/bio.html"]) $ do
     route $ delDir "pages/"
     compile $ getResourceBody >>= defaultCompiler
 
