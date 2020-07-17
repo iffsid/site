@@ -126,9 +126,7 @@ menu = nav ? do
     marginTop   u2
     paddingLeft u1
     lineHeight  u2
-    whenNarrow $ display none
-    -- whenNarrow $ do
-    --   display none
+    -- whenNarrow $ display none
 
 -- http://matthewlein.com/ceaser/
 navHR :: Css
@@ -147,8 +145,8 @@ navFont :: Css
 navFont =
   do navbarFont
      color lightgrey
-     fontSize      (em 1.8)
-     lineHeight    (em 1.5)
+     fontSize      (em 1.3)
+     lineHeight    (em 1.3)
      -- fontVariant smallCaps
      textTransform lowercase
      a ? do
@@ -210,13 +208,14 @@ sectionBlock = section ? do
 
 asideBlock :: Css
 asideBlock = aside ? do
+    alignCenter
     whenWide $ do
       float floatRight
       width (pct 25)
     whenNarrow $ do
       float Clay.none
       width (pct 100)
-      table # ".contact" ? display none
+      -- table # ".contact" ? display none
 
 pBlock :: Css
 pBlock = p ? do
@@ -228,8 +227,8 @@ blockQuote = blockquote ? do
     -- fontSize (Clay.rem 1.15)
     -- fontWeight bold
     -- lineHeight  (pct 110)
-    borderLeft solid (px 10) "#625252"
-    marginLeft (em 1.5)
+    borderLeft solid (px 25) "#625252"
+    marginLeft (em 0)
     marginRight (em 3)
     paddingLeft (em 0.5)
     p ? display inline
@@ -246,10 +245,11 @@ footerBlock = footer ? do
 
 contactTable :: Css
 contactTable = table # ".contact" ? do
+    -- textAlign (alignSide sideLeft)
+    width (pct 100)
     borderSpacing (px 0)
-    sym padding (px 0)
-    fontSize (pct 87)
-    lineHeight (pct 120)
+    fontSize (pct 90)
+    lineHeight (pct 115)
 
 preBlock :: Css
 preBlock = pre ? do
