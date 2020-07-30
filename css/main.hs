@@ -3,11 +3,7 @@ import           Clay            hiding (contents, menu)
 import qualified Clay.Media      as Media
 import           Clay.Stylesheet
 import           Data.Monoid     ()
-import           Data.Text       (Text)
 import           Prelude         hiding (all, div, span)
--- helpers
--- nil :: Size Abs
--- nil = px 0
 
 nil, u1, u2, u3, u4 :: Size LengthUnit
 nil = unit 0
@@ -62,7 +58,6 @@ site = body ?
 header1 :: Css
 header1 = h1 ?
   do headerFont
-     -- fontWeight normal
      margin (em 0.2) 0 (em 0.2) 0
 
 header2 :: Css
@@ -70,7 +65,6 @@ header2 = h2 ?
   do headerFont
      fontSize (em 1.1)
      fontWeight bold
-     -- fontVariant smallCaps
      margin (em 0.4) 0 (em 0.4) 0
      color "#8e5f1c"
 
@@ -84,24 +78,19 @@ centered =
   do box
      whenWide $
        do width       pageWidth
-          "margin-left" -: "auto"
-          "margin-right" -: "auto"
-          -- marginLeft  auto
-          -- marginRight auto
+          marginLeft  auto
+          marginRight auto
      whenNarrow $ width (pct 95)
 
 contents :: Css
 contents = ".content" ? do
      color lightgrey
      -- backgroundColor (setA 200 black)
-     padding         u1 u1 u2 u1
+     padding u1 u1 u2 u1
      a ? do
        link & do
            color "#707070"
            textDecoration none
-           -- fontWeight bolder
-           -- fontStyle oblique
-           -- fontSize (pct 95)
            transitions [("color", sec 0.2, ease, sec 0.04)]
        visited & do
            color "#c0c0c0"
@@ -109,37 +98,14 @@ contents = ".content" ? do
            fontWeight bold
        hover & do
            color "#fff"
-       -- after & do
-       --     position relative
-       --     "content" -: "°"
-       --     "margin-left" -: "0.10em"
-       --     fontSize (pct 90)
-       --     "top" -: "0.10em"
-       --     color "#933"
-       --     "font-feature-settings" -: "'caps' 1"
 
 menu :: Css
 menu = nav ? do
     navFont
-    navHR
-    alignCenter
-    marginTop   u2
+    navList
+    whenWide $ marginTop (unit 1.5)
     paddingLeft u1
-    lineHeight  u2
-    -- whenNarrow $ display none
-
--- http://matthewlein.com/ceaser/
-navHR :: Css
-navHR = ".navsep" ? do
-    "border" -: "0"
-    alignCenter
-    width (pct 30)
-    height (px 1)
-    backgroundImage
-        (linearGradient (straight sideLeft)
-         [(rgba 50 50 50 40, pct 0),
-          (rgba 250 250 250 90, pct 50),
-          (rgba 50 50 50 40, pct 100)])
+    lineHeight  u1
 
 navFont :: Css
 navFont =
@@ -147,29 +113,38 @@ navFont =
      color lightgrey
      fontSize      (em 1.3)
      lineHeight    (em 1.3)
-     -- fontVariant smallCaps
      textTransform lowercase
-     a ? do
-       link & do
-           color "#707070"
-           alignCenter
-           textDecoration none
-           fontWeight bold
-           marginRight (px 10)
-           transitions [("color", sec 0.2, ease, sec 0.04)]
-       hover & color "#4ccccf" -- "#44e3e0"
+
+navList :: Css
+navList = ul ? do
+  listStyleType none
+  display inline
+  li ? do
+    whenWide $ float floatLeft
+    a ? do
+      display block
+      whenWide $ padding (px 0) (px 6) (Clay.rem 0.5) (px 6)
+      link & do
+        color "#707070"
+        alignCenter
+        textDecoration none
+        fontWeight bold
+        whenWide $ marginRight (Clay.rem 1)
+        whenNarrow $ do
+          sym margin auto
+          width (pct 40)
+          marginBottom (Clay.rem 0.35)
+        borderBottom solid (px 3) transparent
+        transitions [("color", sec 0.2, ease, sec 0.04)]
+        transitions [("borderColor", sec 0.2, ease, sec 0.04)]
+      hover & do
+        color "#4ccccf"
+        borderColor "#4ccccf"
 
 articleBlock :: Css
 articleBlock = article ? do
-    -- sym margin 0
-    -- margin 0 (em 4) 0 (em 6)
     Main.meta
-    "margin-left" -: "auto"
-    "margin-right" -: "auto"
-    -- marginLeft auto
-    -- marginRight auto
-    marginTop (px 5)
-    marginBottom (px 5)
+    margin (px 5) auto (px 5) auto
     width (pct 100)
     overflow hidden
     Clay.div ? do
@@ -184,13 +159,6 @@ meta = ".meta" ?
      Clay.span ?
        do display block
           color "#947662"
-
-articlePubs :: Css
-articlePubs = article # ".pubs" ? do
-     width (pct 85)
-     whenNarrow $ do
-       width (pct 120)
-       fontSize (Clay.rem 0.9)
 
 -- for pandtoc-citeproc references
 refsPubs :: Css
@@ -215,7 +183,6 @@ asideBlock = aside ? do
     whenNarrow $ do
       float Clay.none
       width (pct 100)
-      -- table # ".contact" ? display none
 
 pBlock :: Css
 pBlock = p ? do
@@ -224,9 +191,6 @@ pBlock = p ? do
 
 blockQuote :: Css
 blockQuote = blockquote ? do
-    -- fontSize (Clay.rem 1.15)
-    -- fontWeight bold
-    -- lineHeight  (pct 110)
     borderLeft solid (px 25) "#625252"
     marginLeft (em 0)
     marginRight (em 3)
@@ -238,14 +202,12 @@ footerBlock = footer ? do
     float floatLeft
     width (pct 100)
     color "#909090"
-    "margin" -: "30px auto auto auto"
-    -- margin (px 30) auto auto auto
+    margin (px 30) auto auto auto
     fontSize (em 1)
     alignCenter
 
 contactTable :: Css
 contactTable = table # ".contact" ? do
-    -- textAlign (alignSide sideLeft)
     width (pct 100)
     borderSpacing (px 0)
     fontSize (pct 90)
@@ -266,37 +228,18 @@ myCode :: Css
 myCode = ".code" ? do
     sym margin (em 1)
 
-iBlock :: Css
-iBlock = i # ".venue" ? do
-    borderSpacing (px 0)
-    sym padding (px 0)
-    color "#9aa6ab"
-
-bBlock :: Css
-bBlock = b # ".title" ? do
-    fontSize (em 1.1)
-
 imgBlock :: Css
 imgBlock = img ? do
     maxWidth (pct 90)
-    "height" -: "auto"
-    "width" -: "auto"
-    -- whenNarrow $ do
-    --   display none
+    height auto
+    width auto
 
 imgDisp :: Css
 imgDisp = img # ".displayed" ? do
     display block
-    "margin-left" -: "auto"
-    "margin-right" -: "auto"
-    -- marginLeft auto
-    -- marginRight auto
-    sym borderRadius (px 4)
-    -- boxShadow (px 0) (px 0) (px 12) (rgba 30 30 30 190)
-
-imgAside :: Css
-imgAside = aside |> img ? do
-    sym borderRadius (px 5)
+    marginLeft auto
+    marginRight auto
+    sym borderRadius (px 400)
 
 -- http://webdesignerwall.com/tutorials/css-elastic-videos
 videoContainer :: Css
@@ -322,7 +265,6 @@ main = putCss $
      header1
      header2
      articleBlock
-     articlePubs
      refsPubs
      sectionBlock
      asideBlock
@@ -332,11 +274,8 @@ main = putCss $
      menu
      contactTable
      preBlock
-     iBlock
-     bBlock
      imgBlock
      imgDisp
-     imgAside
      videoContainer
      myCode
 
