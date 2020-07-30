@@ -55,36 +55,6 @@ main = hakyllWith hakyllConf $ do
                 "cv/references.bib"
       >>= defaultCompiler
 
-  -- research page
-  match "pages/research/short-*.markdown" $
-    compile $ pandocHtml5Compiler
-      >>= saveSnapshot "sdesc"
-      >>= defaultCompiler
-
-  match ("pages/research/index.markdown" .||. "pages/research/*/index.markdown") $ do
-    route $ delDir "pages/" `composeRoutes` setExtension "html"
-    compile $ pandocHtml5Compiler
-      >>= aplKeywords
-      >>= applyAsTemplate descCtx
-      >>= defaultCompiler
-
-  match "pages/research/index.markdown" $ do
-    route $ delDir "pages/" `composeRoutes` setExtension "html"
-    compile $ pandocHtml5Compiler
-      >>= applyAsTemplate descCtx
-      >>= defaultCompiler
-
-  match "pages/research/*/*.markdown" $ do
-    route $ delDir "pages/" `composeRoutes` setExtension "html"
-    compile $ pandocHtml5Compiler
-      >>= aplKeywords
-      >>= applyAsTemplate descCtx
-      >>= saveSnapshot "res"
-      >>= defaultCompiler
-
-  match ("pages/research/*/*.png" .||. "pages/research/*/*.jpg") $
-    route (delDir "pages/") >> compile copyFileCompiler
-
   -- main stuff
   match (fromList ["pages/index.html", "pages/bio.html"]) $ do
     route $ delDir "pages/"
@@ -106,24 +76,6 @@ mkT a = fromFilePath $ "templates/" ++ toFilePath a ++ ".html"
 
 defaultCompiler :: Item String -> Compiler (Item String)
 defaultCompiler = loadAndApplyTemplate "templates/default.html" defaultContext >=> relativizeUrls
-
-eCtx :: Compiler String -> Context String
-eCtx expr = field "elements" (const expr) <> defaultContext
-
-descCtx :: Context String
-descCtx = eCtx $ eList "short-description" recentFirst "pages/research/short-*.markdown" "sdesc"
-
-eList :: (Typeable a, Binary a) =>
-         Identifier
-      -> ([Item a] -> Compiler [Item String])
-      -> Pattern
-      -> Snapshot
-      -> Compiler String
-eList template sorter pat name =
-  join $ applyTemplateList
-  <$> loadBody (mkT template)
-  <*> return defaultContext
-  <*> (sorter =<< loadAllSnapshots pat name)
 
 globalizeUrls :: String -> Item String -> Compiler (Item String)
 globalizeUrls g item = do
