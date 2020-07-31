@@ -60,7 +60,8 @@ main = hakyllWith hakyllConf $ do
     route $ delDir "pages/"
     compile $ getResourceBody
               >>= (loadAndApplyTemplate "templates/default.html" defaultContext
-                   >=> globalizeUrls "https://www.robots.ox.ac.uk/~nsid")
+                   >=> globalizeUrls "https://homepages.inf.ed.ac.uk/snaraya3/")
+              -- https://www.robots.ox.ac.uk/~nsid
               -- http://www.iffsid.com
 
   match "templates/*" $ compile templateCompiler
