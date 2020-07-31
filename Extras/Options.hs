@@ -3,7 +3,6 @@ module Extras.Options (
   , hakyllConf
 ) where
 
-import qualified Data.Set    as S
 import           Hakyll
 import           Text.Pandoc
 import qualified Text.Pandoc.Extensions as E
