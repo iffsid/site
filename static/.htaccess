@@ -7,5 +7,5 @@ Options +Indexes
 #AddType application/x-mpegurl .m3u8
 #AddType video/mp2t            .ts
 # hls transport stream segments:
-ErrorDocument 404 /~nsid/404.html
+ErrorDocument 404 /snaraya3/404.html
 Header set Cache-Control "max-age=172800, public, must-revalidate"
