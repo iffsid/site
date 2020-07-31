@@ -1,14 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-import           Control.Monad  (join, liftM, (>=>))
-import           Data.Binary
-import           Data.Monoid    ((<>))
-import           Data.Typeable
--- import           Debug.Trace
+import           Control.Monad  (liftM, (>=>))
 import           Hakyll
-import           Hakyll.Web.Pandoc.Biblio
+
 -- local imports
-import           Extras.Filters
+-- import           Extras.Filters
 import           Extras.Options
 
 main :: IO ()
@@ -70,9 +66,6 @@ main = hakyllWith hakyllConf $ do
   match "templates/*" $ compile templateCompiler
 
   where delDir = flip gsubRoute (const "")
-
-mkT :: Identifier -> Identifier
-mkT a = fromFilePath $ "templates/" ++ toFilePath a ++ ".html"
 
 defaultCompiler :: Item String -> Compiler (Item String)
 defaultCompiler = loadAndApplyTemplate "templates/default.html" defaultContext >=> relativizeUrls
