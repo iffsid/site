@@ -52,9 +52,13 @@ main = hakyllWith hakyllConf $ do
       >>= defaultCompiler
 
   -- main stuff
-  match (fromList ["pages/index.html", "pages/bio.html"]) $ do
+  match (fromList ["pages/index.html"]) $ do
     route $ delDir "pages/"
     compile $ getResourceBody >>= defaultCompiler
+
+  match (fromList ["pages/bio.md", "pages/supervision.md"]) $ do
+    route $ delDir "pages/" `composeRoutes` setExtension "html"
+    compile $ pandocHtml5Compiler >>= defaultCompiler
 
   match "pages/404.html" $ do
     route $ delDir "pages/"
