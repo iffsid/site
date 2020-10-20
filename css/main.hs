@@ -44,6 +44,14 @@ baseFont = sourceSansPro -- montserrat
 navbarFont = amaranth
 headerFont = quando
 
+-- colours
+hlC, blC, h2C, txC, nvC :: Color
+hlC = "#1FE0B3"  -- highlight
+blC = "#8A37A3"  -- block     #B32FE0 adjusted
+h2C = "#E0B31F"  -- header 2
+txC = lightgrey  -- text
+nvC = grey       -- nav
+
 -- actual css blocks
 site :: Css
 site = body ?
@@ -66,7 +74,14 @@ header2 = h2 ?
      fontSize (em 1.1)
      fontWeight bold
      margin (em 0.4) 0 (em 0.4) 0
-     color "#8e5f1c"
+     paddingTop (em 1.2)
+     color h2C
+
+header3 :: Css
+header3 = h3 ?
+  do headerFont
+     margin (em 0.2) 0 (em 0.2) 0
+     marginBottom (em (- 0.5))
 
 divColumn :: Css
 divColumn = body |> "div" ?
@@ -84,20 +99,18 @@ centered =
 
 contents :: Css
 contents = ".content" ? do
-     color lightgrey
-     -- backgroundColor (setA 200 black)
+     color txC
      padding u1 u1 u2 u1
      a ? do
+       color inherit
+       -- https://css-tricks.com/styling-links-with-real-underlines/
+       textDecorationColor nvC
+       "text-decoration-thickness" -: "0.125em"
+       "text-underline-offset" -: "2.5px"
        link & do
-           color "#707070"
-           textDecoration none
-           transitions [("color", sec 0.2, ease, sec 0.04)]
-       visited & do
-           color "#c0c0c0"
-           textDecoration none
-           fontWeight bold
+         transitions [("text-decoration-color", sec 0.2, ease, sec 0.04)]
        hover & do
-           color "#fff"
+           textDecorationColor hlC
 
 menu :: Css
 menu = nav ? do
@@ -110,7 +123,7 @@ menu = nav ? do
 navFont :: Css
 navFont =
   do navbarFont
-     color lightgrey
+     color txC
      fontSize      (em 1.4)
      lineHeight    (em 1.4)
      textTransform lowercase
@@ -125,7 +138,7 @@ navList = ul ? do
       display block
       whenWide $ padding (px 0) (px 5) (Clay.rem 0.5) (px 5)
       link & do
-        color "#707070"
+        color nvC
         alignCenter
         textDecoration none
         fontWeight bold
@@ -138,8 +151,15 @@ navList = ul ? do
         transitions [("color", sec 0.2, ease, sec 0.04)]
         transitions [("borderColor", sec 0.2, ease, sec 0.04)]
       hover & do
-        color "#4ccccf"
-        borderColor "#4ccccf"
+        color hlC
+        borderColor hlC
+
+meta :: Css
+meta = ".meta" ?
+  do textAlign (alignSide sideRight)
+     float     floatRight
+     marginRight (unit (2))
+     Clay.span ? display block
 
 articleBlock :: Css
 articleBlock = article ? do
@@ -147,18 +167,6 @@ articleBlock = article ? do
     margin (px 5) auto (px 5) auto
     width (pct 100)
     overflow hidden
-    Clay.div ? do
-      transitions [("color", sec 0.8, ease, sec 0.5)]
-      target & color "#8293ad"
-
-meta :: Css
-meta = ".meta" ?
-  do textAlign (alignSide sideRight)
-     float     floatRight
-     marginRight (unit (2))
-     Clay.span ?
-       do display block
-          color "#947662"
 
 -- for pandtoc-citeproc references
 refsPubs :: Css
@@ -183,6 +191,8 @@ asideBlock = aside ? do
     whenNarrow $ do
       float Clay.none
       width (pct 100)
+    a ? do
+      textDecoration none
 
 pBlock :: Css
 pBlock = p ? do
@@ -191,7 +201,7 @@ pBlock = p ? do
 
 blockQuote :: Css
 blockQuote = blockquote ? do
-    borderLeft solid (px 25) "#625252"
+    borderLeft solid (px 25) blC
     marginLeft (em 0)
     marginRight (em 3)
     paddingLeft (em 0.5)
@@ -201,7 +211,6 @@ footerBlock :: Css
 footerBlock = footer ? do
     float floatLeft
     width (pct 100)
-    color "#909090"
     margin (px 30) auto auto auto
     fontSize (em 1)
     alignCenter
@@ -212,6 +221,7 @@ contactTable = table # ".contact" ? do
     borderSpacing (px 0)
     fontSize (pct 90)
     lineHeight (pct 115)
+    color txC
 
 preBlock :: Css
 preBlock = pre ? do
@@ -245,8 +255,7 @@ imgDisp = img # ".displayed" ? do
 videoContainer :: Css
 videoContainer = ".videoContainer" ? do
     position relative
-    -- paddingBottom (pct 56.25) -- 16:9
-    "padding-bottom" -: "56.25%"
+    paddingBottom (pct 56.25) -- 16:9
     paddingTop (px 25)
     height (px 0)
     "iframe" ? do
@@ -264,6 +273,7 @@ main = putCss $
      contents
      header1
      header2
+     header3
      articleBlock
      refsPubs
      sectionBlock
