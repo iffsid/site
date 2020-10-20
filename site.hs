@@ -59,17 +59,15 @@ main = hakyllWith hakyllConf $ do
   match "pages/404.html" $ do
     route $ delDir "pages/"
     compile $ getResourceBody
-              >>= (loadAndApplyTemplate "templates/default.html" defaultContext
-                   >=> globalizeUrls "https://homepages.inf.ed.ac.uk/snaraya3/")
-              -- https://www.robots.ox.ac.uk/~nsid
-              -- http://www.iffsid.com
+              >>= (defaultTemplate >=> globalizeUrls "https://homepages.inf.ed.ac.uk/snaraya3/")
 
   match "templates/*" $ compile templateCompiler
 
   where delDir = flip gsubRoute (const "")
 
-defaultCompiler :: Item String -> Compiler (Item String)
-defaultCompiler = loadAndApplyTemplate "templates/default.html" defaultContext >=> relativizeUrls
+defaultTemplate, defaultCompiler :: Item String -> Compiler (Item String)
+defaultTemplate = loadAndApplyTemplate "templates/default.html" defaultContext
+defaultCompiler = defaultTemplate >=> relativizeUrls
 
 globalizeUrls :: String -> Item String -> Compiler (Item String)
 globalizeUrls g item = do
