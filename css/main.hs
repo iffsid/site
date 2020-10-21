@@ -202,6 +202,7 @@ pBlock = p ? do
 blockQuote :: Css
 blockQuote = blockquote ? do
     borderLeft solid (px 25) blC
+    borderRadius (px 10) 0 0 (px 2)
     marginLeft (em 0)
     marginRight (em 3)
     paddingLeft (em 0.5)
