@@ -171,9 +171,10 @@
   </citation>
   <bibliography et-al-min="99" et-al-use-first="19">
     <sort>
-      <key variable="issued" sort="descending"/>
-      <key macro="year-date"/>
-      <key variable="title"/>
+      <!-- <key variable="issued" sort="descending"/> -->
+      <!-- <key macro="year-date"/> -->
+      <!-- <key variable="title"/> -->
+      <key macro="year-date" sort="descending"/>
     </sort>
     <layout>
       <!-- author -->
