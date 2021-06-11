@@ -173,7 +173,7 @@ refsPubs :: Css
 refsPubs = div # ".references" ? do
   fontSize (pct 100)
   lineHeight (pct 130)
-  p ? textAlign (alignSide sideLeft)
+  div # ".csl-entry" ? paddingBottom (Clay.rem 1.0)
 
 sectionBlock :: Css
 sectionBlock = section ? do
