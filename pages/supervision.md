@@ -16,9 +16,9 @@ In reaching out to me, it would be quite helpful if you explain (briefly)
 
 Outside of the potential opportunities listed below, there are a range of avenues for pursuing a PhD, including through the [School of Informatics](https://www.ed.ac.uk/informatics/postgraduate/), or the Centres for Doctoral Training (CDTs) in [Data Science](http://datascience.inf.ed.ac.uk), [Natural Language Procesing (NLP)](https://nlp-cdt.ac.uk/), [Robotics](https://www.edinburgh-robotics.org), and [Biomedical AI](http://web.inf.ed.ac.uk/cdt/biomedical-ai).
 <br/>
-Please refer to the relevant information on these web pages to learn about the application process, timescales, and funding options.
+Please refer to the information on these pages to learn about the application process, timescales, and funding options.
 
-***Application deadlines for starting a PhD in September 2021 are in late 2020 / early 2021. The sooner you get started, the better.***
+<!-- ***Application deadlines for starting a PhD in September 2021 are in late 2020 / early 2021. The sooner you get started, the better.*** -->
 
 ### MSc (Thesis)
 
