@@ -2,6 +2,8 @@
 
 import           Control.Monad  (liftM, (>=>))
 import           Hakyll
+import           System.Directory (makeAbsolute)
+import           Data.ByteString.Lazy.Internal (ByteString)
 
 -- local imports
 -- import           Extras.Filters
@@ -31,8 +33,7 @@ main = hakyllWith hakyllConf $ do
     -- compile latex with rubber
     version "pdf" $ do
       route $ setExtension "pdf"
-      compile $ getResourceLBS
-        >>= withItemBody (unixFilterLBS "rubber-pipe" ["-m xelatex", "--into", "cv"])
+      compile $ getResourceLBS >>= withItemBody (rubberInto "cv")
 
   -- publications
   match "cv/association-for-computational-linguistics.csl" $ compile cslCompiler
@@ -79,6 +80,10 @@ globalizeUrls g item = do
     return $ case aRoute of
         Nothing -> item
         Just r  -> fmap (relativizeUrlsWith $ g ++ (tail $ toSiteRoot r)) item
+
+rubberInto :: String -> ByteString -> Compiler ByteString
+rubberInto fPath pIn = (unsafeCompiler $ makeAbsolute fPath)
+                       >>= \aPath -> unixFilterLBS "rubber-pipe" ["-m xelatex", "--into", aPath] pIn
 
 -- http://johnmacfarlane.net/pandoc/README.html#verbatim-code-blocks
 -- http://vapaus.org/text/hakyll-configuration.html
