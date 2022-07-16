@@ -57,10 +57,10 @@ site :: Css
 site = body ?
   do background  (rgb 20 20 20, url "../images/bkg.png")      -- black
      baseFont
-     whenWide $ fontSize (vw 0.8)
-     whenNarrow $ fontSize (pt 10)
+     whenWide $ fontSize (pt 13)
+     whenNarrow $ fontSize (pt 12)
      sym margin  (pt 0)
-     lineHeight  (pct 130)
+     lineHeight  (pct 135)
      overflowY   scroll
 
 header1 :: Css
@@ -124,8 +124,8 @@ navFont :: Css
 navFont =
   do navbarFont
      color txC
-     fontSize      (em 1.4)
-     lineHeight    (em 1.4)
+     fontSize      (em 1.8)
+     lineHeight    (em 1.8)
      textTransform lowercase
 
 navList :: Css
@@ -146,7 +146,7 @@ navList = ul ? do
         whenNarrow $ do
           sym margin auto
           width (pct 40)
-          marginBottom (Clay.rem 0.35)
+          marginBottom (Clay.rem 0.75)
         borderBottom solid (px 3) transparent
         transitions [("color", sec 0.2, ease, sec 0.04)]
         transitions [("borderColor", sec 0.2, ease, sec 0.04)]
