@@ -162,7 +162,7 @@
       </else>
     </choose>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-givenname="true" disambiguate-add-year-suffix="true">
     <!-- no sorting for citation -->
     <layout prefix="(" suffix=")" delimiter="; ">
       <text macro="author-short"/>
@@ -199,10 +199,6 @@
             <text variable="page" prefix=":"/>
             <text macro="month" prefix=", "/>
           </group>
-          <!-- year -->
-          <date variable="issued" prefix=" " suffix=".">
-            <date-part name="year"/>
-          </date>
         </if>
         <!-- corresponds to "proceedings", "manual", "book", and "periodical" in bibtex -->
         <else-if type="book">
@@ -216,10 +212,6 @@
             <text macro="edition"/>
             <text macro="month"/>
           </group>
-          <!-- year -->
-          <date variable="issued" prefix=" " suffix=".">
-            <date-part name="year"/>
-          </date>
         </else-if>
         <!-- corresponds to "inbook" and "incollection" in bibtex -->
         <else-if type="chapter">
@@ -244,10 +236,6 @@
             <text macro="edition"/>
             <text macro="month"/>
           </group>
-          <!-- year -->
-          <date variable="issued" prefix=" " suffix=".">
-            <date-part name="year"/>
-          </date>
         </else-if>
         <!-- corresponds to "booklet" in bibtex -->
         <else-if type="pamphlet">
@@ -284,10 +272,6 @@
               </if>
             </choose>
           </group>
-          <!-- year -->
-          <date variable="issued" prefix=" " suffix=".">
-            <date-part name="year"/>
-          </date>
         </else-if>
         <!-- corresponds to "techreport" in bibtex -->
         <else-if type="report">
@@ -298,10 +282,6 @@
             <text variable="publisher-place"/>
             <text macro="month"/>
           </group>
-          <!-- year -->
-          <date variable="issued" prefix=" " suffix=".">
-            <date-part name="year"/>
-          </date>
         </else-if>
         <!-- corresponds to "phdthesis" and "masterthesis" in bibtex -->
         <else-if type="thesis">
@@ -313,10 +293,6 @@
             <text variable="publisher-place"/>
             <text macro="month"/>
           </group>
-          <!-- year -->
-          <date variable="issued" prefix=" " suffix=".">
-            <date-part name="year"/>
-          </date>
         </else-if>
         <!-- corresponds to "phdthesis" and "masterthesis" in bibtex -->
         <else-if type="patent">
@@ -328,21 +304,14 @@
             <text variable="number"/>
             <text macro="month"/>
           </group>
-          <!-- year -->
-          <date variable="issued" prefix=" " suffix=".">
-            <date-part name="year"/>
-          </date>
         </else-if>
         <!-- misc. -->
         <else>
           <text variable="title" prefix=" " suffix="." font-weight="bold" text-case="capitalize-all" display="block"/>
           <text macro="month" prefix=" " suffix="."/>
-          <!-- year -->
-          <date variable="issued" prefix=" " suffix=".">
-            <date-part name="year"/>
-          </date>
         </else>
       </choose>
+      <text macro="year-date" prefix=" " suffix="."/>
     </layout>
   </bibliography>
 </style>
