@@ -147,7 +147,7 @@ navList = ul ? do
           sym margin auto
           width (pct 40)
           marginBottom (Clay.rem 0.75)
-        borderBottom solid (px 3) transparent
+        borderBottom (px 3) solid transparent
         transitions [("color", sec 0.2, ease, sec 0.04)]
         transitions [("borderColor", sec 0.2, ease, sec 0.04)]
       hover & do
@@ -201,7 +201,7 @@ pBlock = p ? do
 
 blockQuote :: Css
 blockQuote = blockquote ? do
-    borderLeft solid (px 25) blC
+    borderLeft (px 25) solid blC
     borderRadius (px 10) 0 0 (px 2)
     marginLeft (em 0)
     marginRight (em 3)
