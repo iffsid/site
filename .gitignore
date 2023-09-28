@@ -1,6 +1,7 @@
 _cache/*
 _site/*
 _dist/*
+dist-newstyle/*
 **/*.aux
 **/*.log
 **/*.out
