@@ -55,7 +55,7 @@ nvC = grey       -- nav
 -- actual css blocks
 site :: Css
 site = body ?
-  do background  (rgb 20 20 20, url "../images/bkg.png")      -- black
+  do background  (rgb 40 40 40)      -- black
      baseFont
      whenWide $ fontSize (pt 13)
      whenNarrow $ fontSize (pt 12)
