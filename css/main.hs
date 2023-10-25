@@ -45,22 +45,23 @@ navbarFont = amaranth
 headerFont = quando
 
 -- colours
-hlC, blC, h2C, txC, nvC :: Color
+hlC, blC, h2C, bgC, txC, nvC :: Color
 hlC = "#1FE0B3"  -- highlight
 blC = "#8A37A3"  -- block     #B32FE0 adjusted
 h2C = "#E0B31F"  -- header 2
+bgC = (rgb 40 40 40) -- background
 txC = lightgrey  -- text
 nvC = grey       -- nav
 
 -- actual css blocks
 site :: Css
 site = body ?
-  do background  (rgb 40 40 40)      -- black
+  do background  bgC      -- black
      baseFont
-     whenWide $ fontSize (pt 13)
-     whenNarrow $ fontSize (pt 12)
+     whenWide $ fontSize (pt 14)
+     whenNarrow $ fontSize (pt 13)
      sym margin  (pt 0)
-     lineHeight  (pct 135)
+     lineHeight  (pct 150)
      overflowY   scroll
 
 header1 :: Css
@@ -172,7 +173,7 @@ articleBlock = article ? do
 refsPubs :: Css
 refsPubs = div # ".references" ? do
   fontSize (pct 100)
-  lineHeight (pct 130)
+  lineHeight (pct 135)
   div # ".csl-entry" ? paddingBottom (Clay.rem 1.0)
 
 sectionBlock :: Css
@@ -289,6 +290,9 @@ main = putCss $
      imgDisp
      videoContainer
      myCode
+     selection & do
+       background h2C
+       color bgC
 
 -- extra css for codeblocks
 -- https://github.com/Anomareh/pygments-styles-dump
