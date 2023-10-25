@@ -2,7 +2,7 @@
 title: Positions
 ---
 
-Please send any enquiries via email (with CV) using the tag **`[Phd-Enquiry]`** in the subject, along with either **`[<project title>]`** or **[`General`]** depending on whether you're applying to work on a specified project below or otherwise.
+Please send any enquiries via email (with your CV) using the tag **`[Phd-Enquiry]`** in the subject, along with either **`[<project title>]`** or **[`General`]** depending on whether you're applying to work on a specified project below or otherwise.
 
 In reaching out to me, it would be quite helpful if you explain (briefly)
 
@@ -27,7 +27,7 @@ This will require submitting an application to both the ELLIS program and to the
 
 For prospective Masters students, please see the School's [MSc by Research](https://www.ed.ac.uk/studying/postgraduate/applying/research/masters-by-research) page for details on applying.
 <br/>
-If you're already an Informatics MSc student looking for a thesis project, send me an email using the tag **[`MSc-Project`]** in the subject.
+If you're already an Informatics MSc student looking for a thesis project, send me an email with **[`MSc-Project`]** in the subject.
 
 
 ## **Funded Positions**
