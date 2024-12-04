@@ -5,44 +5,22 @@ import           Clay.Stylesheet
 import           Data.Monoid     ()
 import           Prelude         hiding (all, div, span)
 
-nil, u1, u2, u3, u4 :: Size LengthUnit
-nil = unit 0
-u1 = unit 1
-u2 = unit 2
-u3 = unit 3
-u4 = unit 4
-
 unit :: Double -> Size LengthUnit
 unit = px . (* 24)
 
 pageWidth :: Size LengthUnit
 pageWidth = unit 45
 
-whenNarrow :: Css -> Css
+whenNarrow, whenWide :: Css -> Css
 whenNarrow = query (MediaType "all") [Media.maxWidth pageWidth]
-
-whenWide :: Css -> Css
 whenWide = query (MediaType "all") [Media.minWidth pageWidth]
 
-box :: Css
-box = boxSizing borderBox
-
-alignCenter :: Css
-alignCenter = textAlign (alignSide sideCenter)
-
 -- http://www.bestwebfonts.com/
-sourceCodePro, sourceSansPro, montserrat, amaranth, quando :: Css
-sourceCodePro = fontFamily ["Source Code Pro"] [monospace]
-sourceSansPro = fontFamily ["Source Sans Pro"] [sansSerif]
-montserrat = fontFamily ["Montserrat"] [sansSerif]
-amaranth = fontFamily ["Amaranth"] [serif]
-quando = fontFamily ["Quando"] [serif]
-
 baseFont, monoSpace, navbarFont, headerFont :: Css
-monoSpace = sourceCodePro
-baseFont = sourceSansPro -- montserrat
-navbarFont = amaranth
-headerFont = quando
+baseFont = fontFamily ["Source Sans Pro"] [sansSerif]
+monoSpace = fontFamily ["Source Code Pro"] [monospace]
+navbarFont = fontFamily ["Amaranth"] [serif]
+headerFont = fontFamily ["Quando"] [serif]
 
 -- colours
 hlC, blC, h2C, bgC, txC, nvC :: Color
@@ -56,7 +34,7 @@ nvC = grey       -- nav
 -- actual css blocks
 site :: Css
 site = body ?
-  do background  bgC      -- black
+  do background  bgC
      baseFont
      whenWide $ fontSize (pt 14)
      whenNarrow $ fontSize (pt 13)
@@ -86,22 +64,18 @@ header3 = h3 ?
 
 divColumn :: Css
 divColumn = body |> "div" ?
-  do centered
-     marginBottom (unit 5)
-
-centered :: Css
-centered =
-  do box
+  do boxSizing borderBox
      whenWide $
        do width       pageWidth
           marginLeft  auto
           marginRight auto
      whenNarrow $ width (pct 95)
+     marginBottom (unit 5)
 
 contents :: Css
 contents = ".content" ? do
      color txC
-     padding u1 u1 u2 u1
+     padding (unit 1) (unit 1) (unit 2) (unit 1)
      a ? do
        color inherit
        -- https://css-tricks.com/styling-links-with-real-underlines/
@@ -113,13 +87,14 @@ contents = ".content" ? do
        hover & do
            textDecorationColor hlC
 
+-- navigation bar
 menu :: Css
 menu = nav ? do
     navFont
     navList
     whenWide $ marginTop (unit 1.5)
-    paddingLeft u1
-    lineHeight  u1
+    paddingLeft (unit 1)
+    lineHeight  (unit 1)
 
 navFont :: Css
 navFont =
@@ -140,7 +115,7 @@ navList = ul ? do
       whenWide $ padding (px 0) (px 5) (Clay.rem 0.5) (px 5)
       link & do
         color nvC
-        alignCenter
+        textAlign (alignSide sideCenter)
         textDecoration none
         fontWeight bold
         whenWide $ marginRight (Clay.rem 1)
@@ -185,7 +160,7 @@ sectionBlock = section ? do
 
 asideBlock :: Css
 asideBlock = aside ? do
-    alignCenter
+    textAlign (alignSide sideCenter)
     whenWide $ do
       float floatRight
       width (pct 25)
@@ -215,7 +190,7 @@ footerBlock = footer ? do
     width (pct 100)
     margin (px 30) auto auto auto
     fontSize (em 1)
-    alignCenter
+    textAlign (alignSide sideCenter)
 
 contactTable :: Css
 contactTable = table # ".contact" ? do
@@ -236,10 +211,6 @@ preBlock = pre ? do
     "white-space" -: "-o-pre-wrap"    -- /* Opera 7 */
     "word-wrap"   -: "break-word"     -- /* Internet Explorer 5.5+ */
 
-myCode :: Css
-myCode = ".code" ? do
-    sym margin (em 1)
-
 imgBlock :: Css
 imgBlock = img ? do
     maxWidth (pct 90)
@@ -252,20 +223,6 @@ imgDisp = img # ".displayed" ? do
     marginLeft auto
     marginRight auto
     sym borderRadius (px 400)
-
--- http://webdesignerwall.com/tutorials/css-elastic-videos
-videoContainer :: Css
-videoContainer = ".videoContainer" ? do
-    position relative
-    paddingBottom (pct 56.25) -- 16:9
-    paddingTop (px 25)
-    height (px 0)
-    "iframe" ? do
-        position absolute
-        top (px 0)
-        left (px 0)
-        width (pct 100)
-        height (pct 100)
 
 -- main - required for hakyll
 main :: IO ()
@@ -288,8 +245,7 @@ main = putCss $
      preBlock
      imgBlock
      imgDisp
-     videoContainer
-     myCode
+     ".code" ? do sym margin (em 1)
      selection & do
        background h2C
        color bgC
