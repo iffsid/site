@@ -15,7 +15,7 @@ Ideally, this would be in the form of a research proposal (1-2 pages) that could
 
 ## General
 
-Outside of any potential opportunities listed below, there are a range of avenues for pursuing a PhD with me, including through the [School of Informatics](https://www.ed.ac.uk/informatics/postgraduate/), or the Centres for Doctoral Training (CDTs) in [Natural Language Procesing (NLP)](https://nlp-cdt.ac.uk/), [Robotics](https://www.edinburgh-robotics.org), and [Biomedical AI](http://web.inf.ed.ac.uk/cdt/biomedical-ai).
+Outside of any potential opportunities listed below, there are a range of avenues for pursuing a PhD with me, including through the [School of Informatics](https://informatics.ed.ac.uk/study-with-us/our-degrees/postgraduate-research-programmes-and-centres-doctoral-training), or the Centres for Doctoral Training (CDTs) in [Responsible Natural Language Procesing (NLP)](https://www.responsiblenlp.org/), [Dependable and Deployable AI for Robotics](https://www.edinburgh-robotics.org/apply), [Biomedical Innovation](https://www.ai4biomed.io/how-to-apply/) and [Machine Learning Systems](https://mlsystems.uk/#apply).
 <br/>
 Please refer to the information on these pages to learn about the application process, timescales, and funding options.
 
