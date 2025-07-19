@@ -5,7 +5,7 @@ import           Clay.Stylesheet
 import           Data.Monoid     ()
 import           Prelude         hiding (all, div, span)
 
-unit :: Double -> Size LengthUnit
+unit :: Number -> Size LengthUnit
 unit = px . (* 24)
 
 pageWidth :: Size LengthUnit
@@ -14,13 +14,6 @@ pageWidth = unit 45
 whenNarrow, whenWide :: Css -> Css
 whenNarrow = query (MediaType "all") [Media.maxWidth pageWidth]
 whenWide = query (MediaType "all") [Media.minWidth pageWidth]
-
--- http://www.bestwebfonts.com/
-baseFont, monoSpace, navbarFont, headerFont :: Css
-baseFont = fontFamily ["Source Sans Pro"] [sansSerif]
-monoSpace = fontFamily ["Source Code Pro"] [monospace]
-navbarFont = fontFamily ["Amaranth"] [serif]
-headerFont = fontFamily ["Quando"] [serif]
 
 -- colours
 hlC, blC, h2C, bgC, txC, nvC :: Color
@@ -31,7 +24,58 @@ bgC = (rgb 40 40 40) -- background
 txC = lightgrey  -- text
 nvC = grey       -- nav
 
+-- fonts
+amaranth :: Css
+amaranth = fontFace $
+  do "font-display" -: "swap" -- /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+     fontFamily ["Amaranth"] []
+     fontWeight (weight 400)
+     fontFaceSrc [(FontFaceSrcUrl "../fonts/amaranth-v18-latin-regular.woff2" (Just WOFF2))]
+
+quando :: Css
+quando = fontFace $
+  do "font-display" -: "swap" -- /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+     fontFamily ["Quando"] []
+     fontWeight (weight 400)
+     fontFaceSrc [(FontFaceSrcUrl "../fonts/quando-v17-latin-regular.woff2" (Just WOFF2))]
+
+sSans :: Css
+sSans = fontFace $
+  do "font-display" -: "swap" -- /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+     fontFamily ["Source Sans 3"] []
+     fontWeight (weight 400)
+     fontFaceSrc [(FontFaceSrcUrl "../fonts/source-sans-3-v18-latin-regular.woff2" (Just WOFF2))]
+
+sSerif :: Css
+sSerif = fontFace $
+  do "font-display" -: "swap" -- /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+     fontFamily ["Source Serif 4"] []
+     fontWeight (weight 400)
+     fontFaceSrc [(FontFaceSrcUrl "../fonts/source-serif-4-v13-latin-regular.woff2" (Just WOFF2))]
+
+sCode :: Css
+sCode = fontFace $
+  do "font-display" -: "swap" -- /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+     fontFamily ["Source Code Pro"] []
+     fontWeight (weight 400)
+     fontFaceSrc [(FontFaceSrcUrl "../fonts/source-code-pro-v30-latin-regular.woff2" (Just WOFF2))]
+
+-- http://www.bestwebfonts.com/
+baseFont, monoSpace, navbarFont, headerFont :: Css
+baseFont = fontFamily ["Source Sans 3"] []
+monoSpace = fontFamily ["Source Code Pro"] []
+navbarFont = fontFamily ["Amaranth"] []
+headerFont = fontFamily ["Quando"] []
+
 -- actual css blocks
+fonts :: Css
+fonts =
+  do amaranth
+     quando
+     sSans
+     sSerif
+     sCode
+
 site :: Css
 site = body ?
   do background  bgC
@@ -101,7 +145,7 @@ navFont =
   do navbarFont
      color txC
      fontSize      (em 1.8)
-     lineHeight    (em 1.8)
+     -- lineHeight    (em 1.8)
      textTransform lowercase
 
 navList :: Css
@@ -227,7 +271,8 @@ imgDisp = img # ".displayed" ? do
 -- main - required for hakyll
 main :: IO ()
 main = putCss $
-  do site
+  do fonts
+     site
      divColumn
      contents
      header1
