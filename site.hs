@@ -27,7 +27,7 @@ main = hakyllWith hakyllConf $ do
     route $ setExtension "css"
     compile $
       liftM (fmap compressCss) $
-      getResourceString >>= withItemBody (unixFilter "runghc" [])
+      getResourceString >>= withItemBody (unixFilter "cabal" ["exec", "runghc"])
 
   match "cv/cv.tex" $ do
     -- compile latex with rubber
