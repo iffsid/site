@@ -278,7 +278,7 @@ main = putCss $
      header1
      header2
      header3
-     articleBlock
+     -- articleBlock
      refsPubs
      sectionBlock
      asideBlock
