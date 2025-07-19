@@ -56,14 +56,14 @@ sSerif = fontFace $
 sCode :: Css
 sCode = fontFace $
   do "font-display" -: "swap" -- /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-     fontFamily ["Source Code Pro"] []
+     fontFamily ["Source Code Pro"] [monospace]
      fontWeight (weight 400)
      fontFaceSrc [(FontFaceSrcUrl "../fonts/source-code-pro-v30-latin-regular.woff2" (Just WOFF2))]
 
 -- http://www.bestwebfonts.com/
 baseFont, monoSpace, navbarFont, headerFont :: Css
 baseFont = fontFamily ["Source Sans 3"] []
-monoSpace = fontFamily ["Source Code Pro"] []
+monoSpace = fontFamily ["Source Code Pro"] [monospace]
 navbarFont = fontFamily ["Amaranth"] []
 headerFont = fontFamily ["Quando"] []
 
