@@ -85,6 +85,7 @@ site = body ?
      sym margin  (pt 0)
      lineHeight  (pct 150)
      overflowY   scroll
+     minHeight (vh 100)
 
 header1 :: Css
 header1 = h1 ?
@@ -136,7 +137,7 @@ menu :: Css
 menu = nav ? do
     navFont
     navList
-    whenWide $ marginTop (unit 1.5)
+    whenWide $ paddingTop (unit 1.5)
     paddingLeft (unit 1)
     lineHeight  (unit 1)
 
@@ -230,7 +231,7 @@ blockQuote = blockquote ? do
 
 footerBlock :: Css
 footerBlock = footer ? do
-    float floatLeft
+    clear clearLeft
     width (pct 100)
     margin (px 30) auto auto auto
     fontSize (em 1)
